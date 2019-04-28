@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="IMDB2" id="Project_5e99c03" template="Default" database="PostgreSQL" >
+	<schema name="imdb2" schemaname="imdb2" >
+		<table name="actors" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="character/s" type="varchar" jt="12" mandatory="y" />
+			<index name="idx_actors_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_actors_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_actors_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_actors_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="alternative_title" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="movie_title" type="integer" jt="4" mandatory="y" />
+			<index name="idx_alternative_title_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<fk name="fk_alternative_title_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+		</table>
+		<table name="awards" >
+			<column name="award_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="award_name" type="varchar" jt="12" mandatory="y" />
+			<index name="pk_awards_awards_id" unique="PRIMARY_KEY" >
+				<column name="award_id" />
+			</index>
+		</table>
+		<table name="awards_categories" >
+			<column name="award_id" type="integer" jt="4" mandatory="y" />
+			<column name="category_id" type="integer" length="100" jt="4" mandatory="y" />
+			<index name="idx_awards_categories_award_id" unique="NORMAL" >
+				<column name="award_id" />
+			</index>
+			<index name="idx_awards_categories_category_id" unique="NORMAL" >
+				<column name="category_id" />
+			</index>
+			<fk name="fk_awards_categories_awards" to_schema="imdb2" to_table="awards" >
+				<fk_column name="award_id" pk="award_id" />
+			</fk>
+			<fk name="fk_awards_categories_awards_categories_names" to_schema="imdb2" to_table="awards_categories_names" >
+				<fk_column name="category_id" pk="category_id" />
+			</fk>
+		</table>
+		<table name="awards_categories_names" >
+			<column name="category_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="category_name" type="varchar" jt="12" mandatory="y" />
+			<column name="movie_or_person" type="char" length="1" jt="1" mandatory="y" >
+				<comment><![CDATA[M-movie
+P-person
+B-both]]></comment>
+			</column>
+			<index name="pk_awards_categories_names_category_id" unique="PRIMARY_KEY" >
+				<column name="category_id" />
+			</index>
+		</table>
+		<table name="cameraworkers" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_cameraworkers_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_cameraworkers_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_cameraworkers_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_cameraworkers_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="citizenship" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="country_id" type="integer" length="2" jt="4" mandatory="y" />
+			<index name="idx_citizenship_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<index name="idx_citizenship_country_id" unique="NORMAL" >
+				<column name="country_id" />
+			</index>
+			<fk name="fk_citizenship_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+			<fk name="fk_citizenship_country" to_schema="imdb2" to_table="country" >
+				<fk_column name="country_id" pk="country_id" />
+			</fk>
+		</table>
+		<table name="company" >
+			<column name="company_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="name" type="varchar" jt="12" mandatory="y" />
+			<index name="pk_company_company_id" unique="PRIMARY_KEY" >
+				<column name="company_id" />
+			</index>
+		</table>
+		<table name="composers" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_composers_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_composers_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_composers_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_composers_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="country" >
+			<column name="country_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="name" type="varchar" length="75" jt="12" mandatory="y" />
+			<index name="pk_country_country_id" unique="PRIMARY_KEY" >
+				<column name="country_id" />
+			</index>
+		</table>
+		<table name="description" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="description" type="text" jt="12" mandatory="y" />
+			<index name="pk_description_movie_id" unique="PRIMARY_KEY" >
+				<column name="movie_id" />
+			</index>
+			<fk name="fk_description_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+		</table>
+		<table name="directors" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_directors_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_directors_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_directors_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_directors_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="editors" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_editors_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_editors_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_editors_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_editors_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="finance" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="budget" type="integer" length="0" decimal="2" jt="4" />
+			<column name="cumulative_gross" type="integer" jt="4" />
+			<column name="opening_weekend_usa" type="integer" jt="4" />
+			<index name="pk_finance_movie_id" unique="PRIMARY_KEY" >
+				<column name="movie_id" />
+			</index>
+			<fk name="fk_finance_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+		</table>
+		<table name="genre" >
+			<column name="genre_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="genre" type="varchar" length="30" jt="12" mandatory="y" />
+			<index name="pk_country_country_id_2" unique="PRIMARY_KEY" >
+				<column name="genre_id" />
+			</index>
+		</table>
+		<table name="language" >
+			<column name="language_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="language" type="varchar" length="75" jt="12" mandatory="y" />
+			<index name="pk_country_country_id_0" unique="PRIMARY_KEY" >
+				<column name="language_id" />
+			</index>
+		</table>
+		<table name="movie" generator_rows="100" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="title" type="varchar" jt="12" mandatory="y" />
+			<column name="release_date" type="date" jt="91" />
+			<column name="production_date" type="date" jt="91" />
+			<column name="runtime" type="cidr" jt="1111" mandatory="y" />
+			<index name="pk_movie_movie_id" unique="PRIMARY_KEY" >
+				<column name="movie_id" />
+			</index>
+		</table>
+		<table name="movie_awards" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="awards_id" type="integer" jt="4" mandatory="y" />
+			<column name="category" type="integer" jt="4" />
+			<column name="nomination_or_win" type="char" length="1" jt="1" mandatory="y" >
+				<comment><![CDATA[N-Nomination
+W-winner]]></comment>
+			</column>
+			<column name="year" type="date" jt="91" mandatory="y" />
+			<index name="idx_awards_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_movie_awards_awards_id" unique="NORMAL" >
+				<column name="awards_id" />
+			</index>
+			<constraint name="nomination_or_win" >
+				<string>nomination_or_win=&#039;N&#039; OR nomination_or_win=&#039;W&#039;</string>
+			</constraint>
+			<fk name="fk_awards_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_movie_awards_awards" to_schema="imdb2" to_table="awards" >
+				<fk_column name="awards_id" pk="award_id" />
+			</fk>
+		</table>
+		<table name="movie_genre" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="genre_id" type="integer" length="2" jt="4" mandatory="y" />
+			<index name="idx_production_1_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_movie_genre_genre_id" unique="NORMAL" >
+				<column name="genre_id" />
+			</index>
+			<fk name="fk_production_1_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_movie_genre_genre" to_schema="imdb2" to_table="genre" >
+				<fk_column name="genre_id" pk="genre_id" />
+			</fk>
+		</table>
+		<table name="movie_language" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="language_id" type="integer" length="2" jt="4" mandatory="y" />
+			<index name="idx_movie_language_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_movie_language_language_id" unique="NORMAL" >
+				<column name="language_id" />
+			</index>
+			<fk name="fk_movie_language_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_movie_language_language" to_schema="imdb2" to_table="language" >
+				<fk_column name="language_id" pk="language_id" />
+			</fk>
+		</table>
+		<table name="movie_ratings" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="mark" type="integer" jt="4" mandatory="y" />
+			<index name="idx_movie_ratings_user_id" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="idx_movie_ratings_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<fk name="fk_movie_ratings_users" to_schema="imdb2" to_table="users" >
+				<fk_column name="user_id" pk="users_id" />
+			</fk>
+			<fk name="fk_movie_ratings_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+		</table>
+		<table name="others" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_others_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_others_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_others_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_others_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="people" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="first_name" type="varchar" jt="12" mandatory="y" />
+			<column name="last_name" type="varchar" jt="12" />
+			<column name="age" type="integer" jt="4" />
+			<column name="born" type="date" jt="91" />
+			<column name="died" type="date" jt="91" />
+			<column name="alive" type="char" length="1" jt="1" >
+				<comment><![CDATA[Y/N]]></comment>
+			</column>
+			<column name="birth_country" type="integer" length="2" jt="4" />
+			<index name="pk_people_person_id" unique="PRIMARY_KEY" >
+				<column name="person_id" />
+			</index>
+			<index name="idx_people_birth_country" unique="NORMAL" >
+				<column name="birth_country" />
+			</index>
+			<fk name="fk_people_country" to_schema="imdb2" to_table="country" >
+				<fk_column name="birth_country" pk="country_id" />
+			</fk>
+		</table>
+		<table name="people_awards" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="award_id" type="integer" jt="4" mandatory="y" />
+			<column name="movie_id" type="integer" jt="4" />
+			<column name="category" type="integer" jt="4" />
+			<column name="nomination_or_win" type="char" length="1" jt="1" mandatory="y" >
+				<comment><![CDATA[N-Nomination
+W-Win]]></comment>
+			</column>
+			<column name="year" type="date" jt="91" mandatory="y" />
+			<index name="idx_people_awards_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<index name="idx_people_awards_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_people_awards_award_id" unique="NORMAL" >
+				<column name="award_id" />
+			</index>
+			<fk name="fk_people_awards_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+			<fk name="fk_people_awards_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_people_awards_awards" to_schema="imdb2" to_table="awards" >
+				<fk_column name="award_id" pk="award_id" />
+			</fk>
+		</table>
+		<table name="person_ratings" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="mark" type="integer" jt="4" mandatory="y" />
+			<index name="idx_person_ratings_user_id" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<index name="idx_person_ratings_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_person_ratings_users" to_schema="imdb2" to_table="users" >
+				<fk_column name="user_id" pk="users_id" />
+			</fk>
+			<fk name="fk_person_ratings_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+		<table name="production" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="country_id" type="integer" length="2" jt="4" mandatory="y" />
+			<index name="idx_production_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_production_country_id" unique="NORMAL" >
+				<column name="country_id" />
+			</index>
+			<fk name="fk_production_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_production_country" to_schema="imdb2" to_table="country" >
+				<fk_column name="country_id" pk="country_id" />
+			</fk>
+		</table>
+		<table name="production_company" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="company_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_production_company_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_production_company_company_id" unique="NORMAL" >
+				<column name="company_id" />
+			</index>
+			<fk name="fk_production_company_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_production_company_company" to_schema="imdb2" to_table="company" >
+				<fk_column name="company_id" pk="company_id" />
+			</fk>
+		</table>
+		<table name="profession" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="profession_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_profession_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<index name="idx_profession_profession_id" unique="NORMAL" >
+				<column name="profession_id" />
+			</index>
+			<fk name="fk_profession_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+			<fk name="fk_profession_professions" to_schema="imdb2" to_table="professions" >
+				<fk_column name="profession_id" pk="profession_id" />
+			</fk>
+		</table>
+		<table name="professions" >
+			<column name="profession_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="name" type="varchar" jt="12" mandatory="y" />
+			<index name="pk_professions_profession_id" unique="PRIMARY_KEY" >
+				<column name="profession_id" />
+			</index>
+		</table>
+		<table name="table" />
+		<table name="table_2" />
+		<table name="users" >
+			<column name="users_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="login" type="varchar" length="17" jt="12" mandatory="y" />
+			<column name="password" type="varchar" length="17" jt="12" mandatory="y" />
+			<column name="nickname" type="varchar" length="17" jt="12" >
+				<defo>user</defo>
+			</column>
+			<index name="pk_users_users_id" unique="PRIMARY_KEY" >
+				<column name="users_id" />
+			</index>
+		</table>
+		<table name="writers" >
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<index name="idx_writers_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<index name="idx_writers_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<fk name="fk_writers_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
+			<fk name="fk_writers_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout_c9c525" show_relation="columns" >
+		<entity schema="imdb2" name="genre" color="3986C1" x="96" y="544" />
+		<entity schema="imdb2" name="language" color="3986C1" x="80" y="400" />
+		<entity schema="imdb2" name="country" color="C1D8EE" x="96" y="256" />
+		<entity schema="imdb2" name="movie" color="FF0000" x="784" y="352" />
+		<entity schema="imdb2" name="alternative_title" color="330033" x="208" y="80" />
+		<entity schema="imdb2" name="description" color="330033" x="384" y="64" />
+		<entity schema="imdb2" name="production_company" color="00FF00" x="288" y="640" />
+		<entity schema="imdb2" name="company" color="C1D8EE" x="48" y="672" />
+		<entity schema="imdb2" name="finance" color="FFFF00" x="640" y="48" />
+		<entity schema="imdb2" name="awards_categories" color="000080" x="1424" y="240" />
+		<entity schema="imdb2" name="awards" color="C1D8EE" x="1248" y="240" />
+		<entity schema="imdb2" name="directors" color="00FF00" x="1296" y="368" />
+		<entity schema="imdb2" name="composers" color="00FF00" x="1280" y="528" />
+		<entity schema="imdb2" name="writers" color="00FF00" x="1280" y="608" />
+		<entity schema="imdb2" name="actors" color="00FF00" x="1264" y="672" />
+		<entity schema="imdb2" name="others" color="00FF00" x="1248" y="768" />
+		<entity schema="imdb2" name="cameraworkers" color="00FF00" x="1248" y="832" />
+		<entity schema="imdb2" name="editors" color="00FF00" x="1296" y="448" />
+		<entity schema="imdb2" name="people" color="FF0000" x="1792" y="512" />
+		<entity schema="imdb2" name="citizenship" color="00FF00" x="1760" y="880" />
+		<entity schema="imdb2" name="production" color="00FF00" x="400" y="256" />
+		<entity schema="imdb2" name="movie_language" color="00FF00" x="320" y="416" />
+		<entity schema="imdb2" name="movie_genre" color="00FF00" x="320" y="528" />
+		<entity schema="imdb2" name="movie_awards" color="00FF00" x="1040" y="240" />
+		<entity schema="imdb2" name="people_awards" color="00FF00" x="2016" y="528" />
+		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1616" y="224" />
+		<entity schema="imdb2" name="professions" color="C1D8EE" x="2272" y="912" />
+		<entity schema="imdb2" name="profession" color="00FF00" x="2128" y="720" />
+		<entity schema="imdb2" name="users" color="FF0000" x="592" y="944" />
+		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="992" y="1056" />
+		<entity schema="imdb2" name="person_ratings" color="00FF00" x="992" y="928" />
+	</layout>
+</project>
