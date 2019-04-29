@@ -221,8 +221,12 @@ not null only if role == actor]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
 			<column name="title" type="varchar" jt="12" mandatory="y" />
 			<column name="release_date" type="date" jt="91" />
-			<column name="production_date" type="date" jt="91" />
-			<column name="runtime" type="cidr" jt="1111" mandatory="y" />
+			<column name="production_date" type="date" jt="91" >
+				<comment><![CDATA[//Datatype year]]></comment>
+			</column>
+			<column name="runtime" type="cidr" jt="1111" mandatory="y" >
+				<comment><![CDATA[//Datatye interval]]></comment>
+			</column>
 			<column name="budget" type="integer" jt="4" />
 			<column name="cumulative_gross" type="integer" jt="4" />
 			<column name="opening_weekend_usa" type="integer" jt="4" />
@@ -238,7 +242,9 @@ not null only if role == actor]]></comment>
 				<comment><![CDATA[N-Nomination
 W-winner]]></comment>
 			</column>
-			<column name="year" type="date" jt="91" mandatory="y" />
+			<column name="year" type="date" jt="91" mandatory="y" >
+				<comment><![CDATA[//Datatype - Year]]></comment>
+			</column>
 			<index name="idx_awards_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
@@ -256,6 +262,7 @@ W-winner]]></comment>
 			</fk>
 		</table>
 		<table name="movie_genre" >
+			<comment><![CDATA[//Add Enum]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="genre" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_production_1_movie_id" unique="NORMAL" >
@@ -272,6 +279,7 @@ W-winner]]></comment>
 			</fk>
 		</table>
 		<table name="movie_language" >
+			<comment><![CDATA[//maybe add enum]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="language" type="integer" length="2" jt="4" mandatory="y" />
 			<index name="idx_movie_language_movie_id" unique="NORMAL" >
@@ -290,6 +298,9 @@ W-winner]]></comment>
 		<table name="movie_ranking" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="score" type="numeric" length="4" decimal="2" jt="2" mandatory="y" />
+			<column name="marks _quantity" type="integer" jt="4" mandatory="y" >
+				<comment><![CDATA[//Counted automatically]]></comment>
+			</column>
 			<index name="idx_movie_ranking_movie_id" unique="UNIQUE" >
 				<column name="movie_id" />
 			</index>
@@ -303,7 +314,12 @@ W-winner]]></comment>
 		<table name="movie_ratings" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="user_id" type="integer" jt="4" mandatory="y" />
-			<column name="mark" type="integer" jt="4" mandatory="y" />
+			<column name="mark" type="integer" jt="4" mandatory="y" >
+				<comment><![CDATA[//Add enum {1,...,10}]]></comment>
+			</column>
+			<column name="heart" type="char" length="1" jt="1" >
+				<comment><![CDATA[H - heart]]></comment>
+			</column>
 			<index name="idx_movie_ratings_user_id" unique="NORMAL" >
 				<column name="user_id" />
 			</index>
@@ -386,6 +402,9 @@ W-Win]]></comment>
 		<table name="people_ranking" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
 			<column name="score" type="numeric" length="4" decimal="2" jt="2" />
+			<column name="marks_quantity" type="integer" jt="4" mandatory="y" >
+				<comment><![CDATA[//Counted automatically]]></comment>
+			</column>
 			<index name="pk_people_ranking_person_id" unique="PRIMARY_KEY" >
 				<column name="person_id" />
 			</index>
@@ -394,9 +413,13 @@ W-Win]]></comment>
 			</fk>
 		</table>
 		<table name="person_ratings" >
+			<comment><![CDATA[/Add enum {1,...,10}]]></comment>
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
 			<column name="user_id" type="integer" jt="4" mandatory="y" />
 			<column name="mark" type="integer" jt="4" mandatory="y" />
+			<column name="heart" type="char" length="1" jt="1" >
+				<comment><![CDATA[H - heart]]></comment>
+			</column>
 			<index name="idx_person_ratings_user_id" unique="NORMAL" >
 				<column name="user_id" />
 			</index>
@@ -411,6 +434,7 @@ W-Win]]></comment>
 			</fk>
 		</table>
 		<table name="production" >
+			<comment><![CDATA[//Maybe add enum]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="country" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_production_movie_id" unique="NORMAL" >
@@ -546,21 +570,11 @@ W-Win]]></comment>
 	</schema>
 	<layout name="Default Layout" id="Layout_c9c525" show_relation="columns" >
 		<entity schema="imdb2" name="users" color="FF0000" x="272" y="944" />
-		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="320" />
 		<entity schema="imdb2" name="similar_movies" color="C1D8EE" x="464" y="48" />
 		<entity schema="imdb2" name="description" color="330033" x="304" y="48" />
 		<entity schema="imdb2" name="alternative_title" color="330033" x="208" y="176" />
-		<entity schema="imdb2" name="production" color="00FF00" x="112" y="304" />
-		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="400" />
-		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="496" />
 		<entity schema="imdb2" name="production_company" color="00FF00" x="288" y="544" />
-		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="752" />
 		<entity schema="imdb2" name="watchlist" color="00FF00" x="208" y="736" />
-		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="352" y="720" />
-		<entity schema="imdb2" name="movie_ranking" color="000080" x="448" y="960" />
-		<entity schema="imdb2" name="people_ranking" color="000080" x="608" y="960" />
-		<entity schema="imdb2" name="person_ratings" color="00FF00" x="560" y="784" />
-		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
 		<entity schema="imdb2" name="awards" color="C1D8EE" x="944" y="144" />
 		<entity schema="imdb2" name="awards_categories" color="000080" x="1120" y="144" />
 		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1312" y="144" />
@@ -569,5 +583,15 @@ W-Win]]></comment>
 		<entity schema="imdb2" name="people" color="FF0000" x="944" y="496" />
 		<entity schema="imdb2" name="citizenship" color="00FF00" x="784" y="720" />
 		<entity schema="imdb2" name="profession" color="00FF00" x="784" y="832" />
+		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="496" />
+		<entity schema="imdb2" name="production" color="00FF00" x="112" y="304" />
+		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="400" />
+		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
+		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="320" />
+		<entity schema="imdb2" name="movie_ranking" color="000080" x="448" y="960" />
+		<entity schema="imdb2" name="people_ranking" color="000080" x="608" y="960" />
+		<entity schema="imdb2" name="person_ratings" color="00FF00" x="560" y="784" />
+		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="352" y="720" />
+		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="752" />
 	</layout>
 </project>

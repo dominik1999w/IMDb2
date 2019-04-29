@@ -1,0 +1,30 @@
+CHECKI:
+	release_date >= production_date
+	opening_weekend_usa < cumulative_gross
+	film nie może dostać nagrody zanim nie zostanie wydany
+	age zgodny z born
+	brak age jeśli died
+	died zgodny z alive
+	user może dodać tylko jedną recencję jednego filmu
+
+TRIGGERY:
+	nagrode można dostać tylko jeśli ta nagroda ma taką możliwą kategorię / lub możliwa kategoria się wtedy sama dodaje
+	nagrody - movie or person
+	sprawdzanie spójności danych movie_awards - person_awards
+	liczenie rankinków przy wprowadzaniu ocen
+
+VIEWS: (+FUNKCJE)
+	avards - podsumowanie ile nominacji i ile winów
+jakiś ranking z powyższego
+(filmy + persony)
+	wypisanie podobnych filmów
+	top_iles_ludzi
+	top_iles_filmów
+	wyświetlenie watchlisty + heart + oceny danego używtkownika
+	można tez jakieś wspólne cechy używtkoników z liczeniem procentów może nawet
+	dla osoby wyświetlenie jej dorobku
+	historia dla nagrody
+
+OGÓLNE:
+	dodać wielokrotne primary key gdzie trzeba
+	dodać enumy
