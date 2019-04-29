@@ -2,14 +2,12 @@ CREATE SCHEMA imdb2;
 
 DROP TABLE IF EXISTS awards CASCADE;
 CREATE TABLE awards ( 
-	award_id             SERIAL PRIMARY KEY,
-	award_name           varchar  NOT NULL
+	award_name           varchar  PRIMARY KEY
  );
 
 DROP TABLE IF EXISTS awards_categories_names CASCADE;
 CREATE TABLE awards_categories_names ( 
-	category_id          SERIAL PRIMARY KEY,
-	category_name        varchar  NOT NULL ,
+	category_name        varchar  PRIMARY KEY ,
 	movie_or_person      char(1)  NOT NULL ,
 
 	CHECK (movie_or_person = 'M' OR movie_or_person = 'P' OR movie_or_person = 'B')
@@ -21,7 +19,7 @@ DROP TABLE IF EXISTS movie CASCADE;
 CREATE TABLE movie ( 
 	movie_id             SERIAL PRIMARY KEY,
 	title                varchar  NOT NULL ,
-	release_date         date   ,
+	release_date         date   NOT NULL ,
 	runtime              interval  NOT NULL ,
 	budget               integer   ,
 	boxoffice     		 integer   ,
@@ -33,8 +31,8 @@ CREATE TABLE movie (
 DROP TABLE IF EXISTS movie_awards CASCADE;
 CREATE TABLE movie_awards ( 
 	movie_id             integer  NOT NULL REFERENCES movie,
-	awards_id            integer  NOT NULL REFERENCES awards,
-	category_id          integer  REFERENCES awards_categories_names,
+	award_name           varchar  NOT NULL REFERENCES awards,
+	category_name        varchar  REFERENCES awards_categories_names,
 	nomination_or_win    char(1)  NOT NULL ,
 	"year"               date  NOT NULL ,
 
@@ -58,7 +56,7 @@ DROP TABLE IF EXISTS movie_ranking CASCADE;
 CREATE TABLE movie_ranking ( 
 	movie_id             integer  PRIMARY KEY REFERENCES movie,
 	score                numeric(4,2)  NOT NULL ,
-	marks_quantity     integer  NOT NULL
+	marks_quantity       integer  NOT NULL
  );
 
 
@@ -74,14 +72,17 @@ CREATE TABLE people (
 	birth_country        varchar   , 
 
 	CHECK (alive = 'Y' OR alive = 'N') ,
-	CHECK (age >= 0)
+	CHECK (age >= 0) ,
+	CHECK (died < NOW()) ,
+	CHECK (born < NOW()) ,
+	CHECK (born < died)
  );
 
 
 DROP TABLE IF EXISTS people_awards CASCADE;
 CREATE TABLE people_awards ( 
 	person_id            integer  NOT NULL REFERENCES people,
-	award_id             integer  NOT NULL REFERENCES awards,
+	award_name           varchar  NOT NULL REFERENCES awards,
 	movie_id             integer   REFERENCES movie,
 	category             integer   ,
 	nomination_or_win    char(1)  NOT NULL ,
@@ -110,12 +111,6 @@ CREATE TABLE production_company (
 	company              varchar  NOT NULL 
  );
 
-DROP TABLE IF EXISTS professions CASCADE;
-CREATE TABLE professions ( 
-	profession_id        SERIAL PRIMARY KEY,
-	name                 varchar  NOT NULL 
- );
-
 DROP TABLE IF EXISTS similar_movies CASCADE;
 CREATE TABLE similar_movies ( 
 	movie_id1            integer  NOT NULL REFERENCES movie,
@@ -124,8 +119,7 @@ CREATE TABLE similar_movies (
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users ( 
-	users_id             SERIAL PRIMARY KEY,
-	login                varchar(17)  NOT NULL ,
+	login                varchar(17)  PRIMARY KEY ,
 	"password"           varchar(17)  NOT NULL ,
 	nickname             varchar(17) DEFAULT user , 
 	CONSTRAINT safety UNIQUE(login)
@@ -133,7 +127,7 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS watchlist CASCADE;
 CREATE TABLE watchlist ( 
-	user_id              integer  NOT NULL REFERENCES users,
+	login                varchar(17)  NOT NULL REFERENCES users,
 	movie_id             integer  NOT NULL REFERENCES movie
  );
 
@@ -147,8 +141,8 @@ CREATE TABLE alternative_title (
 
 DROP TABLE IF EXISTS awards_categories CASCADE;
 CREATE TABLE awards_categories ( 
-	award_id             integer  NOT NULL REFERENCES awards,
-	category_id          integer  NOT NULL REFERENCES awards_categories_names
+	award_name           varchar  NOT NULL REFERENCES awards,
+	category_name        varchar  NOT NULL REFERENCES awards_categories_names
 );
 
 
@@ -157,8 +151,6 @@ CREATE TABLE citizenship (
 	person_id            integer  NOT NULL REFERENCES people,
 	country              varchar  NOT NULL  
  );
-
-CREATE INDEX idx_citizenship_person_id ON citizenship ( person_id );
 
 DROP TABLE IF EXISTS crew CASCADE;
 CREATE TABLE crew ( 
@@ -179,11 +171,11 @@ CREATE TABLE description (
 DROP TABLE IF EXISTS movie_ratings CASCADE;
 CREATE TABLE movie_ratings ( 
 	movie_id             integer  REFERENCES movie,
-	user_id              integer  REFERENCES users,
+	login                varchar(17)  REFERENCES users,
 	mark                 numeric(2)  NOT NULL ,
 	heart                char(1)  , 
 
-	PRIMARY KEY(movie_id,user_id),
+	PRIMARY KEY(movie_id,login),
 	CHECK(heart = 'H' OR heart IS NULL) ,
 	CHECK(mark > 0 AND mark <= 10) 
  );
@@ -192,11 +184,11 @@ CREATE TABLE movie_ratings (
 DROP TABLE IF EXISTS person_ratings CASCADE;
 CREATE TABLE person_ratings ( 
 	person_id            integer  REFERENCES people,
-	user_id              integer  REFERENCES users,
+	login                varchar(17)  REFERENCES users,
 	mark                 numeric(2)  NOT NULL ,
 	heart                char(1)  , 
 
-	PRIMARY KEY(person_id,user_id),
+	PRIMARY KEY(person_id,login),
 	CHECK(heart = 'H' OR heart IS NULL) ,
 	CHECK(mark > 0 AND mark <= 10) 
  );
@@ -209,12 +201,119 @@ CREATE TABLE profession (
 
 DROP TABLE IF EXISTS review CASCADE;
 CREATE TABLE review ( 
-	user_id              integer  NOT NULL REFERENCES users,
+	login                varchar(17)  NOT NULL REFERENCES users,
 	movie_id             integer  NOT NULL REFERENCES movie,
 	review               text  NOT NULL ,
 
-	PRIMARY KEY(movie_id,user_id) 
+	PRIMARY KEY(movie_id,login) 
  );
+
+
+--movie_year
+CREATE OR REPLACE FUNCTION movie_year(id int) RETURNS double precision AS $$
+BEGIN
+	RETURN EXTRACT(year FROM (SELECT release_date FROM movie WHERE movie_id = id));
+END;
+$$ LANGUAGE plpgsql;
+
+
+--peoples' age
+CREATE OR REPLACE FUNCTION is_alive_trig() RETURNS trigger AS $$
+BEGIN
+    IF NEW.died IS NOT NULL THEN
+        NEW.age = NULL;
+        NEW.alive = 'N';
+    ELSE
+	    IF NEW.born IS NOT NULL THEN
+	    	NEW.age = EXTRACT(year FROM age(current_date,NEW.born));
+	    END IF;
+	END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS is_alive ON people;
+CREATE TRIGGER is_alive BEFORE INSERT OR UPDATE ON people
+FOR EACH ROW EXECUTE PROCEDURE is_alive();
+
+
+--movie_year
+CREATE OR REPLACE FUNCTION movie_year(id int) RETURNS double precision AS $$
+BEGIN
+	RETURN EXTRACT(year FROM (SELECT release_date FROM movie WHERE movie_id = id));
+END;
+$$ LANGUAGE plpgsql;
+
+
+--awards movies
+CREATE OR REPLACE FUNCTION movie_awards_trig() RETURNS trigger AS $$
+BEGIN
+	IF movie_year(NEW.movie_id) + 1 > year THEN
+		RAISE EXCEPTION 'Wrong year';
+		RETURN NULL;
+	END IF;
+	IF (SELECT SUM(1) FROM awards_categories  
+		WHERE award_name = NEW.award_name AND category_name = NEW.category_name) IS NOT NULL
+		AND 
+		(SELECT movie_or_person FROM awards_categories_names 
+			WHERE category_name = NEW.category_name) ~ '[MB]' THEN
+    	RETURN NEW;
+    END IF;
+    RAISE EXCEPTION 'Wrong award category';
+    --ewentualnie kategoria się dodaje
+	RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS movie_awards_trig ON people;
+CREATE TRIGGER movie_awards_trig BEFORE INSERT OR UPDATE ON movie_awards
+FOR EACH ROW EXECUTE PROCEDURE movie_awards_trig();
+
+
+--awards people
+CREATE OR REPLACE FUNCTION people_awards_trig() RETURNS trigger AS $$
+BEGIN
+	IF movie_year(NEW.born) > year THEN
+		RAISE EXCEPTION 'Wrong year';
+		RETURN NULL;
+	END IF;
+	IF (SELECT SUM(1) FROM awards_categories  
+		WHERE award_name = NEW.award_name AND category_name = NEW.category_name) IS NOT NULL
+		AND 
+		(SELECT movie_or_person FROM awards_categories_names 
+			WHERE category_name = NEW.category_name) ~ '[PB]' THEN
+    	RETURN NEW;
+    END IF;
+    RAISE EXCEPTION 'Wrong award category';
+	RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS people_awards_trig ON people;
+CREATE TRIGGER people_awards_trig BEFORE INSERT OR UPDATE ON people_awards
+FOR EACH ROW EXECUTE PROCEDURE people_awards_trig();
+
+
+--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 CREATE INDEX idx_awards_movie_id ON movie_awards ( movie_id );
@@ -246,6 +345,8 @@ CREATE INDEX idx_awards_categories_award_id ON awards_categories ( award_id );
 CREATE INDEX idx_awards_categories_category_id ON awards_categories ( category_id );
 
 CREATE INDEX idx_crew_person_id ON crew ( person_id );
+
+CREATE INDEX idx_citizenship_person_id ON citizenship ( person_id );
 
 CREATE INDEX idx_crew_movie_id ON crew ( movie_id );
 
