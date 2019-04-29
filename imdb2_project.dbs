@@ -81,18 +81,18 @@ B-both]]></comment>
 		</table>
 		<table name="citizenship" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
-			<column name="country_id" type="integer" length="2" jt="4" mandatory="y" />
+			<column name="country" type="integer" length="2" jt="4" mandatory="y" />
 			<index name="idx_citizenship_person_id" unique="NORMAL" >
 				<column name="person_id" />
 			</index>
 			<index name="idx_citizenship_country_id" unique="NORMAL" >
-				<column name="country_id" />
+				<column name="country" />
 			</index>
 			<fk name="fk_citizenship_people" to_schema="imdb2" to_table="people" >
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 			<fk name="fk_citizenship_country" to_schema="imdb2" to_table="country" >
-				<fk_column name="country_id" pk="country_id" />
+				<fk_column name="country" pk="country_id" />
 			</fk>
 		</table>
 		<table name="company" >
@@ -124,6 +124,30 @@ B-both]]></comment>
 			<index name="pk_country_country_id" unique="PRIMARY_KEY" >
 				<column name="country_id" />
 			</index>
+		</table>
+		<table name="crew" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="movie_id" type="integer" jt="4" mandatory="y" />
+			<column name="role" type="integer" jt="4" mandatory="y" >
+				<comment><![CDATA[//Add enum:
+{director,editor,music,cameraworker,writer,others}]]></comment>
+			</column>
+			<column name="character" type="integer" jt="4" >
+				<comment><![CDATA[//Add constraint
+not null only if role == actor]]></comment>
+			</column>
+			<index name="idx_crew_person_id" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<index name="idx_crew_movie_id" unique="NORMAL" >
+				<column name="movie_id" />
+			</index>
+			<fk name="fk_crew_people" to_schema="imdb2" to_table="people" >
+				<fk_column name="person_id" pk="person_id" />
+			</fk>
+			<fk name="fk_crew_movie" to_schema="imdb2" to_table="movie" >
+				<fk_column name="movie_id" pk="movie_id" />
+			</fk>
 		</table>
 		<table name="description" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
@@ -199,6 +223,9 @@ B-both]]></comment>
 			<column name="release_date" type="date" jt="91" />
 			<column name="production_date" type="date" jt="91" />
 			<column name="runtime" type="cidr" jt="1111" mandatory="y" />
+			<column name="budget" type="integer" jt="4" />
+			<column name="cumulative_gross" type="integer" jt="4" />
+			<column name="opening_weekend_usa" type="integer" jt="4" />
 			<index name="pk_movie_movie_id" unique="PRIMARY_KEY" >
 				<column name="movie_id" />
 			</index>
@@ -230,34 +257,34 @@ W-winner]]></comment>
 		</table>
 		<table name="movie_genre" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
-			<column name="genre_id" type="integer" length="2" jt="4" mandatory="y" />
+			<column name="genre" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_production_1_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<index name="idx_movie_genre_genre_id" unique="NORMAL" >
-				<column name="genre_id" />
+				<column name="genre" />
 			</index>
 			<fk name="fk_production_1_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_movie_genre_genre" to_schema="imdb2" to_table="genre" >
-				<fk_column name="genre_id" pk="genre_id" />
+				<fk_column name="genre" pk="genre_id" />
 			</fk>
 		</table>
 		<table name="movie_language" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
-			<column name="language_id" type="integer" length="2" jt="4" mandatory="y" />
+			<column name="language" type="integer" length="2" jt="4" mandatory="y" />
 			<index name="idx_movie_language_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<index name="idx_movie_language_language_id" unique="NORMAL" >
-				<column name="language_id" />
+				<column name="language" />
 			</index>
 			<fk name="fk_movie_language_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_movie_language_language" to_schema="imdb2" to_table="language" >
-				<fk_column name="language_id" pk="language_id" />
+				<fk_column name="language" pk="language_id" />
 			</fk>
 		</table>
 		<table name="movie_ranking" >
@@ -287,9 +314,6 @@ W-winner]]></comment>
 				<fk_column name="user_id" pk="users_id" />
 			</fk>
 			<fk name="fk_movie_ratings_movie" to_schema="imdb2" to_table="movie" >
-				<fk_column name="movie_id" pk="movie_id" />
-			</fk>
-			<fk name="fk_movie_ratings_movie_ranking" to_schema="imdb2" to_table="movie_ranking" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 		</table>
@@ -385,56 +409,53 @@ W-Win]]></comment>
 			<fk name="fk_person_ratings_people" to_schema="imdb2" to_table="people" >
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
-			<fk name="fk_person_ratings_people_ranking" to_schema="imdb2" to_table="people_ranking" >
-				<fk_column name="person_id" pk="person_id" />
-			</fk>
 		</table>
 		<table name="production" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
-			<column name="country_id" type="integer" length="2" jt="4" mandatory="y" />
+			<column name="country" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_production_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<index name="idx_production_country_id" unique="NORMAL" >
-				<column name="country_id" />
+				<column name="country" />
 			</index>
 			<fk name="fk_production_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_production_country" to_schema="imdb2" to_table="country" >
-				<fk_column name="country_id" pk="country_id" />
+				<fk_column name="country" pk="country_id" />
 			</fk>
 		</table>
 		<table name="production_company" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
-			<column name="company_id" type="integer" jt="4" mandatory="y" />
+			<column name="company" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_production_company_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<index name="idx_production_company_company_id" unique="NORMAL" >
-				<column name="company_id" />
+				<column name="company" />
 			</index>
 			<fk name="fk_production_company_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_production_company_company" to_schema="imdb2" to_table="company" >
-				<fk_column name="company_id" pk="company_id" />
+				<fk_column name="company" pk="company_id" />
 			</fk>
 		</table>
 		<table name="profession" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
-			<column name="profession_id" type="integer" jt="4" mandatory="y" />
+			<column name="profession" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_profession_person_id" unique="NORMAL" >
 				<column name="person_id" />
 			</index>
 			<index name="idx_profession_profession_id" unique="NORMAL" >
-				<column name="profession_id" />
+				<column name="profession" />
 			</index>
 			<fk name="fk_profession_people" to_schema="imdb2" to_table="people" >
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 			<fk name="fk_profession_professions" to_schema="imdb2" to_table="professions" >
-				<fk_column name="profession_id" pk="profession_id" />
+				<fk_column name="profession" pk="profession_id" />
 			</fk>
 		</table>
 		<table name="professions" >
@@ -524,41 +545,29 @@ W-Win]]></comment>
 		</table>
 	</schema>
 	<layout name="Default Layout" id="Layout_c9c525" show_relation="columns" >
-		<entity schema="imdb2" name="language" color="3986C1" x="64" y="400" />
-		<entity schema="imdb2" name="alternative_title" color="330033" x="192" y="80" />
-		<entity schema="imdb2" name="description" color="330033" x="368" y="64" />
-		<entity schema="imdb2" name="production_company" color="00FF00" x="272" y="640" />
-		<entity schema="imdb2" name="finance" color="FFFF00" x="624" y="48" />
-		<entity schema="imdb2" name="awards" color="C1D8EE" x="1232" y="240" />
-		<entity schema="imdb2" name="directors" color="00FF00" x="1280" y="368" />
-		<entity schema="imdb2" name="composers" color="00FF00" x="1264" y="528" />
-		<entity schema="imdb2" name="writers" color="00FF00" x="1264" y="608" />
-		<entity schema="imdb2" name="actors" color="00FF00" x="1248" y="672" />
-		<entity schema="imdb2" name="editors" color="00FF00" x="1280" y="448" />
-		<entity schema="imdb2" name="citizenship" color="00FF00" x="1744" y="880" />
-		<entity schema="imdb2" name="production" color="00FF00" x="384" y="256" />
-		<entity schema="imdb2" name="movie_language" color="00FF00" x="304" y="416" />
-		<entity schema="imdb2" name="movie_genre" color="00FF00" x="304" y="528" />
-		<entity schema="imdb2" name="movie_awards" color="00FF00" x="1024" y="240" />
-		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1600" y="224" />
-		<entity schema="imdb2" name="people" color="FF0000" x="1616" y="512" />
-		<entity schema="imdb2" name="movie" color="FF0000" x="736" y="320" />
-		<entity schema="imdb2" name="users" color="FF0000" x="576" y="944" />
-		<entity schema="imdb2" name="similar_movies" color="C1D8EE" x="928" y="64" />
-		<entity schema="imdb2" name="review" color="FF00FF" x="288" y="816" />
-		<entity schema="imdb2" name="watchlist" color="00FF00" x="496" y="784" />
-		<entity schema="imdb2" name="others" color="00FF00" x="1248" y="752" />
-		<entity schema="imdb2" name="cameraworkers" color="00FF00" x="1232" y="832" />
-		<entity schema="imdb2" name="awards_categories" color="000080" x="1408" y="240" />
-		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="704" y="768" />
-		<entity schema="imdb2" name="person_ratings" color="00FF00" x="960" y="784" />
-		<entity schema="imdb2" name="people_ranking" color="000080" x="928" y="976" />
-		<entity schema="imdb2" name="movie_ranking" color="000080" x="768" y="976" />
-		<entity schema="imdb2" name="people_awards" color="00FF00" x="1872" y="528" />
-		<entity schema="imdb2" name="profession" color="00FF00" x="1984" y="704" />
-		<entity schema="imdb2" name="professions" color="C1D8EE" x="1984" y="848" />
-		<entity schema="imdb2" name="company" color="C1D8EE" x="64" y="656" />
-		<entity schema="imdb2" name="genre" color="3986C1" x="48" y="528" />
-		<entity schema="imdb2" name="country" color="C1D8EE" x="48" y="256" />
+		<entity schema="imdb2" name="users" color="FF0000" x="272" y="944" />
+		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="320" />
+		<entity schema="imdb2" name="similar_movies" color="C1D8EE" x="464" y="48" />
+		<entity schema="imdb2" name="description" color="330033" x="304" y="48" />
+		<entity schema="imdb2" name="alternative_title" color="330033" x="208" y="176" />
+		<entity schema="imdb2" name="production" color="00FF00" x="112" y="304" />
+		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="400" />
+		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="496" />
+		<entity schema="imdb2" name="production_company" color="00FF00" x="288" y="544" />
+		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="752" />
+		<entity schema="imdb2" name="watchlist" color="00FF00" x="208" y="736" />
+		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="352" y="720" />
+		<entity schema="imdb2" name="movie_ranking" color="000080" x="448" y="960" />
+		<entity schema="imdb2" name="people_ranking" color="000080" x="608" y="960" />
+		<entity schema="imdb2" name="person_ratings" color="00FF00" x="560" y="784" />
+		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
+		<entity schema="imdb2" name="awards" color="C1D8EE" x="944" y="144" />
+		<entity schema="imdb2" name="awards_categories" color="000080" x="1120" y="144" />
+		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1312" y="144" />
+		<entity schema="imdb2" name="crew" color="00FF00" x="784" y="448" />
+		<entity schema="imdb2" name="people_awards" color="00FF00" x="944" y="288" />
+		<entity schema="imdb2" name="people" color="FF0000" x="944" y="496" />
+		<entity schema="imdb2" name="citizenship" color="00FF00" x="784" y="720" />
+		<entity schema="imdb2" name="profession" color="00FF00" x="784" y="832" />
 	</layout>
 </project>
