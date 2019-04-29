@@ -1,15 +1,6 @@
 CHECKI:
-	release_date >= production_date
-	opening_weekend_usa < cumulative_gross
-	film nie może dostać nagrody zanim nie zostanie wydany
-	age zgodny z born
-	brak age jeśli died
-	died zgodny z alive
-	user może dodać tylko jedną recencję jednego filmu
 
 TRIGGERY:
-	nagrode można dostać tylko jeśli ta nagroda ma taką możliwą kategorię / lub możliwa kategoria się wtedy sama dodaje
-	nagrody - movie or person
 	sprawdzanie spójności danych movie_awards - person_awards
 	liczenie rankinków przy wprowadzaniu ocen
 

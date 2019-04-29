@@ -260,6 +260,9 @@ W-winner]]></comment>
 			<fk name="fk_movie_awards_awards" to_schema="imdb2" to_table="awards" >
 				<fk_column name="awards_id" pk="award_id" />
 			</fk>
+			<fk name="fk_movie_awards_awards_categories_names" to_schema="imdb2" to_table="awards_categories_names" >
+				<fk_column name="category" pk="category_id" />
+			</fk>
 		</table>
 		<table name="movie_genre" >
 			<comment><![CDATA[//Add Enum]]></comment>
@@ -397,6 +400,9 @@ W-Win]]></comment>
 			</fk>
 			<fk name="fk_people_awards_awards" to_schema="imdb2" to_table="awards" >
 				<fk_column name="award_id" pk="award_id" />
+			</fk>
+			<fk name="fk_people_awards_awards_categories_names" to_schema="imdb2" to_table="awards_categories_names" >
+				<fk_column name="category" pk="category_id" />
 			</fk>
 		</table>
 		<table name="people_ranking" >
@@ -578,21 +584,21 @@ W-Win]]></comment>
 		<entity schema="imdb2" name="awards" color="C1D8EE" x="944" y="144" />
 		<entity schema="imdb2" name="awards_categories" color="000080" x="1120" y="144" />
 		<entity schema="imdb2" name="crew" color="00FF00" x="784" y="448" />
-		<entity schema="imdb2" name="people_awards" color="00FF00" x="944" y="288" />
 		<entity schema="imdb2" name="people" color="FF0000" x="944" y="496" />
 		<entity schema="imdb2" name="citizenship" color="00FF00" x="784" y="720" />
 		<entity schema="imdb2" name="profession" color="00FF00" x="784" y="832" />
 		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="496" />
 		<entity schema="imdb2" name="production" color="00FF00" x="112" y="304" />
 		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="400" />
-		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
 		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="320" />
 		<entity schema="imdb2" name="movie_ranking" color="000080" x="448" y="960" />
 		<entity schema="imdb2" name="people_ranking" color="000080" x="608" y="960" />
 		<entity schema="imdb2" name="person_ratings" color="00FF00" x="560" y="784" />
 		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="352" y="720" />
 		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="752" />
-		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1312" y="144" />
+		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
+		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1168" y="272" />
+		<entity schema="imdb2" name="people_awards" color="00FF00" x="944" y="288" />
 		<script name="SQL_Editor" id="Editor_28d9917" language="SQL" >
 			<string><![CDATA[CREATE SCHEMA imdb2;
 
