@@ -18,4 +18,8 @@ jakiś ranking z powyższego
 
 OGÓLNE:
 	dodać wielokrotne primary key gdzie trzeba
-	dodać enumy
+	dodać enumy -dodane dla profession i genres
+
+do zrobienia:
+indexy!!!
+mozliwe duplikaty w tabelach takich jak similar_movies (jest funkcja remove_duplicates ale chyba malo wydajne to jest)

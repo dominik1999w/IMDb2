@@ -18,7 +18,7 @@
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 		</table>
-		<table name="alternative_title" >
+		<table name="alternative_title" generator_rows="150" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="movie_title" type="integer" jt="4" mandatory="y" />
 			<index name="idx_alternative_title_movie_id" unique="NORMAL" >
@@ -28,31 +28,29 @@
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 		</table>
-		<table name="awards" >
-			<column name="award_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+		<table name="awards" generator_rows="100" >
 			<column name="award_name" type="varchar" jt="12" mandatory="y" />
 			<index name="pk_awards_awards_id" unique="PRIMARY_KEY" >
-				<column name="award_id" />
+				<column name="award_name" />
 			</index>
 		</table>
-		<table name="awards_categories" >
-			<column name="award_id" type="integer" jt="4" mandatory="y" />
-			<column name="category_id" type="integer" length="100" jt="4" mandatory="y" />
+		<table name="awards_categories" generator_rows="150" >
+			<column name="award_name" type="varchar" jt="12" mandatory="y" />
+			<column name="category_name" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_awards_categories_award_id" unique="NORMAL" >
-				<column name="award_id" />
+				<column name="award_name" />
 			</index>
 			<index name="idx_awards_categories_category_id" unique="NORMAL" >
-				<column name="category_id" />
+				<column name="category_name" />
 			</index>
 			<fk name="fk_awards_categories_awards" to_schema="imdb2" to_table="awards" >
-				<fk_column name="award_id" pk="award_id" />
+				<fk_column name="award_name" pk="award_name" />
 			</fk>
 			<fk name="fk_awards_categories_awards_categories_names" to_schema="imdb2" to_table="awards_categories_names" >
-				<fk_column name="category_id" pk="category_id" />
+				<fk_column name="category_name" pk="category_name" />
 			</fk>
 		</table>
-		<table name="awards_categories_names" >
-			<column name="category_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+		<table name="awards_categories_names" generator_rows="100" >
 			<column name="category_name" type="varchar" jt="12" mandatory="y" />
 			<column name="movie_or_person" type="char" length="1" jt="1" mandatory="y" >
 				<comment><![CDATA[M-movie
@@ -60,7 +58,7 @@ P-person
 B-both]]></comment>
 			</column>
 			<index name="pk_awards_categories_names_category_id" unique="PRIMARY_KEY" >
-				<column name="category_id" />
+				<column name="category_name" />
 			</index>
 		</table>
 		<table name="cameraworkers" >
@@ -79,7 +77,7 @@ B-both]]></comment>
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 		</table>
-		<table name="citizenship" >
+		<table name="citizenship" generator_rows="150" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
 			<column name="country" type="integer" length="2" jt="4" mandatory="y" />
 			<index name="idx_citizenship_person_id" unique="NORMAL" >
@@ -125,7 +123,7 @@ B-both]]></comment>
 				<column name="country_id" />
 			</index>
 		</table>
-		<table name="crew" >
+		<table name="crew" generator_rows="150" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="role" type="integer" jt="4" mandatory="y" >
@@ -149,7 +147,7 @@ not null only if role == actor]]></comment>
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 		</table>
-		<table name="description" >
+		<table name="description" generator_rows="150" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="description" type="text" jt="12" mandatory="y" />
 			<index name="pk_description_movie_id" unique="PRIMARY_KEY" >
@@ -221,23 +219,20 @@ not null only if role == actor]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
 			<column name="title" type="varchar" jt="12" mandatory="y" />
 			<column name="release_date" type="date" jt="91" />
-			<column name="production_date" type="date" jt="91" >
-				<comment><![CDATA[//Datatype year]]></comment>
-			</column>
 			<column name="runtime" type="cidr" jt="1111" mandatory="y" >
 				<comment><![CDATA[//Datatye interval]]></comment>
 			</column>
 			<column name="budget" type="integer" jt="4" />
-			<column name="cumulative_gross" type="integer" jt="4" />
+			<column name="boxoffice" type="integer" jt="4" />
 			<column name="opening_weekend_usa" type="integer" jt="4" />
 			<index name="pk_movie_movie_id" unique="PRIMARY_KEY" >
 				<column name="movie_id" />
 			</index>
 		</table>
-		<table name="movie_awards" >
+		<table name="movie_awards" generator_rows="150" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
-			<column name="awards_id" type="integer" jt="4" mandatory="y" />
-			<column name="category" type="integer" jt="4" />
+			<column name="awards_name" type="varchar" jt="12" mandatory="y" />
+			<column name="category_name" type="integer" jt="4" />
 			<column name="nomination_or_win" type="char" length="1" jt="1" mandatory="y" >
 				<comment><![CDATA[N-Nomination
 W-winner]]></comment>
@@ -249,7 +244,7 @@ W-winner]]></comment>
 				<column name="movie_id" />
 			</index>
 			<index name="idx_movie_awards_awards_id" unique="NORMAL" >
-				<column name="awards_id" />
+				<column name="awards_name" />
 			</index>
 			<constraint name="nomination_or_win" >
 				<string>nomination_or_win=&#039;N&#039; OR nomination_or_win=&#039;W&#039;</string>
@@ -258,10 +253,13 @@ W-winner]]></comment>
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_movie_awards_awards" to_schema="imdb2" to_table="awards" >
-				<fk_column name="awards_id" pk="award_id" />
+				<fk_column name="awards_name" pk="award_name" />
+			</fk>
+			<fk name="fk_movie_awards_awards_categories_names" to_schema="imdb2" to_table="awards_categories_names" >
+				<fk_column name="category_name" pk="category_name" />
 			</fk>
 		</table>
-		<table name="movie_genre" >
+		<table name="movie_genre" generator_rows="150" >
 			<comment><![CDATA[//Add Enum]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="genre" type="varchar" jt="12" mandatory="y" />
@@ -278,7 +276,7 @@ W-winner]]></comment>
 				<fk_column name="genre" pk="genre_id" />
 			</fk>
 		</table>
-		<table name="movie_language" >
+		<table name="movie_language" generator_rows="150" >
 			<comment><![CDATA[//maybe add enum]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="language" type="integer" length="2" jt="4" mandatory="y" />
@@ -295,7 +293,7 @@ W-winner]]></comment>
 				<fk_column name="language" pk="language_id" />
 			</fk>
 		</table>
-		<table name="movie_ranking" >
+		<table name="movie_ranking" generator_rows="150" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="score" type="numeric" length="4" decimal="2" jt="2" mandatory="y" />
 			<column name="marks _quantity" type="integer" jt="4" mandatory="y" >
@@ -311,9 +309,9 @@ W-winner]]></comment>
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 		</table>
-		<table name="movie_ratings" >
+		<table name="movie_ratings" generator_rows="150" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
-			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="login" type="varchar" length="17" jt="12" mandatory="y" />
 			<column name="mark" type="integer" jt="4" mandatory="y" >
 				<comment><![CDATA[//Add enum {1,...,10}]]></comment>
 			</column>
@@ -321,13 +319,13 @@ W-winner]]></comment>
 				<comment><![CDATA[H - heart]]></comment>
 			</column>
 			<index name="idx_movie_ratings_user_id" unique="NORMAL" >
-				<column name="user_id" />
+				<column name="login" />
 			</index>
 			<index name="idx_movie_ratings_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<fk name="fk_movie_ratings_users" to_schema="imdb2" to_table="users" >
-				<fk_column name="user_id" pk="users_id" />
+				<fk_column name="login" pk="login" />
 			</fk>
 			<fk name="fk_movie_ratings_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
@@ -349,7 +347,7 @@ W-winner]]></comment>
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 		</table>
-		<table name="people" >
+		<table name="people" generator_rows="100" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
 			<column name="first_name" type="varchar" jt="12" mandatory="y" />
 			<column name="last_name" type="varchar" jt="12" />
@@ -370,9 +368,9 @@ W-winner]]></comment>
 				<fk_column name="birth_country" pk="country_id" />
 			</fk>
 		</table>
-		<table name="people_awards" >
+		<table name="people_awards" generator_rows="150" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
-			<column name="award_id" type="integer" jt="4" mandatory="y" />
+			<column name="award_name" type="integer" jt="4" mandatory="y" />
 			<column name="movie_id" type="integer" jt="4" />
 			<column name="category" type="integer" jt="4" />
 			<column name="nomination_or_win" type="char" length="1" jt="1" mandatory="y" >
@@ -387,7 +385,7 @@ W-Win]]></comment>
 				<column name="movie_id" />
 			</index>
 			<index name="idx_people_awards_award_id" unique="NORMAL" >
-				<column name="award_id" />
+				<column name="award_name" />
 			</index>
 			<fk name="fk_people_awards_people" to_schema="imdb2" to_table="people" >
 				<fk_column name="person_id" pk="person_id" />
@@ -396,10 +394,13 @@ W-Win]]></comment>
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_people_awards_awards" to_schema="imdb2" to_table="awards" >
-				<fk_column name="award_id" pk="award_id" />
+				<fk_column name="award_name" pk="award_name" />
+			</fk>
+			<fk name="fk_people_awards_awards_categories_names" to_schema="imdb2" to_table="awards_categories_names" >
+				<fk_column name="category" pk="category_name" />
 			</fk>
 		</table>
-		<table name="people_ranking" >
+		<table name="people_ranking" generator_rows="225" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
 			<column name="score" type="numeric" length="4" decimal="2" jt="2" />
 			<column name="marks_quantity" type="integer" jt="4" mandatory="y" >
@@ -412,28 +413,28 @@ W-Win]]></comment>
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 		</table>
-		<table name="person_ratings" >
+		<table name="person_ratings" generator_rows="150" >
 			<comment><![CDATA[/Add enum {1,...,10}]]></comment>
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
-			<column name="user_id" type="integer" jt="4" mandatory="y" />
+			<column name="login" type="varchar" length="17" jt="12" mandatory="y" />
 			<column name="mark" type="integer" jt="4" mandatory="y" />
 			<column name="heart" type="char" length="1" jt="1" >
 				<comment><![CDATA[H - heart]]></comment>
 			</column>
 			<index name="idx_person_ratings_user_id" unique="NORMAL" >
-				<column name="user_id" />
+				<column name="login" />
 			</index>
 			<index name="idx_person_ratings_person_id" unique="NORMAL" >
 				<column name="person_id" />
 			</index>
 			<fk name="fk_person_ratings_users" to_schema="imdb2" to_table="users" >
-				<fk_column name="user_id" pk="users_id" />
+				<fk_column name="login" pk="login" />
 			</fk>
 			<fk name="fk_person_ratings_people" to_schema="imdb2" to_table="people" >
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
 		</table>
-		<table name="production" >
+		<table name="production" generator_rows="150" >
 			<comment><![CDATA[//Maybe add enum]]></comment>
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="country" type="varchar" jt="12" mandatory="y" />
@@ -450,7 +451,7 @@ W-Win]]></comment>
 				<fk_column name="country" pk="country_id" />
 			</fk>
 		</table>
-		<table name="production_company" >
+		<table name="production_company" generator_rows="150" >
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="company" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_production_company_movie_id" unique="NORMAL" >
@@ -466,7 +467,7 @@ W-Win]]></comment>
 				<fk_column name="company" pk="company_id" />
 			</fk>
 		</table>
-		<table name="profession" >
+		<table name="profession" generator_rows="150" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
 			<column name="profession" type="varchar" jt="12" mandatory="y" />
 			<index name="idx_profession_person_id" unique="NORMAL" >
@@ -489,24 +490,24 @@ W-Win]]></comment>
 				<column name="profession_id" />
 			</index>
 		</table>
-		<table name="review" >
-			<column name="user_id" type="integer" jt="4" mandatory="y" />
+		<table name="review" generator_rows="150" >
+			<column name="login" type="varchar" length="17" jt="12" mandatory="y" />
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<column name="review" type="text" jt="12" mandatory="y" />
 			<index name="idx_review_user_id" unique="NORMAL" >
-				<column name="user_id" />
+				<column name="login" />
 			</index>
 			<index name="idx_review_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<fk name="fk_review_users" to_schema="imdb2" to_table="users" >
-				<fk_column name="user_id" pk="users_id" />
+				<fk_column name="login" pk="login" />
 			</fk>
 			<fk name="fk_review_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 		</table>
-		<table name="similar_movies" >
+		<table name="similar_movies" generator_rows="150" >
 			<column name="movie_id1" type="integer" jt="4" mandatory="y" />
 			<column name="movie_id2" type="integer" jt="4" mandatory="y" />
 			<index name="idx_similar_movies_movie_id1" unique="NORMAL" >
@@ -524,31 +525,30 @@ W-Win]]></comment>
 		</table>
 		<table name="table" />
 		<table name="table_2" />
-		<table name="users" >
-			<column name="users_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
+		<table name="users" generator_rows="100" >
 			<column name="login" type="varchar" length="17" jt="12" mandatory="y" />
 			<column name="password" type="varchar" length="17" jt="12" mandatory="y" />
 			<column name="nickname" type="varchar" length="17" jt="12" >
 				<defo>user</defo>
 			</column>
 			<index name="pk_users_users_id" unique="PRIMARY_KEY" >
-				<column name="users_id" />
+				<column name="login" />
 			</index>
 		</table>
-		<table name="watchlist" >
-			<column name="user_id" type="integer" jt="4" mandatory="y" />
+		<table name="watchlist" generator_rows="150" >
+			<column name="login" type="char" length="17" jt="1" mandatory="y" />
 			<column name="movie_id" type="integer" jt="4" mandatory="y" />
 			<index name="idx_watchlist_movie_id" unique="NORMAL" >
 				<column name="movie_id" />
 			</index>
 			<index name="idx_watchlist_user_id" unique="NORMAL" >
-				<column name="user_id" />
+				<column name="login" />
 			</index>
 			<fk name="fk_watchlist_movie" to_schema="imdb2" to_table="movie" >
 				<fk_column name="movie_id" pk="movie_id" />
 			</fk>
 			<fk name="fk_watchlist_users" to_schema="imdb2" to_table="users" >
-				<fk_column name="user_id" pk="users_id" />
+				<fk_column name="login" pk="login" />
 			</fk>
 		</table>
 		<table name="writers" >
@@ -568,31 +568,32 @@ W-Win]]></comment>
 			</fk>
 		</table>
 	</schema>
+	<connector name="PostgreSQL" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.2.2.jar" driver_desc="Standard" host="localhost" port="5432" instance="postgres" user="postgres" timezone="Europe/Warsaw" read_only="y" />
 	<layout name="Default Layout" id="Layout_c9c525" show_relation="columns" >
-		<entity schema="imdb2" name="users" color="FF0000" x="272" y="944" />
 		<entity schema="imdb2" name="similar_movies" color="C1D8EE" x="464" y="48" />
 		<entity schema="imdb2" name="description" color="330033" x="304" y="48" />
 		<entity schema="imdb2" name="alternative_title" color="330033" x="208" y="176" />
 		<entity schema="imdb2" name="production_company" color="00FF00" x="288" y="544" />
-		<entity schema="imdb2" name="watchlist" color="00FF00" x="208" y="736" />
-		<entity schema="imdb2" name="awards" color="C1D8EE" x="944" y="144" />
-		<entity schema="imdb2" name="awards_categories" color="000080" x="1120" y="144" />
 		<entity schema="imdb2" name="crew" color="00FF00" x="784" y="448" />
-		<entity schema="imdb2" name="people_awards" color="00FF00" x="944" y="288" />
-		<entity schema="imdb2" name="people" color="FF0000" x="944" y="496" />
 		<entity schema="imdb2" name="citizenship" color="00FF00" x="784" y="720" />
-		<entity schema="imdb2" name="profession" color="00FF00" x="784" y="832" />
-		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="496" />
 		<entity schema="imdb2" name="production" color="00FF00" x="112" y="304" />
-		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="400" />
-		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
-		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="320" />
 		<entity schema="imdb2" name="movie_ranking" color="000080" x="448" y="960" />
 		<entity schema="imdb2" name="people_ranking" color="000080" x="608" y="960" />
+		<entity schema="imdb2" name="users" color="FF0000" x="272" y="944" />
+		<entity schema="imdb2" name="watchlist" color="00FF00" x="208" y="736" />
+		<entity schema="imdb2" name="awards_categories" color="000080" x="1120" y="144" />
 		<entity schema="imdb2" name="person_ratings" color="00FF00" x="560" y="784" />
 		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="352" y="720" />
+		<entity schema="imdb2" name="awards" color="C1D8EE" x="944" y="144" />
+		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="112" />
+		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1168" y="272" />
+		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="496" />
+		<entity schema="imdb2" name="people_awards" color="00FF00" x="944" y="288" />
+		<entity schema="imdb2" name="profession" color="00FF00" x="784" y="832" />
+		<entity schema="imdb2" name="people" color="FF0000" x="1008" y="528" />
+		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="320" />
 		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="752" />
-		<entity schema="imdb2" name="awards_categories_names" color="00FFFF" x="1312" y="144" />
+		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="400" />
 		<script name="SQL_Editor" id="Editor_28d9917" language="SQL" >
 			<string><![CDATA[CREATE SCHEMA imdb2;
 
@@ -1018,6 +1019,485 @@ CREATE TABLE review (
 CREATE INDEX idx_review_user_id ON review ( user_id );
 
 CREATE INDEX idx_review_movie_id ON review ( movie_id );
+]]></string>
+		</script>
+		<script name="SQL_Editor_001" id="Editor_2b6965d" language="SQL" >
+			<string><![CDATA[CREATE SCHEMA imdb2;
+
+CREATE TABLE imdb2.awards ( 
+	award_name           varchar  NOT NULL ,
+	CONSTRAINT pk_awards_awards_id PRIMARY KEY ( award_name )
+ );
+
+CREATE TABLE imdb2.awards_categories_names ( 
+	category_id          integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	category_name        varchar  NOT NULL ,
+	movie_or_person      char(1)  NOT NULL ,
+	CONSTRAINT pk_awards_categories_names_category_id PRIMARY KEY ( category_id )
+ );
+
+COMMENT ON COLUMN imdb2.awards_categories_names.movie_or_person IS 'M-movie\nP-person\nB-both';
+
+CREATE TABLE imdb2.company ( 
+	company_id           integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	name                 varchar  NOT NULL ,
+	CONSTRAINT pk_company_company_id PRIMARY KEY ( company_id )
+ );
+
+CREATE TABLE imdb2.country ( 
+	country_id           integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	name                 varchar(75)  NOT NULL ,
+	CONSTRAINT pk_country_country_id PRIMARY KEY ( country_id )
+ );
+
+CREATE TABLE imdb2.genre ( 
+	genre_id             integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	genre                varchar(30)  NOT NULL ,
+	CONSTRAINT pk_country_country_id_2 PRIMARY KEY ( genre_id )
+ );
+
+CREATE TABLE imdb2."language" ( 
+	language_id          integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	"language"           varchar(75)  NOT NULL ,
+	CONSTRAINT pk_country_country_id_0 PRIMARY KEY ( language_id )
+ );
+
+CREATE TABLE imdb2.movie ( 
+	movie_id             integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	title                varchar  NOT NULL ,
+	release_date         date   ,
+	production_date      date   ,
+	runtime              cidr  NOT NULL ,
+	budget               integer   ,
+	cumulative_gross     integer   ,
+	opening_weekend_usa  integer   ,
+	CONSTRAINT pk_movie_movie_id PRIMARY KEY ( movie_id )
+ );
+
+COMMENT ON COLUMN imdb2.movie.production_date IS '//Datatype year';
+
+COMMENT ON COLUMN imdb2.movie.runtime IS '//Datatye interval';
+
+CREATE TABLE imdb2.movie_awards ( 
+	movie_id             integer  NOT NULL ,
+	awards_id            integer  NOT NULL ,
+	category             integer   ,
+	nomination_or_win    char(1)  NOT NULL ,
+	"year"               date  NOT NULL 
+ );
+
+ALTER TABLE imdb2.movie_awards ADD CONSTRAINT nomination_or_win CHECK ( nomination_or_win='N' OR nomination_or_win='W' );
+
+CREATE INDEX idx_awards_movie_id ON imdb2.movie_awards ( movie_id );
+
+CREATE INDEX idx_movie_awards_awards_id ON imdb2.movie_awards ( awards_id );
+
+COMMENT ON COLUMN imdb2.movie_awards.nomination_or_win IS 'N-Nomination\nW-winner';
+
+COMMENT ON COLUMN imdb2.movie_awards."year" IS '//Datatype - Year';
+
+CREATE TABLE imdb2.movie_genre ( 
+	movie_id             integer  NOT NULL ,
+	genre                varchar  NOT NULL 
+ );
+
+CREATE INDEX idx_production_1_movie_id ON imdb2.movie_genre ( movie_id );
+
+CREATE INDEX idx_movie_genre_genre_id ON imdb2.movie_genre ( genre );
+
+COMMENT ON TABLE imdb2.movie_genre IS '//Add Enum';
+
+CREATE TABLE imdb2.movie_language ( 
+	movie_id             integer  NOT NULL ,
+	"language"           integer  NOT NULL 
+ );
+
+CREATE INDEX idx_movie_language_movie_id ON imdb2.movie_language ( movie_id );
+
+CREATE INDEX idx_movie_language_language_id ON imdb2.movie_language ( "language" );
+
+COMMENT ON TABLE imdb2.movie_language IS '//maybe add enum';
+
+CREATE TABLE imdb2.movie_ranking ( 
+	movie_id             integer  NOT NULL ,
+	score                numeric(4,2)  NOT NULL ,
+	"marks _quantity"    integer  NOT NULL ,
+	CONSTRAINT idx_movie_ranking_movie_id UNIQUE ( movie_id ) ,
+	CONSTRAINT pk_movie_ranking_movie_id PRIMARY KEY ( movie_id )
+ );
+
+COMMENT ON COLUMN imdb2.movie_ranking."marks _quantity" IS '//Counted automatically';
+
+CREATE TABLE imdb2.people ( 
+	person_id            integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	first_name           varchar  NOT NULL ,
+	last_name            varchar   ,
+	age                  integer   ,
+	born                 date   ,
+	died                 date   ,
+	alive                char(1)   ,
+	birth_country        integer   ,
+	CONSTRAINT pk_people_person_id PRIMARY KEY ( person_id )
+ );
+
+CREATE INDEX idx_people_birth_country ON imdb2.people ( birth_country );
+
+COMMENT ON COLUMN imdb2.people.alive IS 'Y/N';
+
+CREATE TABLE imdb2.people_awards ( 
+	person_id            integer  NOT NULL ,
+	award_id             integer  NOT NULL ,
+	movie_id             integer   ,
+	category             integer   ,
+	nomination_or_win    char(1)  NOT NULL ,
+	"year"               date  NOT NULL ,
+	CONSTRAINT idx_people_awards_person_id UNIQUE ( person_id ) 
+ );
+
+CREATE INDEX idx_people_awards_movie_id ON imdb2.people_awards ( movie_id );
+
+CREATE INDEX idx_people_awards_award_id ON imdb2.people_awards ( award_id );
+
+COMMENT ON COLUMN imdb2.people_awards.nomination_or_win IS 'N-Nomination\nW-Win';
+
+CREATE TABLE imdb2.people_ranking ( 
+	person_id            integer  NOT NULL ,
+	score                numeric(4,2)   ,
+	marks_quantity       integer  NOT NULL ,
+	CONSTRAINT pk_people_ranking_person_id PRIMARY KEY ( person_id )
+ );
+
+COMMENT ON COLUMN imdb2.people_ranking.marks_quantity IS '//Counted automatically';
+
+CREATE TABLE imdb2.production ( 
+	movie_id             integer  NOT NULL ,
+	country              varchar  NOT NULL 
+ );
+
+CREATE INDEX idx_production_movie_id ON imdb2.production ( movie_id );
+
+CREATE INDEX idx_production_country_id ON imdb2.production ( country );
+
+COMMENT ON TABLE imdb2.production IS '//Maybe add enum';
+
+CREATE TABLE imdb2.production_company ( 
+	movie_id             integer  NOT NULL ,
+	company              varchar  NOT NULL 
+ );
+
+CREATE INDEX idx_production_company_movie_id ON imdb2.production_company ( movie_id );
+
+CREATE INDEX idx_production_company_company_id ON imdb2.production_company ( company );
+
+CREATE TABLE imdb2.professions ( 
+	profession_id        integer  NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	name                 varchar  NOT NULL ,
+	CONSTRAINT pk_professions_profession_id PRIMARY KEY ( profession_id )
+ );
+
+CREATE TABLE imdb2.similar_movies ( 
+	movie_id1            integer  NOT NULL ,
+	movie_id2            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_similar_movies_movie_id1 ON imdb2.similar_movies ( movie_id1 );
+
+CREATE INDEX idx_similar_movies_movie_id2 ON imdb2.similar_movies ( movie_id2 );
+
+CREATE TABLE imdb2."table" ( 
+ );
+
+CREATE TABLE imdb2.table_2 ( 
+ );
+
+CREATE TABLE imdb2.users ( 
+	login                varchar(17)  NOT NULL ,
+	"password"           varchar(17)  NOT NULL ,
+	nickname             varchar(17) DEFAULT user  ,
+	CONSTRAINT pk_users_users_id PRIMARY KEY ( login )
+ );
+
+CREATE TABLE imdb2.watchlist ( 
+	login                char(17)  NOT NULL ,
+	movie_id             integer  NOT NULL 
+ );
+
+CREATE INDEX idx_watchlist_movie_id ON imdb2.watchlist ( movie_id );
+
+CREATE INDEX idx_watchlist_user_id ON imdb2.watchlist ( login );
+
+CREATE TABLE imdb2.writers ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_writers_movie_id ON imdb2.writers ( movie_id );
+
+CREATE INDEX idx_writers_person_id ON imdb2.writers ( person_id );
+
+CREATE TABLE imdb2.actors ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL ,
+	"character/s"        varchar  NOT NULL 
+ );
+
+CREATE INDEX idx_actors_movie_id ON imdb2.actors ( movie_id );
+
+CREATE INDEX idx_actors_person_id ON imdb2.actors ( person_id );
+
+CREATE TABLE imdb2.alternative_title ( 
+	movie_id             integer  NOT NULL ,
+	movie_title          integer  NOT NULL 
+ );
+
+CREATE INDEX idx_alternative_title_movie_id ON imdb2.alternative_title ( movie_id );
+
+CREATE TABLE imdb2.awards_categories ( 
+	award_name           varchar  NOT NULL ,
+	category_name        varchar  NOT NULL 
+ );
+
+CREATE INDEX idx_awards_categories_award_id ON imdb2.awards_categories ( award_name );
+
+CREATE INDEX idx_awards_categories_category_id ON imdb2.awards_categories ( category_name );
+
+CREATE TABLE imdb2.cameraworkers ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_cameraworkers_movie_id ON imdb2.cameraworkers ( movie_id );
+
+CREATE INDEX idx_cameraworkers_person_id ON imdb2.cameraworkers ( person_id );
+
+CREATE TABLE imdb2.citizenship ( 
+	person_id            integer  NOT NULL ,
+	country              integer  NOT NULL 
+ );
+
+CREATE INDEX idx_citizenship_person_id ON imdb2.citizenship ( person_id );
+
+CREATE INDEX idx_citizenship_country_id ON imdb2.citizenship ( country );
+
+CREATE TABLE imdb2.composers ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_composers_movie_id ON imdb2.composers ( movie_id );
+
+CREATE INDEX idx_composers_person_id ON imdb2.composers ( person_id );
+
+CREATE TABLE imdb2.crew ( 
+	person_id            integer  NOT NULL ,
+	movie_id             integer  NOT NULL ,
+	"role"               integer  NOT NULL ,
+	"character"          integer   
+ );
+
+CREATE INDEX idx_crew_person_id ON imdb2.crew ( person_id );
+
+CREATE INDEX idx_crew_movie_id ON imdb2.crew ( movie_id );
+
+COMMENT ON COLUMN imdb2.crew."role" IS '//Add enum:\n{director,editor,music,cameraworker,writer,others}';
+
+COMMENT ON COLUMN imdb2.crew."character" IS '//Add constraint\nnot null only if role == actor';
+
+CREATE TABLE imdb2.description ( 
+	movie_id             integer  NOT NULL ,
+	description          text  NOT NULL ,
+	CONSTRAINT pk_description_movie_id PRIMARY KEY ( movie_id )
+ );
+
+CREATE TABLE imdb2.directors ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_directors_movie_id ON imdb2.directors ( movie_id );
+
+CREATE INDEX idx_directors_person_id ON imdb2.directors ( person_id );
+
+CREATE TABLE imdb2.editors ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_editors_movie_id ON imdb2.editors ( movie_id );
+
+CREATE INDEX idx_editors_person_id ON imdb2.editors ( person_id );
+
+CREATE TABLE imdb2.finance ( 
+	movie_id             integer  NOT NULL ,
+	budget               integer   ,
+	cumulative_gross     integer   ,
+	opening_weekend_usa  integer   ,
+	CONSTRAINT pk_finance_movie_id PRIMARY KEY ( movie_id )
+ );
+
+CREATE TABLE imdb2.movie_ratings ( 
+	movie_id             integer  NOT NULL ,
+	login                varchar(17)  NOT NULL ,
+	mark                 integer  NOT NULL ,
+	heart                char(1)   
+ );
+
+CREATE INDEX idx_movie_ratings_user_id ON imdb2.movie_ratings ( login );
+
+CREATE INDEX idx_movie_ratings_movie_id ON imdb2.movie_ratings ( movie_id );
+
+COMMENT ON COLUMN imdb2.movie_ratings.mark IS '//Add enum {1,...,10}';
+
+COMMENT ON COLUMN imdb2.movie_ratings.heart IS 'H - heart';
+
+CREATE TABLE imdb2.others ( 
+	movie_id             integer  NOT NULL ,
+	person_id            integer  NOT NULL 
+ );
+
+CREATE INDEX idx_others_movie_id ON imdb2.others ( movie_id );
+
+CREATE INDEX idx_others_person_id ON imdb2.others ( person_id );
+
+CREATE TABLE imdb2.person_ratings ( 
+	person_id            integer  NOT NULL ,
+	login                varchar(17)  NOT NULL ,
+	mark                 integer  NOT NULL ,
+	heart                char(1)   
+ );
+
+CREATE INDEX idx_person_ratings_user_id ON imdb2.person_ratings ( login );
+
+CREATE INDEX idx_person_ratings_person_id ON imdb2.person_ratings ( person_id );
+
+COMMENT ON TABLE imdb2.person_ratings IS '/Add enum {1,...,10}';
+
+COMMENT ON COLUMN imdb2.person_ratings.heart IS 'H - heart';
+
+CREATE TABLE imdb2.profession ( 
+	person_id            integer  NOT NULL ,
+	profession           varchar  NOT NULL 
+ );
+
+CREATE INDEX idx_profession_person_id ON imdb2.profession ( person_id );
+
+CREATE INDEX idx_profession_profession_id ON imdb2.profession ( profession );
+
+CREATE TABLE imdb2.review ( 
+	login                varchar(17)  NOT NULL ,
+	movie_id             integer  NOT NULL ,
+	review               text  NOT NULL 
+ );
+
+CREATE INDEX idx_review_user_id ON imdb2.review ( login );
+
+CREATE INDEX idx_review_movie_id ON imdb2.review ( movie_id );
+
+ALTER TABLE imdb2.actors ADD CONSTRAINT fk_actors_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.actors ADD CONSTRAINT fk_actors_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.alternative_title ADD CONSTRAINT fk_alternative_title_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.awards_categories ADD CONSTRAINT fk_awards_categories_awards FOREIGN KEY ( award_name ) REFERENCES imdb2.awards( award_name );
+
+ALTER TABLE imdb2.awards_categories ADD CONSTRAINT fk_awards_categories_awards_categories_names FOREIGN KEY ( category_name ) REFERENCES imdb2.awards_categories_names( category_id );
+
+ALTER TABLE imdb2.cameraworkers ADD CONSTRAINT fk_cameraworkers_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.cameraworkers ADD CONSTRAINT fk_cameraworkers_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.citizenship ADD CONSTRAINT fk_citizenship_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.citizenship ADD CONSTRAINT fk_citizenship_country FOREIGN KEY ( country ) REFERENCES imdb2.country( country_id );
+
+ALTER TABLE imdb2.composers ADD CONSTRAINT fk_composers_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.composers ADD CONSTRAINT fk_composers_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.crew ADD CONSTRAINT fk_crew_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.crew ADD CONSTRAINT fk_crew_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.description ADD CONSTRAINT fk_description_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.directors ADD CONSTRAINT fk_directors_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.directors ADD CONSTRAINT fk_directors_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.editors ADD CONSTRAINT fk_editors_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.editors ADD CONSTRAINT fk_editors_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.finance ADD CONSTRAINT fk_finance_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.movie_awards ADD CONSTRAINT fk_awards_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.movie_awards ADD CONSTRAINT fk_movie_awards_awards FOREIGN KEY ( awards_id ) REFERENCES imdb2.awards( award_name );
+
+ALTER TABLE imdb2.movie_awards ADD CONSTRAINT fk_movie_awards_awards_categories_names FOREIGN KEY ( category ) REFERENCES imdb2.awards_categories_names( category_id );
+
+ALTER TABLE imdb2.movie_genre ADD CONSTRAINT fk_production_1_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.movie_genre ADD CONSTRAINT fk_movie_genre_genre FOREIGN KEY ( genre ) REFERENCES imdb2.genre( genre_id );
+
+ALTER TABLE imdb2.movie_language ADD CONSTRAINT fk_movie_language_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.movie_language ADD CONSTRAINT fk_movie_language_language FOREIGN KEY ( "language" ) REFERENCES imdb2."language"( language_id );
+
+ALTER TABLE imdb2.movie_ranking ADD CONSTRAINT fk_movie_ranking_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.movie_ratings ADD CONSTRAINT fk_movie_ratings_users FOREIGN KEY ( login ) REFERENCES imdb2.users( login );
+
+ALTER TABLE imdb2.movie_ratings ADD CONSTRAINT fk_movie_ratings_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.others ADD CONSTRAINT fk_others_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.others ADD CONSTRAINT fk_others_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.people ADD CONSTRAINT fk_people_country FOREIGN KEY ( birth_country ) REFERENCES imdb2.country( country_id );
+
+ALTER TABLE imdb2.people_awards ADD CONSTRAINT fk_people_awards_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.people_awards ADD CONSTRAINT fk_people_awards_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.people_awards ADD CONSTRAINT fk_people_awards_awards FOREIGN KEY ( award_id ) REFERENCES imdb2.awards( award_name );
+
+ALTER TABLE imdb2.people_awards ADD CONSTRAINT fk_people_awards_awards_categories_names FOREIGN KEY ( category ) REFERENCES imdb2.awards_categories_names( category_id );
+
+ALTER TABLE imdb2.people_ranking ADD CONSTRAINT fk_people_ranking_people_awards FOREIGN KEY ( person_id ) REFERENCES imdb2.people_awards( person_id );
+
+ALTER TABLE imdb2.person_ratings ADD CONSTRAINT fk_person_ratings_users FOREIGN KEY ( login ) REFERENCES imdb2.users( login );
+
+ALTER TABLE imdb2.person_ratings ADD CONSTRAINT fk_person_ratings_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.production ADD CONSTRAINT fk_production_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.production ADD CONSTRAINT fk_production_country FOREIGN KEY ( country ) REFERENCES imdb2.country( country_id );
+
+ALTER TABLE imdb2.production_company ADD CONSTRAINT fk_production_company_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.production_company ADD CONSTRAINT fk_production_company_company FOREIGN KEY ( company ) REFERENCES imdb2.company( company_id );
+
+ALTER TABLE imdb2.profession ADD CONSTRAINT fk_profession_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
+
+ALTER TABLE imdb2.profession ADD CONSTRAINT fk_profession_professions FOREIGN KEY ( profession ) REFERENCES imdb2.professions( profession_id );
+
+ALTER TABLE imdb2.review ADD CONSTRAINT fk_review_users FOREIGN KEY ( login ) REFERENCES imdb2.users( login );
+
+ALTER TABLE imdb2.review ADD CONSTRAINT fk_review_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.similar_movies ADD CONSTRAINT fk_similar_movies_movie FOREIGN KEY ( movie_id1 ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.similar_movies ADD CONSTRAINT fk_similar_movies_movie_0 FOREIGN KEY ( movie_id2 ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.watchlist ADD CONSTRAINT fk_watchlist_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.watchlist ADD CONSTRAINT fk_watchlist_users FOREIGN KEY ( login ) REFERENCES imdb2.users( login );
+
+ALTER TABLE imdb2.writers ADD CONSTRAINT fk_writers_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
+
+ALTER TABLE imdb2.writers ADD CONSTRAINT fk_writers_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
 ]]></string>
 		</script>
 	</layout>
