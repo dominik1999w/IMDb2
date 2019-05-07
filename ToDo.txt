@@ -8,3 +8,6 @@ jakiś ranking z powyższego
 	historia dla nagrody
 
 	numeric -> integer
+
+Zmień year na coś normalnego :D 
+trigger na dodawanie złej kategorii nie działa :( 
