@@ -390,7 +390,7 @@ BEGIN
 		RETURN NULL;
 	END IF;
 
-	IF to_year((SELECT born FROM people WHERE person_id = NEW.person_id)) > year THEN
+	IF to_year((SELECT born FROM people WHERE person_id = NEW.person_id)) > NEW.year THEN
 		RAISE EXCEPTION 'Wrong year';
 		RETURN NULL;
 	END IF;
@@ -513,67 +513,106 @@ ALTER TABLE crew ADD CONSTRAINT fk_crew_movie FOREIGN KEY ( movie_id ) REFERENCE
 ----------------------------------------------
 
 --SAMPLE DATA
-INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa)
-SELECT
-names, --for title
-now() - round(random()*30000) * '1 day'::interval,--for release_date
-floor(random()*200)*'1 minutes'::interval,--for runtime
-round(random()*700),--for budget
-round(random()*700+71),--for boxoffice
-round(random()*70)--for opening_weekend_usa
-FROM unnest(
-ARRAY [
-'Blacksmith Of The World',
-'Tree Of Freedom',
-'Children With Strength',
-'Pilots Of Reality',
-'Viva Nollywood',
-'Foreigners And Friends',
-'Tower Of Reality',
-'Strife Of Glory',
-'Hurt By The City',
-'Welcome To The City',
-'Slave Of Reality',
-'Warrior Of Perfection',
-'Horses Of Fortune',
-'Butchers Of Perfection',
-'Foes And Defenders',
-'Blacksmiths And Slaves',
-'Unity Of The Frontline',
-'Culling Of Gold',
-'Losing Eternity',
-'Searching In My End',
-'Owl Of The End',
-'Soldier With Gold',
-'Agents Of Fire',
-'Boys Of The North',
-'Boys And Gods',
-'Owls And Invaders',
-'Star With Silver',
-'Family Without Faith',
-'Travel To The World',
-'Taste Of My Nightmares',
-'Nymph Of Dreams',
-'Defender Without Hope',
-'Foes Of Joy',
-'Fish With Money',
-'Pirates And Foes',
-'Witches And Hunters',
-'Bane Of Power',
-'Fruit Without Sin',
-'Amusing My Home',
-'Breaking The Graveyard',
-'Bandit Of Destruction',
-'Snake Of The Sea',
-'Pilots Without A Goal',
-'Wolves Of History',
-'Descendants And Snakes',
-'Lords And Spies',
-'Edge Of Insanity',
-'Intention Of The North',
-'Separated By The Dungeons',
-'Wspomnienia moich koszmarów'
-]) names;
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Blacksmith Of The World' , '1891-09-24' , INTERVAL '29 minutes' , 21000000 , 74000000 , 420000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Tree Of Freedom' , '1896-10-18' , INTERVAL '181 minutes' , 32000000 , 73000000 , 220000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Children With Strength' , '1903-11-07' , INTERVAL '75 minutes' , 45000000 , 99000000 , 630000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Pilots Of Reality' , '1908-02-10' , INTERVAL '131 minutes' , 65000000 , 96000000 , 230000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Viva Nollywood' , '1919-09-05' , INTERVAL '23 minutes' , 93000000 , 53000000 , 870000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Foreigners And Friends' , '1928-10-14' , INTERVAL '29 minutes' , 50000000 , 71000000 , 460000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Tower Of Reality' , '1929-12-25' , INTERVAL '26 minutes' , 82000000 , 10000000 , 540000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Strife Of Glory' , '1932-01-14' , INTERVAL '85 minutes' , 92000000 , 36000000 , 300000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Hurt By The City' , '1935-06-19' , INTERVAL '191 minutes' , 1000000 , 20000000 , 530000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Welcome To The City' , '1936-07-20' , INTERVAL '145 minutes' , 31000000 , 12000000 , 60000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Slave Of Reality' , '1941-02-03' , INTERVAL '129 minutes' , 75000000 , 30000000 , 340000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Warrior Of Perfection' , '1943-02-02' , INTERVAL '199 minutes' , 1000000 , 46000000 , 740000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Horses Of Fortune' , '1956-05-24' , INTERVAL '179 minutes' , 18000000 , 11000000 , 90000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Butchers Of Perfection' , '1959-01-08' , INTERVAL '103 minutes' , 90000000 , 21000000 , 740000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Foes And Defenders' , '1965-05-26' , INTERVAL '170 minutes' , 28000000 , 38000000 , 30000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Blacksmiths And Slaves' , '1971-12-20' , INTERVAL '69 minutes' , 31000000 , 17000000 , 160000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Unity Of The Frontline' , '1972-05-31' , INTERVAL '123 minutes' , 29000000 , 82000000 , 710000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Culling Of Gold' , '1983-04-14' , INTERVAL '180 minutes' , 49000000 , 97000000 , 170000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Losing Eternity' , '1983-06-15' , INTERVAL '98 minutes' , 44000000 , 87000000 , 490000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Searching In My End' , '1992-04-28' , INTERVAL '27 minutes' , 96000000 , 7000000 , 360000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Owl Of The End' , '1996-03-20' , INTERVAL '119 minutes' , 76000000 , 75000000 , 330000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Soldier With Gold' , '2001-05-18' , INTERVAL '115 minutes' , 12000000 , 38000000 , 350000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Agents Of Fire' , '2004-10-02' , INTERVAL '24 minutes' , 47000000 , 78000000 , 260000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Boys Of The North' , '2012-10-05' , INTERVAL '38 minutes' , 16000000 , 43000000 , 150000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Boys And Gods' , '2017-09-10' , INTERVAL '20 minutes' , 52000000 , 66000000 , 530000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Owls And Invaders' , '1989-06-23' , INTERVAL '85 minutes' , 64000000 , 48000000 , 410000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Star With Silver' , '1990-01-23' , INTERVAL '94 minutes' , 46000000 , 79000000 , 10000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Family Without Faith' , '1993-04-24' , INTERVAL '114 minutes' , 28000000 , 31000000 , 970000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Travel To The World' , '1993-05-17' , INTERVAL '67 minutes' , 8000000 , 59000000 , 540000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Taste Of My Nightmares' , '1994-01-06' , INTERVAL '174 minutes' , 79000000 , 95000000 , 170000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Nymph Of Dreams' , '1994-07-31' , INTERVAL '71 minutes' , 99000000 , 63000000 , 240000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Defender Without Hope' , '1997-09-28' , INTERVAL '196 minutes' , 49000000 , 97000000 , 680000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Foes Of Joy' , '2000-06-03' , INTERVAL '76 minutes' , 63000000 , 83000000 , 270000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Fish With Money' , '2003-01-14' , INTERVAL '192 minutes' , 22000000 , 16000000 , 560000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Pirates And Foes' , '2003-11-24' , INTERVAL '92 minutes' , 28000000 , 53000000 , 260000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Witches And Hunters' , '2007-05-16' , INTERVAL '53 minutes' , 37000000 , 2000000 , 850000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Bane Of Power' , '2009-01-01' , INTERVAL '144 minutes' , 8000000 , 90000000 , 130000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Fruit Without Sin' , '2012-06-02' , INTERVAL '83 minutes' , 49000000 , 980000 , 380000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Amusing My Home' , '2012-06-04' , INTERVAL '79 minutes' , 7000000 , 27000000 , 80000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Breaking The Graveyard' , '2014-02-01' , INTERVAL '44 minutes' , 32000000 , 41000000 , 290000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Bandit Of Destruction' , '2014-05-08' , INTERVAL '146 minutes' , 60000000 , 94000000 , 440000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Snake Of The Sea' , '2014-11-15' , INTERVAL '30 minutes' , 12000000 , 47000000 , 410000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Pilots Without A Goal' , '2015-01-11' , INTERVAL '34 minutes' , 3000000 , 9000000 , 270000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Wolves Of History' , '2015-01-15' , INTERVAL '39 minutes' , 32000000 , 7000000 , 130000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Descendants And Snakes' , '2015-06-27' , INTERVAL '48 minutes' , 51000000 , 29000000 , 340000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Lords And Spies' , '2015-07-20' , INTERVAL '159 minutes' , 21000000 , 41000000 , 710000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Edge Of Insanity' , '2016-07-30' , INTERVAL '164 minutes' , 11000000 , 76000000 , 680000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Intention Of The North' , '2017-02-11' , INTERVAL '198 minutes' , 50000000 , 93000000 , 880000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Separated By The Dungeons' , '2017-12-20' , INTERVAL '62 minutes' , 59000000 , 65000000 , 170000);
+INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
+VALUES( 'Wspomnienia moich koszmarów' , '2018-12-26' , INTERVAL '79 minutes' , 70000000 , 23000000 , 520000);
 
 INSERT INTO similar_movies VALUES(1,2);
 INSERT INTO similar_movies VALUES(19,2);
@@ -1214,7 +1253,6 @@ INSERT INTO movie_ratings VALUES( 19 , 'Murtada3' , 7 );
 INSERT INTO movie_ratings VALUES( 17 , 'Ruaraidh' , 7 );
 INSERT INTO movie_ratings VALUES( 48 , 'Shota34' , 6 );
 INSERT INTO movie_ratings VALUES( 19 , 'Loke2' , 4 );
-INSERT INTO movie_ratings VALUES( 28 , 'Drest36423' , 7 );
 INSERT INTO movie_ratings VALUES( 8 , 'Silvia' , 10 );
 INSERT INTO movie_ratings VALUES( 36 , 'Elon3' , 6 );
 INSERT INTO movie_ratings VALUES( 5 , 'Tabatha' , 6 );
@@ -1307,113 +1345,106 @@ INSERT INTO movie_ratings VALUES( 35 , 'Imogen29' , 10 , 'H' );
 --while read line; do echo "INSERT INTO movie_ratings VALUES(" $((RANDOM % 50 + 1)) "," $line "," $((RANDOM % 10 + 1)) ");"; done < a 
 --to generate more (a file with logins)
 
-INSERT INTO people(first_name, born, birth_country)
-SELECT
-names,
-now() - round(random()*30000) * '1 day'::interval,--for release_date
-'United States'
-FROM unnest(
-ARRAY [
-'Dahlia',
-'Ericka',
-'Maurine',
-'Lizzie',
-'Kendra',
-'Barbar',
-'Charissa',
-'Halley',
-'Brian',
-'Margret',
-'Florance',
-'Nona',
-'Hank',
-'Freda',
-'Malena',
-'Morton',
-'Erline',
-'Solange',
-'Shelley',
-'Berna',
-'Jani',
-'Phil',
-'Claris',
-'Alise',
-'Vita',
-'Noel',
-'Marcelle',
-'Candra',
-'Patrice',
-'Carlotta',
-'John',
-'Jefferson',
-'Latesha',
-'Willis',
-'Warren',
-'Rolande',
-'Hermelinda',
-'Bertha',
-'Jeremiah',
-'Katy',
-'Percy',
-'Markus',
-'Royce',
-'Fe',
-'Billy',
-'Garnet',
-'Milagro',
-'Yolanda',
-'Heidi',
-'Alida'
-]) names;
-UPDATE people SET last_name = 'lifford' WHERE person_id =  1 ;
-UPDATE people SET last_name = 'Garnet' WHERE person_id =  2 ;
-UPDATE people SET last_name = 'Kara' WHERE person_id =  3 ;
-UPDATE people SET last_name = 'Jeni' WHERE person_id =  4 ;
-UPDATE people SET last_name = 'Margherita' WHERE person_id =  5 ;
-UPDATE people SET last_name = 'Rick' WHERE person_id =  6 ;
-UPDATE people SET last_name = 'Halina' WHERE person_id =  7 ;
-UPDATE people SET last_name = 'Becky' WHERE person_id =  8 ;
-UPDATE people SET last_name = 'Madaline' WHERE person_id =  9 ;
-UPDATE people SET last_name = 'Kimberli' WHERE person_id =  10 ;
-UPDATE people SET last_name = 'Avril' WHERE person_id =  11 ;
-UPDATE people SET last_name = 'Harriett' WHERE person_id =  12 ;
-UPDATE people SET last_name = 'Damaris' WHERE person_id =  13 ;
-UPDATE people SET last_name = 'Stefani' WHERE person_id =  14 ;
-UPDATE people SET last_name = 'Reed' WHERE person_id =  15 ;
-UPDATE people SET last_name = 'Shanika' WHERE person_id =  16 ;
-UPDATE people SET last_name = 'Rochell' WHERE person_id =  17 ;
-UPDATE people SET last_name = 'Leonarda' WHERE person_id =  18 ;
-UPDATE people SET last_name = 'Noble' WHERE person_id =  19 ;
-UPDATE people SET last_name = 'Elfrieda' WHERE person_id =  20 ;
-UPDATE people SET last_name = 'Krystyna' WHERE person_id =  21 ;
-UPDATE people SET last_name = 'Bettye' WHERE person_id =  22 ;
-UPDATE people SET last_name = 'Markus' WHERE person_id =  23 ;
-UPDATE people SET last_name = 'Sarai' WHERE person_id =  24 ;
-UPDATE people SET last_name = 'Sabrina' WHERE person_id =  25 ;
-UPDATE people SET last_name = 'Sparkle' WHERE person_id =  26 ;
-UPDATE people SET last_name = 'Isobel' WHERE person_id =  27 ;
-UPDATE people SET last_name = 'Neoma' WHERE person_id =  28 ;
-UPDATE people SET last_name = 'Myrl' WHERE person_id =  29 ;
-UPDATE people SET last_name = 'Gertrud' WHERE person_id =  30 ;
-UPDATE people SET last_name = 'Vonda' WHERE person_id =  31 ;
-UPDATE people SET last_name = 'Jana' WHERE person_id =  32 ;
-UPDATE people SET last_name = 'Eugene' WHERE person_id =  33 ;
-UPDATE people SET last_name = 'Glenda' WHERE person_id =  34 ;
-UPDATE people SET last_name = 'Randy' WHERE person_id =  35 ;
-UPDATE people SET last_name = 'Alina' WHERE person_id =  36 ;
-UPDATE people SET last_name = 'Fiona' WHERE person_id =  37 ;
-UPDATE people SET last_name = 'Usha' WHERE person_id =  38 ;
-UPDATE people SET last_name = 'Quentin' WHERE person_id =  39 ;
-UPDATE people SET last_name = 'Shaquana' WHERE person_id =  40 ;
-UPDATE people SET last_name = 'Fernando' WHERE person_id =  41 ;
-UPDATE people SET last_name = 'Jess' WHERE person_id =  42 ;
-UPDATE people SET last_name = 'Jen' WHERE person_id =  43 ;
-UPDATE people SET last_name = 'Terisa' WHERE person_id =  44 ;
-UPDATE people SET last_name = 'Janina' WHERE person_id =  45 ;
-UPDATE people SET last_name = 'Boyd' WHERE person_id =  46 ;
-UPDATE people SET last_name = 'Dortha' WHERE person_id =  47 ;
-UPDATE people SET last_name = 'Shella' WHERE person_id =  48 ;
-UPDATE people SET last_name = 'Mckenzie' WHERE person_id =  49 ;
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Noel' , 'Otto' , '1906-06-10' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Marcelle' , 'Zachariah' , '1906-08-06' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Candra' , 'Margurite' , '1911-02-05' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Patrice' , 'Serafina' , '1913-10-01' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Carlotta' , 'Hershel' , '1917-01-16' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Brunhlia' , 'Viera' , '1974-11-10' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Ericka' , 'Flo' , '1975-05-22' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Maurine' , 'Yvonne' , '1976-06-01' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Lizzie' , 'Rowena' , '1976-10-28' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Kendra' , 'Tegan' , '1977-03-16' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Barbar' , 'Alda' , '1978-02-21' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Charissa' , 'Meda' , '1978-09-07' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Halley' , 'Markus' , '1985-04-18' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Brian' , 'Ashley' , '1986-01-13' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Margret' , 'Scottie' , '1986-01-16' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Florance' , 'Irena' , '1986-02-05' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Nona' , 'Janelle' , '1987-11-16' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Hank' , 'Eldon' , '1991-11-12' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Freda' , 'Myrtie' , '1993-01-21' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Malena' , 'Verda' , '1993-09-27' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Morton' , 'Bok' , '1996-03-08' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Erline' , 'Alina' , '1996-11-27' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Solange' , 'Andre' , '1997-03-03' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Shelley' , 'Elois' , '1998-04-06' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Berna' , 'Damion' , '1998-08-29' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Jani' , 'Claretha' , '2005-03-17' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Phil' , 'Magnolia' , '2005-08-09' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Claris' , 'Bill' , '2006-02-27' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Alise' , 'Sherwood' , '2006-12-14' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Vita' , 'Regan' , '2008-10-15' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'John' , 'Jayne' , '1917-10-21' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Jefferson' , 'Rachal' , '1932-04-23' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Latesha' , 'Salvador' , '1938-06-26' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Willis' , 'Roma' , '1939-08-18' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Warren' , 'Salena' , '1944-03-31' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Rolande' , 'Lenita' , '1948-09-10' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Hermelinda' , 'Britt' , '1949-10-03' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Bertha' , 'Kathy' , '1950-10-09' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Jeremiah' , 'Sigrid' , '1953-08-15' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Katy' , 'Alecia' , '1956-01-02' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Percy' , 'Kristopher' , '1956-07-24' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Markus' , 'Kristyn' , '1966-08-14' , 'United Kingdom');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Royce' , 'Willena' , '1968-09-12' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Fe' , 'Margarita' , '1968-12-30' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Billy' , 'Cornelia' , '1969-04-03' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Garnet' , 'Stephanie' , '1972-07-31' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Milagro' , 'Chas' , '1974-07-18' , 'Nigeria');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Yolanda' , 'Jackelyn' , '1974-08-08' , 'India');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Heidi' , 'Sherrell' , '1976-08-26' , 'United States');
+INSERT INTO people(first_name, last_name, born, birth_country) 
+VALUES( 'Alida' , 'Hung' , '1990-07-31' , 'United Kingdom');
 
 
 UPDATE people SET died = '2018-04-05' WHERE person_id =  1 ;
@@ -1422,21 +1453,13 @@ UPDATE people SET died = '2019-04-03' WHERE person_id =  3 ;
 UPDATE people SET died = '2000-08-13' WHERE person_id =  4 ;
 UPDATE people SET died = '1999-09-09' WHERE person_id =  5 ;
 
-UPDATE people SET birth_country = 'Poland' WHERE person_id =  10 ;
-UPDATE people SET birth_country = 'China' WHERE person_id =  20 ;
-UPDATE people SET birth_country = 'Jamaica' WHERE person_id =  30 ;
-UPDATE people SET birth_country = 'United Kingdom' WHERE person_id =  40 ;
-UPDATE people SET birth_country = 'Denmark' WHERE person_id =  50 ;
-
 
 INSERT INTO profession VALUES( 44 , 'Director' );
 INSERT INTO profession VALUES( 6 , 'Director' );
 INSERT INTO profession VALUES( 17 , 'Director' );
 INSERT INTO profession VALUES( 20 , 'Director' );
-INSERT INTO profession VALUES( 6 , 'Director' );
 INSERT INTO profession VALUES( 12 , 'Director' );
 INSERT INTO profession VALUES( 34 , 'Director' );
-INSERT INTO profession VALUES( 17 , 'Director' );
 INSERT INTO profession VALUES( 24 , 'Director' );
 INSERT INTO profession VALUES( 2 , 'Director' );
 INSERT INTO profession VALUES( 27 , 'Director' );
@@ -1460,8 +1483,6 @@ INSERT INTO profession VALUES( 8 , 'Actor' );
 INSERT INTO profession VALUES( 16 , 'Actor' );
 INSERT INTO profession VALUES( 6 , 'Actor' );
 INSERT INTO profession VALUES( 34 , 'Actor' );
-INSERT INTO profession VALUES( 45 , 'Actor' );
-INSERT INTO profession VALUES( 8 , 'Actor' );
 
 INSERT INTO profession VALUES( 45 , 'Editor' );
 INSERT INTO profession VALUES( 20 , 'Editor' );
@@ -1471,12 +1492,10 @@ INSERT INTO profession VALUES( 27 , 'Editor' );
 INSERT INTO profession VALUES( 19 , 'Editor' );
 INSERT INTO profession VALUES( 18 , 'Editor' );
 INSERT INTO profession VALUES( 48 , 'Editor' );
-INSERT INTO profession VALUES( 16 , 'Editor' );
 INSERT INTO profession VALUES( 22 , 'Editor' );
 INSERT INTO profession VALUES( 28 , 'Editor' );
 INSERT INTO profession VALUES( 13 , 'Editor' );
 INSERT INTO profession VALUES( 1 , 'Editor' );
-INSERT INTO profession VALUES( 48 , 'Editor' );
 
 INSERT INTO profession VALUES( 40 , 'Producer' );
 INSERT INTO profession VALUES( 32 , 'Producer' );
@@ -1484,7 +1503,6 @@ INSERT INTO profession VALUES( 39 , 'Producer' );
 INSERT INTO profession VALUES( 33 , 'Producer' );
 INSERT INTO profession VALUES( 48 , 'Producer' );
 INSERT INTO profession VALUES( 12 , 'Producer' );
-INSERT INTO profession VALUES( 10 , 'Producer' );
 INSERT INTO profession VALUES( 49 , 'Producer' );
 INSERT INTO profession VALUES( 22 , 'Producer' );
 INSERT INTO profession VALUES( 29 , 'Producer' );
@@ -1492,7 +1510,6 @@ INSERT INTO profession VALUES( 11 , 'Producer' );
 INSERT INTO profession VALUES( 42 , 'Producer' );
 INSERT INTO profession VALUES( 30 , 'Producer' );
 INSERT INTO profession VALUES( 10 , 'Producer' );
-INSERT INTO profession VALUES( 49 , 'Producer' );
 INSERT INTO profession VALUES( 23 , 'Producer' );
 
 INSERT INTO profession VALUES( 28 , 'Composer' );
@@ -2080,11 +2097,9 @@ INSERT INTO person_ratings VALUES( 24 , 'Jagdishyi' , 4 );
 INSERT INTO person_ratings VALUES( 35 , 'Reynard' , 9 );
 INSERT INTO person_ratings VALUES( 32 , 'Sabah7' , 10 );
 INSERT INTO person_ratings VALUES( 31 , 'Sinta5' , 9 );
-INSERT INTO person_ratings VALUES( 34 , 'Kadek78' , 3 );
 INSERT INTO person_ratings VALUES( 14 , 'Srinivas4368' , 3 );
 INSERT INTO person_ratings VALUES( 28 , 'Morpheus2' , 6 );
 INSERT INTO person_ratings VALUES( 41 , 'Murtada3' , 3 );
-INSERT INTO person_ratings VALUES( 45 , 'Ruaraidh' , 6 );
 INSERT INTO person_ratings VALUES( 23 , 'Shota34' , 1 );
 INSERT INTO person_ratings VALUES( 9 , 'Loke2' , 4 );
 INSERT INTO person_ratings VALUES( 4 , 'Drest36423' , 6 );
@@ -2103,7 +2118,6 @@ INSERT INTO person_ratings VALUES( 6 , 'Arnulf' , 2 );
 INSERT INTO person_ratings VALUES( 41 , 'Giselmund' , 7 );
 INSERT INTO person_ratings VALUES( 23 , 'Mercedes5456' , 1 );
 INSERT INTO person_ratings VALUES( 31 , 'Alban' , 2 );
-INSERT INTO person_ratings VALUES( 48 , 'Octavius' , 2 );
 INSERT INTO person_ratings VALUES( 20 , 'Aurelius4' , 7 );
 INSERT INTO person_ratings VALUES( 46 , 'Kip' , 6 );
 INSERT INTO person_ratings VALUES( 6 , 'EvyDinesh' , 10 );
@@ -2127,7 +2141,6 @@ INSERT INTO person_ratings VALUES( 50 , 'Wayna31' , 1 );
 INSERT INTO person_ratings VALUES( 17 , 'Enosh2' , 1 );
 INSERT INTO person_ratings VALUES( 34 , 'Govinda2' , 4 );
 INSERT INTO person_ratings VALUES( 30 , 'Jagdishyi' , 4 );
-INSERT INTO person_ratings VALUES( 35 , 'Reynard' , 6 );
 INSERT INTO person_ratings VALUES( 49 , 'Sabah7' , 9 );
 INSERT INTO person_ratings VALUES( 18 , 'Sinta5' , 5 );
 INSERT INTO person_ratings VALUES( 24 , 'Kadek78' , 1 );
@@ -2144,7 +2157,6 @@ INSERT INTO person_ratings VALUES( 38 , 'Tabatha' , 1 );
 INSERT INTO person_ratings VALUES( 22 , 'Michal42' , 7 );
 INSERT INTO person_ratings VALUES( 30 , 'Chiyembekezo' , 8 );
 INSERT INTO person_ratings VALUES( 14 , 'Dag' , 10 );
-INSERT INTO person_ratings VALUES( 32 , 'Arie' , 4 );
 INSERT INTO person_ratings VALUES( 9 , 'Fulgenzio5' , 7 );
 INSERT INTO person_ratings VALUES( 45 , 'Audhild2' , 8 );
 INSERT INTO person_ratings VALUES( 27 , 'Montana' , 5 );
@@ -2157,7 +2169,6 @@ INSERT INTO person_ratings VALUES( 15 , 'Octavius' , 3 );
 INSERT INTO person_ratings VALUES( 18 , 'Aurelius4' , 1 );
 INSERT INTO person_ratings VALUES( 1 , 'Kip' , 4 );
 INSERT INTO person_ratings VALUES( 25 , 'EvyDinesh' , 10 );
-INSERT INTO person_ratings VALUES( 2 , 'Arie50' , 4 );
 INSERT INTO person_ratings VALUES( 28 , 'Raj1' , 4 );
 INSERT INTO person_ratings VALUES( 44 , 'Enric8' , 7 );
 INSERT INTO person_ratings VALUES( 50 , 'Nereus3' , 6 );
@@ -2189,7 +2200,6 @@ INSERT INTO person_ratings VALUES( 13 , 'Shota34' , 4 );
 INSERT INTO person_ratings VALUES( 10 , 'Loke2' , 3 );
 INSERT INTO person_ratings VALUES( 37 , 'Drest36423' , 10 );
 INSERT INTO person_ratings VALUES( 15 , 'Silvia' , 4 );
-INSERT INTO person_ratings VALUES( 25 , 'Elon3' , 9 );
 INSERT INTO person_ratings VALUES( 42 , 'Tabatha' , 8 );
 INSERT INTO person_ratings VALUES( 24 , 'Michal42' , 4 );
 INSERT INTO person_ratings VALUES( 4 , 'Chiyembekezo' , 2 );
@@ -2232,9 +2242,7 @@ INSERT INTO person_ratings VALUES( 10 , 'Sabah7' , 8 );
 INSERT INTO person_ratings VALUES( 1 , 'Sinta5' , 4 );
 INSERT INTO person_ratings VALUES( 39 , 'Kadek78' , 4 );
 INSERT INTO person_ratings VALUES( 40 , 'Srinivas4368' , 10 );
-INSERT INTO person_ratings VALUES( 26 , 'Morpheus2' , 1 );
 INSERT INTO person_ratings VALUES( 31 , 'Murtada3' , 6 );
-INSERT INTO person_ratings VALUES( 45 , 'Ruaraidh' , 5 );
 INSERT INTO person_ratings VALUES( 8 , 'Shota34' , 4 );
 INSERT INTO person_ratings VALUES( 6 , 'Loke2' , 5 );
 INSERT INTO person_ratings VALUES( 42 , 'Drest36423' , 2 );
@@ -2246,16 +2254,13 @@ INSERT INTO person_ratings VALUES( 39 , 'Chiyembekezo' , 1 );
 INSERT INTO person_ratings VALUES( 9 , 'Dag' , 2 );
 INSERT INTO person_ratings VALUES( 9 , 'Arie' , 1 );
 INSERT INTO person_ratings VALUES( 40 , 'Fulgenzio5' , 2 );
-INSERT INTO person_ratings VALUES( 7 , 'Audhild2' , 10 );
 INSERT INTO person_ratings VALUES( 6 , 'Montana' , 10 );
 INSERT INTO person_ratings VALUES( 6 , 'Minos' , 10 );
 INSERT INTO person_ratings VALUES( 5 , 'Arnulf' , 10 );
 INSERT INTO person_ratings VALUES( 7 , 'Giselmund' , 3 );
-INSERT INTO person_ratings VALUES( 23 , 'Mercedes5456' , 9 );
 INSERT INTO person_ratings VALUES( 4 , 'Alban' , 7 );
 INSERT INTO person_ratings VALUES( 21 , 'Octavius' , 9 );
 INSERT INTO person_ratings VALUES( 4 , 'Aurelius4' , 6 );
-INSERT INTO person_ratings VALUES( 46 , 'Kip' , 7 );
 INSERT INTO person_ratings VALUES( 40 , 'EvyDinesh' , 5 );
 INSERT INTO person_ratings VALUES( 29 , 'Arie50' , 9 );
 INSERT INTO person_ratings VALUES( 16 , 'Raj1' , 7 );
@@ -2264,7 +2269,6 @@ INSERT INTO person_ratings VALUES( 16 , 'Nereus3' , 8 );
 INSERT INTO person_ratings VALUES( 15 , 'Imogen29' , 3 );
 INSERT INTO person_ratings VALUES( 48 , 'Iracema' , 2 );
 INSERT INTO person_ratings VALUES( 5 , 'Tanja643' , 7 );
-INSERT INTO person_ratings VALUES( 17 , 'Ratnaq8' , 3 );
 INSERT INTO person_ratings VALUES( 50 , 'Dharma36' , 5 );
 INSERT INTO person_ratings VALUES( 22 , 'Kaija' , 9 );
 INSERT INTO person_ratings VALUES( 38 , 'Thancmar53' , 1 );
@@ -2274,13 +2278,25 @@ INSERT INTO person_ratings VALUES( 17 , 'Philippos2' , 10 );
 INSERT INTO person_ratings VALUES( 42 , 'Belshatzzar3' , 2 );
 INSERT INTO person_ratings VALUES( 22 , 'Imogen29' , 8 , 'H' );
 INSERT INTO person_ratings VALUES( 23 , 'Imogen29' , 9 , 'H' );
-INSERT INTO person_ratings VALUES( 24 , 'Imogen29' , 10 , 'H' );
 INSERT INTO person_ratings VALUES( 25 , 'Imogen29' , 7 , 'H' );
 
 --use
 --while read line; do echo "INSERT INTO people_ratings VALUES(" $((RANDOM % 50 + 1)) "," $line "," $((RANDOM % 10 + 1)) ");"; done < a 
 --to generate more (a file with logins)
 
+
+INSERT INTO movie_awards VALUES(8, 'Picture', 'W', 1932);
+INSERT INTO movie_awards VALUES(25, 'Picture', 'W', 2017);
+INSERT INTO movie_awards VALUES(48, 'Picture', 'N', 2017);
+INSERT INTO movie_awards VALUES(49, 'Picture', 'N', 2017);
+INSERT INTO movie_awards VALUES(24, 'Picture', 'W', 2012);
+INSERT INTO movie_awards VALUES(32, 'Picture', 'W', 1997);
+
+INSERT INTO people_awards VALUES(2, 15, 'Director', 'W', 1965);
+INSERT INTO people_awards VALUES(41, 18, 'Director', 'W', 1983);
+INSERT INTO people_awards VALUES(9, 19, 'Director', 'N', 1983);
+INSERT INTO people_awards VALUES(20, 40, 'Director', 'N', 2014);
+INSERT INTO people_awards VALUES(28, 48, 'Director', 'N', 2017);
 
 --INDECIES
 
