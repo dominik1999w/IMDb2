@@ -9,10 +9,8 @@ DROP TYPE IF EXISTS genre_type CASCADE;
 DROP TABLE IF EXISTS movie CASCADE;
 DROP TABLE IF EXISTS movie_awards CASCADE;
 DROP TABLE IF EXISTS movie_genre CASCADE;
-DROP TABLE IF EXISTS movie_ranking CASCADE;
 DROP TABLE IF EXISTS people CASCADE;
 DROP TABLE IF EXISTS people_awards CASCADE;
-DROP TABLE IF EXISTS people_ranking CASCADE;
 DROP TABLE IF EXISTS production CASCADE;
 DROP TABLE IF EXISTS movie_language CASCADE;
 DROP TABLE IF EXISTS production_company CASCADE;
@@ -33,7 +31,43 @@ DROP TRIGGER IF EXISTS is_alive ON people;
 DROP TRIGGER IF EXISTS movie_awards_trig ON people;
 DROP TRIGGER IF EXISTS people_awards_trig ON people;
 DROP TRIGGER IF EXISTS before_born ON crew;
+DROP TRIGGER IF EXISTS symmetric_rows ON similar_movies;
 ----------------------------------------------
+
+--DROP INDECIES IF EXIST
+DROP INDEX IF EXISTS idx_awards_movie_id;
+DROP INDEX IF EXISTS idx_movie_awards_category;
+DROP INDEX IF EXISTS idx_production_1_movie_id;
+DROP INDEX IF EXISTS idx_movie_genre_genre_id;
+DROP INDEX IF EXISTS idx_movie_language_movie_id;
+DROP INDEX IF EXISTS idx_people_birth_country;
+DROP INDEX IF EXISTS idx_people_awards_person_id;
+DROP INDEX IF EXISTS idx_people_awards_movie_id;
+DROP INDEX IF EXISTS idx_people_awards_category;
+DROP INDEX IF EXISTS idx_production_movie_id;
+DROP INDEX IF EXISTS idx_production_country_id;
+DROP INDEX IF EXISTS idx_production_company_movie_id;
+DROP INDEX IF EXISTS idx_production_company_company_id;
+DROP INDEX IF EXISTS idx_similar_movie_movie_id1;
+DROP INDEX IF EXISTS idx_similar_movie_movie_id2;
+DROP INDEX IF EXISTS idx_watchlist_movie_id;
+DROP INDEX IF EXISTS idx_watchlist_user_id;
+DROP INDEX IF EXISTS idx_alternative_title_movie_id;
+DROP INDEX IF EXISTS idx_awards_categories_award_id;
+DROP INDEX IF EXISTS idx_awards_categories_category_id;
+DROP INDEX IF EXISTS idx_citizenship_person_id;
+DROP INDEX IF EXISTS idx_citizenship_country_id;
+DROP INDEX IF EXISTS idx_crew_person_id;
+DROP INDEX IF EXISTS idx_crew_movie_id;
+DROP INDEX IF EXISTS idx_movie_ratings_user_id;
+DROP INDEX IF EXISTS idx_movie_ratings_movie_id;
+DROP INDEX IF EXISTS idx_person_ratings_user_id;
+DROP INDEX IF EXISTS idx_person_ratings_person_id;
+DROP INDEX IF EXISTS idx_profession_person_id;
+DROP INDEX IF EXISTS idx_review_user_id;
+DROP INDEX IF EXISTS idx_review_movie_id;
+----------------------------------------------
+
 
 CREATE SCHEMA imdb2;
 
@@ -79,13 +113,6 @@ CREATE TABLE movie_language (
 
 	CONSTRAINT unique_movie_language UNIQUE(movie_id,"language")
 );
-
-CREATE TABLE movie_ranking ( 
-	movie_id             integer  PRIMARY KEY /*REFERENCES movie*/,
-	score                numeric(4,2)  NOT NULL ,
-	marks_quantity       integer  NOT NULL
- );
-
 CREATE TABLE similar_movies ( 
 	movie_id1            integer  NOT NULL /*REFERENCES movie*/,
 	movie_id2            integer  NOT NULL /*REFERENCES movie*/ ,
@@ -189,14 +216,6 @@ CREATE TABLE people (
 	CHECK (born < NOW()) ,
 	CHECK (born < died)
  );
-
-    
-CREATE TABLE people_ranking ( 
-	person_id            integer  PRIMARY KEY /*REFERENCES people*/,
-	score                numeric(4,2)   NOT NULL,
-	marks_quantity       integer  NOT NULL 
- );
-
 CREATE TABLE users ( 
 	login                varchar(17)  PRIMARY KEY ,
 	"password"           varchar(512)  NOT NULL ,
@@ -251,8 +270,23 @@ begin
 end;
 $$
 language plpgsql;
-
 ----------------------------------------------
+
+--delete symmetric rows
+CREATE OR REPLACE FUNCTION delete_symmetric_rows() RETURNS trigger AS $$
+BEGIN
+    IF (SELECT EXISTS( SELECT 1 FROM similar_movies WHERE NEW.movie_id1=movie_id2 AND NEW.movie_id2=movie_id1))
+        THEN RAISE EXCEPTION 'Symmetric record already exists!';
+    END IF;
+    RETURN NEW; 
+    
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER symmetric_rows BEFORE INSERT OR UPDATE ON similar_movies
+FOR EACH ROW EXECUTE PROCEDURE delete_symmetric_rows();
+----------------------------------------------
+
+
 --movie_year
 CREATE OR REPLACE FUNCTION movie_year(id int) RETURNS double precision AS $$
 BEGIN
@@ -288,12 +322,10 @@ BEGIN
 	IF (SELECT SUM(1) FROM categories WHERE category = NEW.category AND movie_or_person = 'M')
 		= 0 THEN
 		RAISE EXCEPTION 'Wrong category';
-		RETURN NULL;
 	END IF;
 
 	IF movie_year(NEW.movie_id) > NEW.year OR movie_year(NEW.movie_id) + 2 < NEW.year THEN
 		RAISE EXCEPTION 'Wrong year';
-		RETURN NULL;
 	END IF;
 
 	IF NEW.year < (SELECT to_year(since) FROM categories WHERE category = NEW.category)
@@ -301,7 +333,6 @@ BEGIN
 	   NEW.year > COALESCE((SELECT to_year("to") FROM categories WHERE category = NEW.category),
 	   	to_year(current_date)) THEN
 		RAISE EXCEPTION 'Wrong year';
-		RETURN NULL;
 	END IF;
 
 	--categories constraints
@@ -314,7 +345,6 @@ BEGIN
 			WHERE movie_id = NEW.movie_id AND genre = 'Animation') IS NULL
 			THEN
 				RAISE EXCEPTION 'Wrong genere!';
-				RETURN NULL;
 		END IF;
 	END IF;
 	IF
@@ -327,7 +357,6 @@ BEGIN
 			IF (SELECT runtime FROM movie WHERE movie_id = NEW.movie_id) > INTERVAL '40 minutes'
 			THEN
 				RAISE EXCEPTION 'Not short film';
-				RETURN NULL;
 			END IF;
 	END IF;
 	IF
@@ -338,7 +367,6 @@ BEGIN
 			WHERE movie_id = NEW.movie_id AND genre = 'Documentary') IS NULL
 			THEN
 				RAISE EXCEPTION 'Wrong genere!';
-				RETURN NULL;
 		END IF;
 	END IF;
 	IF
@@ -349,7 +377,6 @@ BEGIN
 			WHERE movie_id = NEW.movie_id AND genre = 'Comedy') IS NULL
 			THEN 
 				RAISE EXCEPTION 'Wrong genere!';
-				RETURN NULL;
 		END IF;
 	END IF;
 	IF
@@ -360,7 +387,6 @@ BEGIN
 			WHERE movie_id = NEW.movie_id AND genre = 'Music') IS NULL
 			THEN
 				RAISE EXCEPTION 'Wrong genere!';
-				RETURN NULL;
 		END IF;
 	END IF;
 
@@ -380,19 +406,16 @@ BEGIN
 	IF NEW.movie_id IS NOT NULL THEN
 		IF movie_year(NEW.movie_id) > NEW.year OR movie_year(NEW.movie_id) + 2 < NEW.year THEN
 			RAISE EXCEPTION 'Wrong year';
-			RETURN NULL;
 		END IF;
 	END IF;
 
 	IF (SELECT SUM(1) FROM categories WHERE category = NEW.category AND movie_or_person = 'P')
 		= 0 THEN
 		RAISE EXCEPTION 'Wrong category';
-		RETURN NULL;
 	END IF;
 
 	IF to_year((SELECT born FROM people WHERE person_id = NEW.person_id)) > NEW.year THEN
 		RAISE EXCEPTION 'Wrong year';
-		RETURN NULL;
 	END IF;
 
 	IF NEW.year < (SELECT to_year(since) FROM categories WHERE category = NEW.category)
@@ -400,7 +423,6 @@ BEGIN
 	   NEW.year > COALESCE((SELECT to_year("to") FROM categories WHERE category = NEW.category),
 	   	to_year(current_date)) THEN
 		RAISE EXCEPTION 'Wrong year';
-		RETURN NULL;
 	END IF;
 
 	--categories constraints
@@ -414,7 +436,6 @@ BEGIN
 				WHERE c.movie_id = NEW.movie_id AND c.person_id = NEW.person_id AND role = 'Director') IS NULL
 				THEN
 					RAISE EXCEPTION 'This person did not directed this film!';
-					RETURN NULL;
 			END IF;
 	END IF;
 	IF
@@ -427,7 +448,6 @@ BEGIN
 				WHERE c.movie_id = NEW.movie_id AND c.person_id = NEW.person_id AND role = 'Actor') IS NULL
 				THEN
 					RAISE EXCEPTION 'This person did not stare at this film!';
-					RETURN NULL;
 			END IF;
 	END IF;
 	IF
@@ -437,7 +457,6 @@ BEGIN
 			WHERE movie_id = NEW.movie_id AND genre = 'Comedy') IS NULL
 			THEN
 				RAISE EXCEPTION 'Wrong genere!';
-				RETURN NULL;
 		END IF;
 	END IF;
 	IF
@@ -447,7 +466,6 @@ BEGIN
 			WHERE movie_id = NEW.movie_id AND genre = 'Dramatic') IS NULL
 			THEN
 				RAISE EXCEPTION 'Wrong genere!';
-				RETURN NULL;
 		END IF;
 	END IF;
 
@@ -458,9 +476,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER people_awards_trig BEFORE INSERT OR UPDATE ON people_awards
 FOR EACH ROW EXECUTE PROCEDURE people_awards_trig();
 
-
 --person can't work on the movie before he/she was born
-
 
 CREATE OR REPLACE FUNCTION before_born() RETURNS trigger AS $$
 BEGIN
@@ -476,18 +492,92 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER before_born BEFORE INSERT OR UPDATE ON crew
 FOR EACH ROW EXECUTE PROCEDURE before_born();
-
 ----------------------------------------------
 
+--how many awards for a movie
+CREATE OR REPLACE FUNCTION awards_amount(movieIn varchar,c char) RETURNS integer AS $$
+BEGIN
+    IF(c='W' OR c='N') THEN
+        RETURN (SELECT count(*) FROM movie_awards ma WHERE movie_id IN (SELECT movie_id FROM movie WHERE title=movieIn) AND nomination_or_win=c);
+    END IF;
+    IF(c='B') THEN /* B for both */
+        RETURN (SELECT count(*) FROM movie_awards ma WHERE movie_id IN (SELECT movie_id FROM movie WHERE title=movieIn));
+    END IF;
+    RAISE EXCEPTION 'Invalid input';
+END;
+$$ LANGUAGE plpgsql;
+
+--VIEWS
+
+--movie ranking
+CREATE OR REPLACE VIEW show_movie_ranking AS 
+SELECT
+    RANK() OVER(ORDER BY SUM(mark)/COUNT(mark) DESC) AS "ranking", 
+    movie_id,
+    (SELECT title FROM movie WHERE movie_id=mr.movie_id),
+    ROUND(SUM(mark)/COUNT(mark),1) AS avg_mark, COUNT(*) AS votes 
+FROM movie_ratings mr GROUP BY movie_id HAVING(COUNT(mark)>=5) ORDER BY avg_mark desc;
+/*required to have at least 5 votes to be considered in the movie ranking*/
 ----------------------------------------------
 
+--heart-movie-ranking
+CREATE OR REPLACE VIEW show_heart_movie_ranking AS 
+SELECT
+    RANK() OVER( ORDER BY count(heart) DESC) AS "ranking", 
+    movie_id,
+    (SELECT title FROM movie WHERE movie_id=mr.movie_id),
+    count(heart) AS hearts
+FROM movie_ratings mr WHERE heart='H' GROUP BY movie_id HAVING(COUNT(heart)>=5) ORDER BY hearts desc;
+/*required to have at least 5 votes to be considered in the heart-movie ranking*/
+----------------------------------------------
+
+--person-ranking
+CREATE OR REPLACE VIEW show_person_ranking AS 
+SELECT
+    RANK() OVER(ORDER BY SUM(mark)/COUNT(mark) DESC) AS "ranking", 
+    person_id,
+    (SELECT first_name||' '||last_name FROM people WHERE person_id=pr.person_id) as name,
+    ROUND(SUM(mark)/COUNT(mark),1) AS avg_mark, COUNT(*) AS votes 
+FROM person_ratings pr GROUP BY person_id HAVING(COUNT(mark)>=5) ORDER BY avg_mark desc;
+/*required to have at least 5 votes to be considered in the person ranking*/
+----------------------------------------------
+
+--heart-person-ranking
+CREATE OR REPLACE VIEW show_heart_person_ranking AS 
+SELECT
+    RANK() OVER(ORDER BY count(heart) DESC) AS "ranking", 
+    person_id,
+    (SELECT first_name||' '||last_name FROM people WHERE person_id=pr.person_id) as name,
+    count(heart) AS hearts
+FROM person_ratings pr WHERE heart='H' GROUP BY person_id HAVING(COUNT(heart)>=5) ORDER BY hearts desc;
+/*required to have at least 5 votes to be considered in the person ranking*/
+----------------------------------------------
+
+--watchlist view
+CREATE OR REPLACE VIEW watchlist_info AS
+SELECT 
+    login, 
+    (SELECT title FROM movie WHERE movie_id=w.movie_id) as movie,
+    (SELECT mark FROM movie_ratings WHERE login=w.login AND movie_id=w.movie_id),
+    (SELECT heart FROM movie_ratings WHERE login=w.login AND movie_id=w.movie_id)
+FROM watchlist w ORDER BY login,mark DESC NULLS LAST, heart  NULLS LAST;
+----------------------------------------------
+
+--similar_movies view
+CREATE OR REPLACE VIEW show_similar_movies AS
+SELECT
+    (SELECT title FROM movie WHERE movie_id=movie_id1) as "movie1",
+    (SELECT title FROM movie WHERE movie_id=movie_id2) as "movie2"
+FROM similar_movies;
+----------------------------------------------    
 
 
 
+
+----------------------------------------------
 --CONSTRAINTS - FOREIGN KEYS
 ALTER TABLE movie_genre ADD CONSTRAINT fk_production_1_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE movie_language ADD CONSTRAINT fk_movie_language_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE movie_ranking ADD CONSTRAINT fk_movie_ranking_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE similar_movies ADD CONSTRAINT fk_similar_movies_movie FOREIGN KEY ( movie_id1 ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE similar_movies ADD CONSTRAINT fk_similar_movies_movie_0 FOREIGN KEY ( movie_id2 ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE alternative_title ADD CONSTRAINT fk_alternative_title_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
@@ -502,7 +592,6 @@ ALTER TABLE people_awards ADD CONSTRAINT fk_people_awards_categories FOREIGN KEY
 ALTER TABLE movie_awards ADD CONSTRAINT fk_awards_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE people_awards ADD CONSTRAINT fk_people_awards_people FOREIGN KEY ( person_id ) REFERENCES people( person_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE people_awards ADD CONSTRAINT fk_people_awards_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE people_ranking ADD CONSTRAINT fk_people_ranking_people_awards FOREIGN KEY ( person_id ) REFERENCES people( person_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE watchlist ADD CONSTRAINT fk_watchlist_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE watchlist ADD CONSTRAINT fk_watchlist_users FOREIGN KEY ( login ) REFERENCES users( login ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE person_ratings ADD CONSTRAINT fk_person_ratings_users FOREIGN KEY ( login ) REFERENCES users( login ) ON UPDATE CASCADE ON DELETE CASCADE;
@@ -511,6 +600,10 @@ ALTER TABLE profession ADD CONSTRAINT fk_profession_people FOREIGN KEY ( person_
 ALTER TABLE crew ADD CONSTRAINT fk_crew_people FOREIGN KEY ( person_id ) REFERENCES people( person_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE crew ADD CONSTRAINT fk_crew_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ----------------------------------------------
+
+
+
+
 
 --SAMPLE DATA
 INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) 
@@ -2275,7 +2368,7 @@ INSERT INTO person_ratings VALUES( 38 , 'Thancmar53' , 1 );
 INSERT INTO person_ratings VALUES( 44 , 'Valentin3' , 7 );
 INSERT INTO person_ratings VALUES( 4 , 'Sergius' , 1 );
 INSERT INTO person_ratings VALUES( 17 , 'Philippos2' , 10 );
-INSERT INTO person_ratings VALUES( 42 , 'Belshatzzar3' , 2 );
+INSERT INTO person_ratings VALUES( 42 , 'Belshatzzar3' , 2 );   
 INSERT INTO person_ratings VALUES( 22 , 'Imogen29' , 8 , 'H' );
 INSERT INTO person_ratings VALUES( 23 , 'Imogen29' , 9 , 'H' );
 INSERT INTO person_ratings VALUES( 25 , 'Imogen29' , 7 , 'H' );
@@ -2299,4 +2392,35 @@ INSERT INTO people_awards VALUES(20, 40, 'Director', 'N', 2014);
 INSERT INTO people_awards VALUES(28, 48, 'Director', 'N', 2017);
 
 --INDECIES
-
+CREATE INDEX idx_awards_movie_id ON movie_awards ( movie_id );
+CREATE INDEX idx_movie_awards_category ON movie_awards ( category );
+CREATE INDEX idx_production_1_movie_id ON movie_genre ( movie_id );
+CREATE INDEX idx_movie_genre_genre_id ON movie_genre ( genre );
+CREATE INDEX idx_movie_language_movie_id ON movie_language ( movie_id );
+CREATE INDEX idx_movie_language_language_id ON movie_language ( "language" );
+CREATE INDEX idx_people_birth_country ON people ( birth_country );
+CREATE INDEX idx_people_awards_person_id ON people_awards ( person_id );
+CREATE INDEX idx_people_awards_movie_id ON people_awards ( movie_id );
+CREATE INDEX idx_people_awards_category ON people_awards ( category );
+CREATE INDEX idx_production_movie_id ON production ( movie_id );
+CREATE INDEX idx_production_country_id ON production ( country );
+CREATE INDEX idx_production_company_movie_id ON production_company ( movie_id );
+CREATE INDEX idx_production_company_company_id ON production_company ( company );
+CREATE INDEX idx_similar_movies_movie_id1 ON similar_movies ( movie_id1 );
+CREATE INDEX idx_similar_movies_movie_id2 ON similar_movies ( movie_id2 );
+CREATE INDEX idx_watchlist_movie_id ON watchlist ( movie_id );
+CREATE INDEX idx_watchlist_user_id ON watchlist ( login );
+CREATE INDEX idx_alternative_title_movie_id ON alternative_title ( movie_id );
+CREATE INDEX idx_awards_categories_award_id ON awards_categories ( award_name );
+CREATE INDEX idx_awards_categories_category_id ON awards_categories ( category_name );
+CREATE INDEX idx_citizenship_person_id ON citizenship ( person_id );
+CREATE INDEX idx_citizenship_country_id ON citizenship ( country );
+CREATE INDEX idx_crew_person_id ON crew ( person_id );
+CREATE INDEX idx_crew_movie_id ON crew ( movie_id );
+CREATE INDEX idx_movie_ratings_user_id ON movie_ratings ( login );
+CREATE INDEX idx_movie_ratings_movie_id ON movie_ratings ( movie_id );
+CREATE INDEX idx_person_ratings_user_id ON person_ratings ( login );
+CREATE INDEX idx_person_ratings_person_id ON person_ratings ( person_id );
+CREATE INDEX idx_profession_person_id ON profession ( person_id );
+CREATE INDEX idx_review_user_id ON review ( login );
+CREATE INDEX idx_review_movie_id ON review ( movie_id );

@@ -481,19 +481,24 @@ W-Win]]></comment>
 		</table>
 		<table name="profession" generator_rows="150" >
 			<column name="person_id" type="integer" jt="4" mandatory="y" />
-			<column name="profession" type="varchar" jt="12" mandatory="y" />
+			<column name="profession" type="varchar" jt="12" />
 			<index name="idx_profession_person_id" unique="NORMAL" >
 				<column name="person_id" />
-			</index>
-			<index name="idx_profession_profession_id" unique="NORMAL" >
-				<column name="profession" />
 			</index>
 			<fk name="fk_profession_people" to_schema="imdb2" to_table="people" >
 				<fk_column name="person_id" pk="person_id" />
 			</fk>
-			<fk name="fk_profession_professions" to_schema="imdb2" to_table="professions" >
-				<fk_column name="profession" pk="profession_id" />
-			</fk>
+			<fk name="fk_profession_professions" to_schema="imdb2" to_table="professions" />
+		</table>
+		<table name="profession_0" >
+			<column name="person_id" type="integer" jt="4" mandatory="y" />
+			<column name="profession" type="varchar" jt="12" mandatory="y" />
+			<index name="idx_profession_person_id_0" unique="NORMAL" >
+				<column name="person_id" />
+			</index>
+			<index name="idx_profession_profession_id_0" unique="NORMAL" >
+				<column name="profession" />
+			</index>
 		</table>
 		<table name="professions" >
 			<column name="profession_id" type="integer" jt="4" mandatory="y" autoincrement="y" />
@@ -586,22 +591,20 @@ W-Win]]></comment>
 		<entity schema="imdb2" name="production_company" color="00FF00" x="288" y="480" />
 		<entity schema="imdb2" name="crew" color="00FF00" x="784" y="384" />
 		<entity schema="imdb2" name="production" color="00FF00" x="112" y="240" />
-		<entity schema="imdb2" name="movie_ranking" color="000080" x="448" y="896" />
-		<entity schema="imdb2" name="watchlist" color="00FF00" x="208" y="672" />
-		<entity schema="imdb2" name="person_ratings" color="00FF00" x="560" y="720" />
-		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="352" y="656" />
 		<entity schema="imdb2" name="movie_genre" color="00FF00" x="128" y="432" />
-		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="688" />
 		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="336" />
 		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="256" />
 		<entity schema="imdb2" name="similar_movies" color="C1D8EE" x="448" y="64" />
-		<entity schema="imdb2" name="users" color="FF0000" x="272" y="880" />
-		<entity schema="imdb2" name="profession" color="00FF00" x="784" y="768" />
-		<entity schema="imdb2" name="people_ranking" color="000080" x="608" y="896" />
+		<entity schema="imdb2" name="users" color="FF0000" x="560" y="848" />
+		<entity schema="imdb2" name="watchlist" color="00FF00" x="224" y="672" />
+		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="656" />
+		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="512" y="624" />
+		<entity schema="imdb2" name="person_ratings" color="00FF00" x="688" y="608" />
+		<entity schema="imdb2" name="people" color="FF0000" x="1040" y="496" />
+		<entity schema="imdb2" name="people_awards" color="00FF00" x="992" y="256" />
 		<entity schema="imdb2" name="categories" color="800000" x="944" y="48" />
-		<entity schema="imdb2" name="people_awards" color="00FF00" x="944" y="224" />
 		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="48" />
-		<entity schema="imdb2" name="people" color="FF0000" x="1008" y="464" />
+		<entity schema="imdb2" name="profession" color="00FF00" x="912" y="816" />
 		<script name="SQL_Editor" id="Editor_28d9917" language="SQL" >
 			<string><![CDATA[CREATE SCHEMA imdb2;
 

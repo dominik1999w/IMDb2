@@ -1,72 +1,10 @@
 CHECKI:
 
-TRIGGERY:
-	liczenie rankinków przy wprowadzaniu ocen
-
 VIEWS: (+FUNKCJE)
 	avards - podsumowanie ile nominacji i ile winów
 jakiś ranking z powyższego
 (filmy + persony)
-	wypisanie podobnych filmów
-	top_iles_ludzi
-	top_iles_filmów
-	wyświetlenie watchlisty + heart + oceny danego używtkownika
 	można tez jakieś wspólne cechy używtkoników z liczeniem procentów może nawet
 	historia dla nagrody
 
 	numeric -> integer
-
-OGÓLNE:
-	indexy!!!
-
-
-
-CREATE INDEX idx_awards_movie_id ON movie_awards ( movie_id );
-
-CREATE INDEX idx_movie_awards_awards_id ON movie_awards ( award_name );
-
-CREATE INDEX idx_people_birth_country ON people ( birth_country );
-
-CREATE INDEX idx_people_awards_movie_id ON people_awards ( movie_id );
-
-CREATE INDEX idx_people_awards_award_id ON people_awards ( award_id );
-
-CREATE INDEX idx_production_company_movie_id ON production_company ( movie_id );
-
-CREATE INDEX idx_production_company_company_id ON production_company ( company );
-
-CREATE INDEX idx_similar_movies_movie_id1 ON similar_movies ( movie_id1 );
-
-CREATE INDEX idx_similar_movies_movie_id2 ON similar_movies ( movie_id2 );
-
-CREATE INDEX idx_watchlist_movie_id ON watchlist ( movie_id );
-
-CREATE INDEX idx_watchlist_user_id ON watchlist ( user_id );
-
-CREATE INDEX idx_alternative_title_movie_id ON alternative_title ( movie_id );
-
-CREATE INDEX idx_awards_categories_award_id ON awards_categories ( award_id );
-
-CREATE INDEX idx_awards_categories_category_id ON awards_categories ( category_id );
-
-CREATE INDEX idx_crew_person_id ON crew ( person_id );
-
-CREATE INDEX idx_citizenship_person_id ON citizenship ( person_id );
-
-CREATE INDEX idx_crew_movie_id ON crew ( movie_id );
-
-CREATE INDEX idx_movie_ratings_user_id ON movie_ratings ( user_id );
-
-CREATE INDEX idx_movie_ratings_movie_id ON movie_ratings ( movie_id );
-
-CREATE INDEX idx_person_ratings_user_id ON person_ratings ( user_id );
-
-CREATE INDEX idx_person_ratings_person_id ON person_ratings ( person_id );
-
-CREATE INDEX idx_profession_person_id ON profession ( person_id );
-
-CREATE INDEX idx_profession_profession_id ON profession ( profession );
-
-CREATE INDEX idx_review_user_id ON review ( user_id );
-
-CREATE INDEX idx_review_movie_id ON review ( movie_id );
