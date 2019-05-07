@@ -320,7 +320,7 @@ FOR EACH ROW EXECUTE PROCEDURE is_alive_trig();
 CREATE OR REPLACE FUNCTION movie_awards_trig() RETURNS trigger AS $$
 BEGIN
 	IF (SELECT SUM(1) FROM categories WHERE category = NEW.category AND movie_or_person = 'M')
-		= 0 THEN
+		IS NULL THEN
 		RAISE EXCEPTION 'Wrong category';
 	END IF;
 
@@ -410,7 +410,7 @@ BEGIN
 	END IF;
 
 	IF (SELECT SUM(1) FROM categories WHERE category = NEW.category AND movie_or_person = 'P')
-		= 0 THEN
+		IS NULL THEN
 		RAISE EXCEPTION 'Wrong category';
 	END IF;
 
@@ -495,13 +495,13 @@ FOR EACH ROW EXECUTE PROCEDURE before_born();
 ----------------------------------------------
 
 --how many awards for a movie
-CREATE OR REPLACE FUNCTION awards_amount(movieIn varchar,c char) RETURNS integer AS $$
+CREATE OR REPLACE FUNCTION awards_amount(movieIn integer,c char) RETURNS integer AS $$
 BEGIN
     IF(c='W' OR c='N') THEN
-        RETURN (SELECT count(*) FROM movie_awards ma WHERE movie_id IN (SELECT movie_id FROM movie WHERE title=movieIn) AND nomination_or_win=c);
+        RETURN (SELECT count(*) FROM movie_awards ma WHERE movie_id = movieIn AND nomination_or_win=c);
     END IF;
     IF(c='B') THEN /* B for both */
-        RETURN (SELECT count(*) FROM movie_awards ma WHERE movie_id IN (SELECT movie_id FROM movie WHERE title=movieIn));
+        RETURN (SELECT count(*) FROM movie_awards ma WHERE movie_id = movieIn);
     END IF;
     RAISE EXCEPTION 'Invalid input';
 END;
@@ -2370,8 +2370,13 @@ INSERT INTO person_ratings VALUES( 4 , 'Sergius' , 1 );
 INSERT INTO person_ratings VALUES( 17 , 'Philippos2' , 10 );
 INSERT INTO person_ratings VALUES( 42 , 'Belshatzzar3' , 2 );   
 INSERT INTO person_ratings VALUES( 22 , 'Imogen29' , 8 , 'H' );
-INSERT INTO person_ratings VALUES( 23 , 'Imogen29' , 9 , 'H' );
-INSERT INTO person_ratings VALUES( 25 , 'Imogen29' , 7 , 'H' );
+INSERT INTO person_ratings VALUES( 23 , 'Tanja643' , 9 , 'H' );
+INSERT INTO person_ratings VALUES( 25 , 'Belshatzzar3' , 7 , 'H' );
+INSERT INTO person_ratings VALUES( 22 , 'Iracema' , 4 , 'H' );
+INSERT INTO person_ratings VALUES( 22 , 'Raj1' , 1 , 'H' );
+INSERT INTO person_ratings VALUES( 22 , 'Aurelius4' , 1 , 'H' );
+INSERT INTO person_ratings VALUES( 22 , 'Minos' , 8 , 'H' );
+INSERT INTO person_ratings VALUES( 22 , 'EvyDinesh' , 8 , 'H' );
 
 --use
 --while read line; do echo "INSERT INTO people_ratings VALUES(" $((RANDOM % 50 + 1)) "," $line "," $((RANDOM % 10 + 1)) ");"; done < a 
