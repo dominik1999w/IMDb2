@@ -26,12 +26,24 @@ DROP TABLE IF EXISTS review CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;
 ----------------------------------------------
 --DROP TRIGGERS IF EXIST
-
 DROP TRIGGER IF EXISTS is_alive ON people;
 DROP TRIGGER IF EXISTS movie_awards_trig ON people;
 DROP TRIGGER IF EXISTS people_awards_trig ON people;
 DROP TRIGGER IF EXISTS before_born ON crew;
 DROP TRIGGER IF EXISTS symmetric_rows ON similar_movies;
+----------------------------------------------
+--DROP FUNCTIONS IF EXIST
+DROP FUNCTION IF EXISTS to_year(date);
+DROP FUNCTION IF EXISTS remove_duplicates(text);
+DROP FUNCTION IF EXISTS delete_symmetric_rows();
+DROP FUNCTION IF EXISTS movie_year(int);
+DROP FUNCTION IF EXISTS is_alive_trig();
+DROP FUNCTION IF EXISTS movie_awards_trig();
+DROP FUNCTION IF EXISTS people_awards_trig();
+DROP FUNCTION IF EXISTS before_born();
+DROP FUNCTION IF EXISTS awards_amount(integer, char);
+DROP FUNCTION IF EXISTS shoq_similar(integer);
+
 ----------------------------------------------
 
 --DROP INDECIES IF EXIST
@@ -507,6 +519,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+----------------------------------------------
+
+--similar movies
+CREATE OR REPLACE FUNCTION show_similar(id integer) RETURNS 
+	TABLE (
+		m_id integer,
+		movie_title varchar(512),
+		release_year double precision
+	)
+ AS $$
+BEGIN
+
+	RETURN QUERY SELECT 
+	movie_id,
+	title,
+	to_year(release_date)
+	 FROM movie m WHERE movie_id IN (SELECT movie_id1 FROM similar_movies WHERE movie_id2 = 2) OR movie_id IN (SELECT movie_id2 FROM similar_movies WHERE movie_id1 = 2);
+
+END;
+$$ LANGUAGE plpgsql;
+
+--to use type : SELECT * FROM show_similar(id);
+----------------------------------------------
+
 --VIEWS
 
 --movie ranking
@@ -569,6 +605,7 @@ SELECT
     (SELECT title FROM movie WHERE movie_id=movie_id1) as "movie1",
     (SELECT title FROM movie WHERE movie_id=movie_id2) as "movie2"
 FROM similar_movies;
+
 ----------------------------------------------    
 
 
