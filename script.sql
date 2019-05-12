@@ -43,6 +43,7 @@ DROP FUNCTION IF EXISTS people_awards_trig();
 DROP FUNCTION IF EXISTS before_born();
 DROP FUNCTION IF EXISTS awards_amount(integer, char);
 DROP FUNCTION IF EXISTS shoq_similar(integer);
+DROP FUNCTION IF EXISTS seen_date();
 
 ----------------------------------------------
 
@@ -144,8 +145,9 @@ CREATE TABLE movie_ratings (
 	login                varchar(17)  /*REFERENCES users*/,
 	mark                 numeric(2)  NOT NULL ,
 	heart                char(1)  , 
-
+    seen                 date DEFAULT NOW() ,
 	PRIMARY KEY(movie_id,login),
+    CHECK(seen<=NOW()),
 	CHECK(heart = 'H' OR heart IS NULL) ,
 	CHECK(mark > 0 AND mark <= 10) 
  );
@@ -273,6 +275,18 @@ CREATE TABLE crew (
 ----------------------------------------------
 
 --FUNCTIONS
+
+--seen_date constraint
+CREATE OR REPLACE function seen_date() returns trigger AS $$
+BEGIN 
+    IF ((SELECT release_date FROM movie WHERE movie_id=NEW.movie_id)>NEW.seen)
+        THEN RAISE EXCEPTION 'Seen date is not valid!';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER seen_date_trigger BEFORE INSERT OR UPDATE ON movie_ratings
+FOR EACH ROW EXECUTE PROCEDURE seen_date();
 
 --delete duplicates
 create or replace function remove_duplicates(a text) returns void as
