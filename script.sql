@@ -44,9 +44,16 @@ DROP FUNCTION IF EXISTS before_born();
 DROP FUNCTION IF EXISTS awards_amount(integer, char);
 DROP FUNCTION IF EXISTS shoq_similar(integer);
 DROP FUNCTION IF EXISTS seen_date();
-
 ----------------------------------------------
-
+--DROP VIEW IF EXIST
+DROP VIEW IF EXISTS show_movie_ranking;
+DROP VIEW IF EXISTS show_heart_movie_ranking;
+DROP VIEW IF EXISTS show_person_ranking;
+DROP VIEW IF EXISTS show_heart_person_ranking;
+DROP VIEW IF EXISTS watchlist_info;
+DROP VIEW IF EXISTS show_similar_movies;
+DROP VIEW IF EXISTS user_history;
+----------------------------------------------
 --DROP INDECIES IF EXIST
 DROP INDEX IF EXISTS idx_awards_movie_id;
 DROP INDEX IF EXISTS idx_movie_awards_category;
@@ -112,6 +119,8 @@ CREATE TYPE genre_type AS ENUM('Action','Adventure','Animation','Biography','Com
 	'Crime','Documentary','Drama','Family','Fantasy','Film Noir','History','Horror',
 	'Music','Musical','Mystery','Romance','Sci-fi','Short','Sport','Superhero','Thriller',
 	'War','Western','Other'); /*enum for genres*/
+
+CREATE TYPE role_type AS ENUM ('Director','Editor','Music','Cameraworker','Writer','Actor','Others'); /*ENUM FOR CREW*/
 
 CREATE TABLE movie_genre ( 
 	movie_id             integer  NOT NULL /*REFERENCES movie*/,
@@ -184,8 +193,13 @@ CREATE TABLE categories (
 	since                date  NOT NULL ,
 	"to"                 date DEFAULT current_date  ,
 	movie_or_person      char(1)   ,
+	category_genre       genre_type ,
+	category_role        role_type ,
+	is_short             char(1) ,
 
-	CHECK (movie_or_person = 'M' OR movie_or_person = 'P')
+
+	CHECK (movie_or_person = 'M' OR movie_or_person = 'P') ,
+	CHECK (is_short = 'Y')
  );
 
 CREATE TABLE movie_awards ( 
@@ -261,7 +275,7 @@ CREATE TABLE profession (
 	CONSTRAINT unique_profession UNIQUE(person_id,profession)
 );
 
-CREATE TYPE role_type AS ENUM ('Director','Editor','Music','Cameraworker','Writer','Actor','Others'); /*ENUM FOR CREW*/
+
 
 CREATE TABLE crew ( 
 	person_id            integer  NOT NULL /*REFERENCES people*/,
@@ -364,56 +378,21 @@ BEGIN
 	--categories constraints
 
 	IF 
-		NEW.category = 'Animated Feature Film' OR
-		NEW.category = 'Animated Short Film'
+		(SELECT category_genre FROM categories WHERE category = NEW.category) IS NOT NULL
 		THEN
 		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = 'Animation') IS NULL
+			WHERE movie_id = NEW.movie_id AND genre IN (SELECT category_genre FROM categories WHERE category = NEW.category)) IS NULL
 			THEN
 				RAISE EXCEPTION 'Wrong genere!';
 		END IF;
 	END IF;
 	IF
-		NEW.category = 'Animated Short Film' OR
-		NEW.category = 'Documentary Short Subject' OR
-		NEW.category = 'Live Action Short Film' OR
-		NEW.category = 'Short Subject – Color' OR
-		NEW.category = 'Short Subject – Comedy'
+		(SELECT is_short FROM categories WHERE category = NEW.category) IS NOT NULL
 		THEN
 			IF (SELECT runtime FROM movie WHERE movie_id = NEW.movie_id) > INTERVAL '40 minutes'
 			THEN
 				RAISE EXCEPTION 'Not short film';
 			END IF;
-	END IF;
-	IF
-		NEW.category = 'Documentary Feature' OR
-		NEW.category = 'Documentary Short Subject'
-		THEN
-		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = 'Documentary') IS NULL
-			THEN
-				RAISE EXCEPTION 'Wrong genere!';
-		END IF;
-	END IF;
-	IF
-		NEW.category = 'Original Musical or Comedy Score' OR
-		NEW.category = 'Short Subject – Comedy'
-		THEN
-		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = 'Comedy') IS NULL
-			THEN 
-				RAISE EXCEPTION 'Wrong genere!';
-		END IF;
-	END IF;
-	IF
-		NEW.category = 'Original Musical or Comedy Score' OR
-		NEW.category = 'Original Musical'
-		THEN
-		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = 'Music') IS NULL
-			THEN
-				RAISE EXCEPTION 'Wrong genere!';
-		END IF;
 	END IF;
 
 	RETURN NEW;
@@ -453,46 +432,24 @@ BEGIN
 
 	--categories constraints
 
-	IF  NEW.category = 'Director' OR 
-		NEW.category = 'Assistant Director' OR 
-		NEW.category = 'Director - Comedy' OR 
-		NEW.category = 'Director - Dramatic'
+	IF 
+		(SELECT category_genre FROM categories WHERE category = NEW.category) IS NOT NULL
 		THEN
-			IF (SELECT person_id FROM crew c JOIN movie m USING(movie_id) 
-				WHERE c.movie_id = NEW.movie_id AND c.person_id = NEW.person_id AND role = 'Director') IS NULL
-				THEN
-					RAISE EXCEPTION 'This person did not directed this film!';
-			END IF;
+		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
+			WHERE movie_id = NEW.movie_id AND genre = (SELECT category_genre FROM categories WHERE category = NEW.category)) IS NULL
+			THEN
+				RAISE EXCEPTION 'Wrong genere!';
+		END IF;
 	END IF;
 	IF
-		NEW.category = 'Actor' OR
-		NEW.category = 'Actress' OR
-		NEW.category = 'Supporting Actor' OR
-		NEW.category = 'Supporting Actress' 
+		(SELECT category_role FROM categories WHERE category = NEW.category) IS NOT NULL
 		THEN
 			IF (SELECT person_id FROM crew c JOIN movie m USING(movie_id) 
-				WHERE c.movie_id = NEW.movie_id AND c.person_id = NEW.person_id AND role = 'Actor') IS NULL
+				WHERE c.movie_id = NEW.movie_id AND c.person_id = NEW.person_id AND role = 
+				(SELECT category_role FROM categories WHERE category = NEW.category)) IS NULL
 				THEN
 					RAISE EXCEPTION 'This person did not stare at this film!';
 			END IF;
-	END IF;
-	IF
-		NEW.category = 'Director - Comedy'
-		THEN
-		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = 'Comedy') IS NULL
-			THEN
-				RAISE EXCEPTION 'Wrong genere!';
-		END IF;
-	END IF;
-	IF
-		NEW.category = 'Director - Dramatic'
-		THEN
-		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = 'Dramatic') IS NULL
-			THEN
-				RAISE EXCEPTION 'Wrong genere!';
-		END IF;
 	END IF;
 
 	RETURN NEW;
@@ -619,6 +576,14 @@ SELECT
     (SELECT title FROM movie WHERE movie_id=movie_id1) as "movie1",
     (SELECT title FROM movie WHERE movie_id=movie_id2) as "movie2"
 FROM similar_movies;
+
+----------------------------------------------   
+
+--user_history
+CREATE OR REPLACE VIEW user_history AS
+SELECT mark, heart, movie_id, title, to_year(release_date) AS "year", login  
+FROM movie_ratings JOIN movie USING(movie_id) 
+ORDER BY 1 DESC, 2, 5 DESC;
 
 ----------------------------------------------    
 
@@ -1155,20 +1120,20 @@ INSERT INTO watchlist VALUES('Audhild2',12);
 INSERT INTO watchlist VALUES('Audhild2',7);
 
 INSERT INTO categories VALUES('Picture', '1927-01-01', NULL, 'M');
-INSERT INTO categories VALUES('Director', '1927-01-01', NULL, 'P');
-INSERT INTO categories VALUES('Actor', '1927-01-01', NULL, 'P');
-INSERT INTO categories VALUES('Actress', '1927-01-01', NULL, 'P');
-INSERT INTO categories VALUES('Supporting Actor', '1936-01-01', NULL, 'P');
-INSERT INTO categories VALUES('Supporting Actress', '1936-01-01', NULL, 'P');
-INSERT INTO categories VALUES('Animated Feature Film', '2001-01-01', NULL, 'M');
-INSERT INTO categories VALUES('Animated Short Film', '1930-01-01', NULL, 'M');
+INSERT INTO categories VALUES('Director', '1927-01-01', NULL, 'P', NULL, 'Director');
+INSERT INTO categories VALUES('Actor', '1927-01-01', NULL, 'P', NULL, 'Actor');
+INSERT INTO categories VALUES('Actress', '1927-01-01', NULL, 'P', NULL, 'Actor');
+INSERT INTO categories VALUES('Supporting Actor', '1936-01-01', NULL, 'P', NULL, 'Actor');
+INSERT INTO categories VALUES('Supporting Actress', '1936-01-01', NULL, 'P', NULL, 'Actor');
+INSERT INTO categories VALUES('Animated Feature Film', '2001-01-01', NULL, 'M', 'Animation');
+INSERT INTO categories VALUES('Animated Short Film', '1930-01-01', NULL, 'M', 'Animation', NULL, 'Y');
 INSERT INTO categories VALUES('Cinematography', '1927-01-01', NULL, 'M');
 INSERT INTO categories VALUES('Costume Design', '1948-01-01', NULL, 'M');
-INSERT INTO categories VALUES('Documentary Feature', '1943-01-01', NULL, 'M');
-INSERT INTO categories VALUES('Documentary Short Subject', '1941-01-01', NULL, 'M');
+INSERT INTO categories VALUES('Documentary Feature', '1943-01-01', NULL, 'M', 'Documentary');
+INSERT INTO categories VALUES('Documentary Short Subject', '1941-01-01', NULL, 'M', 'Documentary');
 INSERT INTO categories VALUES('Film Editing', '1934-01-01', NULL, 'M');
 INSERT INTO categories VALUES('International Feature Film', '1947-01-01', NULL, 'M');
-INSERT INTO categories VALUES('Live Action Short Film', '1931-01-01', NULL, 'M');
+INSERT INTO categories VALUES('Live Action Short Film', '1931-01-01', NULL, 'M', 'Action', NULL, 'Y');
 INSERT INTO categories VALUES('Makeup and Hairstyling', '1981-01-01', NULL, 'M');
 INSERT INTO categories VALUES('Original Score', '1934-01-01', NULL, 'M');
 INSERT INTO categories VALUES('Original Song', '1934-01-01', NULL, 'M');
@@ -1178,16 +1143,15 @@ INSERT INTO categories VALUES('Sound Mixing', '1929-01-01', NULL, 'M');
 INSERT INTO categories VALUES('Visual Effects', '1939-01-01', NULL, 'M');
 INSERT INTO categories VALUES('Adapted Screenplay', '1927-01-01', NULL, 'M');
 INSERT INTO categories VALUES('Original Screenplay', '1940-01-01', NULL, 'M');
-INSERT INTO categories VALUES('Assistant Director', '1932-01-01', '1937-12-31', 'P');
-INSERT INTO categories VALUES('Director - Comedy', '1927-01-01', '1928-12-31', 'P');
-INSERT INTO categories VALUES('Director - Dramatic', '1927-01-01', '1928-12-31', 'P');
+INSERT INTO categories VALUES('Assistant Director', '1932-01-01', '1937-12-31', 'P', NULL, 'Director');
+INSERT INTO categories VALUES('Director - Comedy', '1927-01-01', '1928-12-31', 'P', 'Comedy', 'Director');
+INSERT INTO categories VALUES('Director - Dramatic', '1927-01-01', '1928-12-31', 'P', 'Drama', 'Director');
 INSERT INTO categories VALUES('Dance Direction', '1935-01-01', '1937-12-31', 'M');
 INSERT INTO categories VALUES('Engineering Effects', '1927-01-01', '1928-12-31', 'M');
-INSERT INTO categories VALUES('Original Musical or Comedy Score', '1995-01-01', '1998-12-31', 'M');
-INSERT INTO categories VALUES('Original Musical', '1984-01-01', '1984-12-31', 'M');
+INSERT INTO categories VALUES('Original Musical', '1984-01-01', '1984-12-31', 'M', 'Musical');
 INSERT INTO categories VALUES('Original Story', '1927-01-01', '1956-12-31', 'M');
-INSERT INTO categories VALUES('Short Subject – Color', '1936-01-01', '1937-12-31', 'M');
-INSERT INTO categories VALUES('Short Subject – Comedy', '1931-01-01', '1935-12-31', 'M');
+INSERT INTO categories VALUES('Short Subject – Color', '1936-01-01', '1937-12-31', 'M', NULL, NULL, 'Y');
+INSERT INTO categories VALUES('Short Subject – Comedy', '1931-01-01', '1935-12-31', 'M', 'Comedy', NULL, 'Y');
 INSERT INTO categories VALUES('Title Writing', '1927-01-01', '1928-12-31', 'M');
 INSERT INTO categories VALUES('Unique and Artistic Production', '1927-01-01', '1928-12-31', 'M');
 

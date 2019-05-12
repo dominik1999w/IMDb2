@@ -84,6 +84,9 @@ B-both]]></comment>
 				<defo>current_date</defo>
 			</column>
 			<column name="movie_or_person" type="char" length="1" jt="1" />
+			<column name="category_genre" type="varchar" jt="12" />
+			<column name="category_role" type="varchar" jt="12" />
+			<column name="is_short" type="char" length="1" jt="1" />
 			<index name="pk_categories_category" unique="PRIMARY_KEY" >
 				<column name="category" />
 			</index>
@@ -603,11 +606,11 @@ W-Win]]></comment>
 		<entity schema="imdb2" name="person_ratings" color="00FF00" x="688" y="608" />
 		<entity schema="imdb2" name="people" color="FF0000" x="1040" y="496" />
 		<entity schema="imdb2" name="people_awards" color="00FF00" x="992" y="256" />
-		<entity schema="imdb2" name="categories" color="800000" x="944" y="48" />
 		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="48" />
 		<entity schema="imdb2" name="profession" color="00FF00" x="912" y="816" />
 		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="512" y="624" />
 		<entity schema="imdb2" name="users" color="FF0000" x="560" y="848" />
+		<entity schema="imdb2" name="categories" color="800000" x="944" y="48" />
 		<script name="SQL_Editor" id="Editor_28d9917" language="SQL" >
 			<string><![CDATA[CREATE SCHEMA imdb2;
 
@@ -1943,8 +1946,7 @@ CREATE TABLE imdb2.review (
 
 CREATE INDEX idx_review_user_id ON imdb2.review ( login );
 
-CREATE INDEX idx_review_movie_id ON imdb2.review ( movie_id );
-]]></string>
+CREATE INDEX idx_review_movie_id ON imdb2.review ( movie_id );]]></string>
 		</script>
 		<script name="SQL_Editor_003" id="Editor_2729973" language="SQL" >
 			<string><![CDATA[CREATE SCHEMA imdb2;
@@ -2430,8 +2432,7 @@ ALTER TABLE imdb2.watchlist ADD CONSTRAINT fk_watchlist_users FOREIGN KEY ( logi
 
 ALTER TABLE imdb2.writers ADD CONSTRAINT fk_writers_movie FOREIGN KEY ( movie_id ) REFERENCES imdb2.movie( movie_id );
 
-ALTER TABLE imdb2.writers ADD CONSTRAINT fk_writers_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );
-]]></string>
+ALTER TABLE imdb2.writers ADD CONSTRAINT fk_writers_people FOREIGN KEY ( person_id ) REFERENCES imdb2.people( person_id );]]></string>
 		</script>
 	</layout>
 </project>

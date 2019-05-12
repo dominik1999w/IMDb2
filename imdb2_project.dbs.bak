@@ -330,6 +330,9 @@ W-winner]]></comment>
 			<column name="heart" type="char" length="1" jt="1" >
 				<comment><![CDATA[H - heart]]></comment>
 			</column>
+			<column name="seen" type="date" jt="91" >
+				<defo>current_date</defo>
+			</column>
 			<index name="idx_movie_ratings_user_id" unique="NORMAL" >
 				<column name="login" />
 			</index>
@@ -595,16 +598,16 @@ W-Win]]></comment>
 		<entity schema="imdb2" name="movie_language" color="00FF00" x="96" y="336" />
 		<entity schema="imdb2" name="movie" color="FF0000" x="432" y="256" />
 		<entity schema="imdb2" name="similar_movies" color="C1D8EE" x="448" y="64" />
-		<entity schema="imdb2" name="users" color="FF0000" x="560" y="848" />
 		<entity schema="imdb2" name="watchlist" color="00FF00" x="224" y="672" />
 		<entity schema="imdb2" name="review" color="FF00FF" x="48" y="656" />
-		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="512" y="624" />
 		<entity schema="imdb2" name="person_ratings" color="00FF00" x="688" y="608" />
 		<entity schema="imdb2" name="people" color="FF0000" x="1040" y="496" />
 		<entity schema="imdb2" name="people_awards" color="00FF00" x="992" y="256" />
 		<entity schema="imdb2" name="categories" color="800000" x="944" y="48" />
 		<entity schema="imdb2" name="movie_awards" color="00FF00" x="720" y="48" />
 		<entity schema="imdb2" name="profession" color="00FF00" x="912" y="816" />
+		<entity schema="imdb2" name="movie_ratings" color="00FF00" x="512" y="624" />
+		<entity schema="imdb2" name="users" color="FF0000" x="560" y="848" />
 		<script name="SQL_Editor" id="Editor_28d9917" language="SQL" >
 			<string><![CDATA[CREATE SCHEMA imdb2;
 
