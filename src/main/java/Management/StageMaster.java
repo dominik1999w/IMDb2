@@ -12,9 +12,11 @@ public class StageMaster {
 
     private Controller currentController;
     private Stage stage;
+    public Database database;
 
     public StageMaster(Stage stage) {
         this.stage = stage;
+        this.database = new Database();
     }
 
     //While pressing buttons those methods should be applied:
