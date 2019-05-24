@@ -39,14 +39,22 @@ public class Database {
     public Database()
     {
         loadParams();
-
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager
                     .getConnection("jdbc:postgresql://" + SERVER_ADDRESS + ':' + PORT + '/' + DATABASE_NAME, USER_NAME, PASSWORD);
-        } catch(ClassNotFoundException|SQLException e) {
-            System.out.println("Connecting FAILED");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Statement s= null;
+        try {
+            s = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            s.execute("CREATE TABLE addd();");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-
 }
