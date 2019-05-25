@@ -1,5 +1,7 @@
 package Controllers;
 
+import Management.Database;
+import Management.MurmurHash;
 import javafx.fxml.Initializable;
 import Management.StageMaster;
 import java.io.IOException;
@@ -9,6 +11,8 @@ import java.util.ResourceBundle;
 public abstract class Controller implements Initializable {
 
     public static StageMaster stageMaster;
+    static Database database;
+    static String currentUser;
 
     String name;
     Controller previousController;

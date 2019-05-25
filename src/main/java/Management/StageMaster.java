@@ -32,27 +32,22 @@ public class StageMaster {
     }
 
     private void loadScene(String name) throws IOException {
-        boolean wasMaximized = false;
-        if(stage.isMaximized()) {
-            stage.setMaximized(false);
-            wasMaximized = true;
-        }
         System.out.println("LOADING: " + name);
         FXMLLoader loader = new FXMLLoader(currentController.getClass().getResource(name));
         loader.setController(currentController);
         Pane myPane = loader.load();
         this.stage.setScene(new Scene(myPane));
         stage.show();
-        if(wasMaximized){
-            stage.setMaximized(true);
-        }
     }
+
     public void setName(String name){
         stage.setTitle(name);
     }
+
     public void setResizable(boolean resizable){
         stage.setResizable(resizable);
     }
+
     public void refresh(Controller controller) throws IOException {
         Controller.stageMaster.loadNewScene(controller);
     }

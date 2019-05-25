@@ -242,7 +242,7 @@ CREATE TABLE people (
  );
 CREATE TABLE users ( 
 	login                varchar(17)  PRIMARY KEY ,
-	"password"           varchar(512)  NOT NULL ,
+	"password"           INT  NOT NULL ,
 	CONSTRAINT safety UNIQUE(login)
  );
 
@@ -967,7 +967,7 @@ INSERT INTO production_company VALUES
 INSERT INTO users(login,password)
 SELECT
 names,
-md5(random()::text)
+random()::int
 FROM unnest(
 ARRAY [
 'achana6',

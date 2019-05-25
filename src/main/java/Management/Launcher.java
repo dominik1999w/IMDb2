@@ -10,7 +10,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         System.out.println("START");
-        Controller controllerPrimary=new ControllerPrimary("/Scenes/sample.fxml",primaryStage);
+        Controller controllerPrimary = new ControllerPrimary("/Scenes/sample.fxml",primaryStage);
         Controller.stageMaster.loadNewScene(controllerPrimary);
     }
 

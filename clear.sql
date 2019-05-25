@@ -42,7 +42,7 @@ DROP FUNCTION IF EXISTS movie_awards_trig();
 DROP FUNCTION IF EXISTS people_awards_trig();
 DROP FUNCTION IF EXISTS before_born();
 DROP FUNCTION IF EXISTS awards_amount(integer, char);
-DROP FUNCTION IF EXISTS shoq_similar(integer);
+DROP FUNCTION IF EXISTS show_similar(integer);
 DROP FUNCTION IF EXISTS seen_date();
 ----------------------------------------------
 --DROP VIEW IF EXIST
