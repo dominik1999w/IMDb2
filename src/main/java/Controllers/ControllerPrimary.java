@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class ControllerPrimary extends Controller implements Initializable {
         signUpError.setText("");
         signUpSuccess.setText("");
     }
-
+//LOGIN+REGISTRATION----------------------------------------------------
     @FXML
     public void signIn(){
         zeroAnnotations();
@@ -86,6 +87,14 @@ public class ControllerPrimary extends Controller implements Initializable {
         System.out.println(currentUser + " is logged in.");
         signInLoginField.setText("");
         signInPasswordField.setText("");
+        //open mainScreen
+        try {
+            Controller.stageMaster.loadNewScene(new mainScreenController("/Scenes/mainScreen.fxml",this));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD mainScreen.fxml");
+        }
+
     }
 
     @FXML
@@ -129,6 +138,7 @@ public class ControllerPrimary extends Controller implements Initializable {
         signUpPasswordField.setText("");
         signUpPasswordFieldConfirm.setText("");
     }
+//----------------------------------------------------------------------------
 
 
 }

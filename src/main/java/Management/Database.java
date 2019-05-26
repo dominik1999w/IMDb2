@@ -4,9 +4,7 @@ import java.sql.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
+import java.util.*;
 
 public class Database {
 
@@ -77,6 +75,19 @@ public class Database {
             e.printStackTrace();
         }
         return users;
+    }
+    public Vector<String> getMovies(){
+        Vector<String> names= new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery("SELECT title FROM movie;");
+            while(resultSet.next()){
+                names.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
     }
 
 }

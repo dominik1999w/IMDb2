@@ -11,6 +11,7 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception{
         System.out.println("START");
         Controller controllerPrimary = new ControllerPrimary("/Scenes/sample.fxml",primaryStage);
+        primaryStage.setResizable(false);
         Controller.stageMaster.loadNewScene(controllerPrimary);
     }
 
