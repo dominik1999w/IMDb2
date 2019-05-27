@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="title" layoutX="386.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title (year)" />
+      <TextArea editable="false" layoutX="14.0" layoutY="300.0" prefHeight="200.0" promptText="Description" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Text layoutX="59.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Director(s):" />
+      <Text layoutX="59.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Writer(s):" />
+      <Text layoutX="59.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:" />
+      <Text layoutX="59.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="59.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="59.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="59.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="59.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="59.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="386.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="runtime" />
+      <Text layoutX="59.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="386.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="alternative titles" />
+      <ListView layoutX="59.0" layoutY="537.0" prefHeight="200.0" prefWidth="200.0" />
+      <Text layoutX="59.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stars:" />
+      <Text layoutX="59.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="603.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8,8/10" wrappingWidth="156.7294921875">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <ToggleButton layoutX="639.0" layoutY="114.0" mnemonicParsing="false" text="Heart" />
+      <ToggleButton layoutX="614.0" layoutY="170.0" mnemonicParsing="false" text="Watchlist" />
+   </children>
+</AnchorPane>

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
-
+import Types.MovieType;
 public class Database {
 
     private String SERVER_ADDRESS;
@@ -76,13 +76,15 @@ public class Database {
         }
         return users;
     }
-    public Vector<String> getMovies(){
-        Vector<String> names= new Vector<>();
+    public Vector<MovieType> getMovies(){
+        Vector<MovieType> names= new Vector<>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet =  statement.executeQuery("SELECT title FROM movie;");
+            ResultSet resultSet =  statement.executeQuery("SELECT * FROM movie;");
             while(resultSet.next()){
-                names.add(resultSet.getString(1));
+                MovieType a=new MovieType(resultSet.getInt("movie_id"),resultSet.getString("title"),resultSet.getString("release_date"),
+                        resultSet.getString("runtime"),resultSet.getInt("budget"),resultSet.getInt("boxoffice"),resultSet.getInt("opening_weekend_usa"),resultSet.getString("description"));
+                names.add(a);
             }
         } catch (SQLException e) {
             e.printStackTrace();
