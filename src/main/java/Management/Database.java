@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
 import Types.MovieType;
+import Types.PeopleType;
+import Types.MovieRankingType;
 public class Database {
 
     private String SERVER_ADDRESS;
@@ -91,5 +93,34 @@ public class Database {
         }
         return names;
     }
-
+    public Vector<PeopleType> getPeople(){
+        Vector<PeopleType> names= new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery("SELECT * FROM people;");
+            while(resultSet.next()){
+                PeopleType a=new PeopleType(resultSet.getInt("person_id"),resultSet.getString("first_name"),resultSet.getString("last_name"),
+                        resultSet.getString("born"),resultSet.getString("died"),resultSet.getString("birth_country"));
+                names.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+    public Vector<MovieRankingType> getRanking(){
+        Vector<MovieRankingType> names=new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery("SELECT * FROM show_movie_ranking LIMIT 10;");
+            while(resultSet.next()){
+                MovieRankingType a=new MovieRankingType(resultSet.getInt("ranking"),resultSet.getInt("movie_id"),resultSet.getString("title"),
+                        resultSet.getDouble("avg_mark"),resultSet.getInt("votes"));
+                names.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
 }
