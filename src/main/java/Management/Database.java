@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
-import Types.MovieType;
-import Types.PeopleType;
-import Types.MovieRankingType;
+import Types.*;
 public class Database {
 
     private String SERVER_ADDRESS;
@@ -93,6 +91,27 @@ public class Database {
         }
         return names;
     }
+    public Vector<MovieType> getMoviesFromGenre(Vector<String> genre){
+        Vector<MovieType> names= new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            StringBuilder tmp=new StringBuilder("select * from movie where movie_id in (select movie_id from movie_genre where genre=");
+            for(String x: genre){
+                tmp.append("'").append(x).append("' or genre=");
+            }
+            tmp.delete(tmp.length()-10,tmp.length());
+            tmp.append(");");
+            ResultSet resultSet =  statement.executeQuery(String.valueOf(tmp));
+            while(resultSet.next()){
+                MovieType a=new MovieType(resultSet.getInt("movie_id"),resultSet.getString("title"),resultSet.getString("release_date"),
+                        resultSet.getString("runtime"),resultSet.getInt("budget"),resultSet.getInt("boxoffice"),resultSet.getInt("opening_weekend_usa"),resultSet.getString("description"));
+                names.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
     public Vector<PeopleType> getPeople(){
         Vector<PeopleType> names= new Vector<>();
         try {
@@ -112,11 +131,39 @@ public class Database {
         Vector<MovieRankingType> names=new Vector<>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet =  statement.executeQuery("SELECT * FROM show_movie_ranking LIMIT 10;");
+            ResultSet resultSet =  statement.executeQuery("SELECT * FROM show_movie_ranking LIMIT 5;");
             while(resultSet.next()){
                 MovieRankingType a=new MovieRankingType(resultSet.getInt("ranking"),resultSet.getInt("movie_id"),resultSet.getString("title"),
                         resultSet.getDouble("avg_mark"),resultSet.getInt("votes"));
                 names.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+    public Vector<PersonRankingType> getActorsRanking(){
+        Vector<PersonRankingType> names=new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery("SELECT * FROM show_person_ranking LIMIT 5;");
+            while(resultSet.next()){
+                PersonRankingType a=new PersonRankingType(resultSet.getInt("ranking"),resultSet.getInt("person_id"),resultSet.getString("name"),
+                        resultSet.getDouble("avg_mark"),resultSet.getInt("votes"));
+                names.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+    public Vector<String> getGenre(){
+        Vector<String> names=new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet =  statement.executeQuery("select unnest(enum_range(NULL::genre_type));");
+            while(resultSet.next()){
+                names.add(resultSet.getString("unnest"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
