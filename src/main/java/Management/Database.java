@@ -91,16 +91,24 @@ public class Database {
         }
         return names;
     }
-    public Vector<MovieType> getMoviesFromGenre(Vector<String> genre){
+    public Vector<MovieType> getMoviesWithOptions(Vector<String> genre, String year){
         Vector<MovieType> names= new Vector<>();
         try {
             Statement statement = connection.createStatement();
-            StringBuilder tmp=new StringBuilder("select * from movie where movie_id in (select movie_id from movie_genre where genre=");
-            for(String x: genre){
-                tmp.append("'").append(x).append("' or genre=");
+            StringBuilder tmp;
+            if(genre.isEmpty()){
+                tmp=new StringBuilder("select * from movie where movie_id in (select movie_id from movie_genre");
             }
-            tmp.delete(tmp.length()-10,tmp.length());
-            tmp.append(");");
+            else {
+                tmp = new StringBuilder("select * from movie where movie_id in (select movie_id from movie_genre where genre=");
+                for (String x : genre) {
+                    tmp.append("'").append(x).append("' or genre=");
+                }
+                tmp.delete(tmp.length() - 10, tmp.length());
+            }
+            tmp.append(")");
+            tmp.append(" AND movie_year(movie_id)>=").append(year);
+            tmp.append(";");
             ResultSet resultSet =  statement.executeQuery(String.valueOf(tmp));
             while(resultSet.next()){
                 MovieType a=new MovieType(resultSet.getInt("movie_id"),resultSet.getString("title"),resultSet.getString("release_date"),
@@ -170,4 +178,34 @@ public class Database {
         }
         return names;
     }
+    public Vector<MovieType> getWatchList(String login){
+        Vector<MovieType> names= new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            StringBuilder tmp=new StringBuilder("select * from movie where movie_id in (select movie_id from watchlist where login='");
+            tmp.append(login);
+            tmp.append("');");
+            ResultSet resultSet =  statement.executeQuery(String.valueOf(tmp));
+            while(resultSet.next()){
+                MovieType a=new MovieType(resultSet.getInt("movie_id"),resultSet.getString("title"),resultSet.getString("release_date"),
+                        resultSet.getString("runtime"),resultSet.getInt("budget"),resultSet.getInt("boxoffice"),resultSet.getInt("opening_weekend_usa"),resultSet.getString("description"));
+                names.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+    public void deleteFromWatchList(MovieType movieType, String currentUser) {
+        try {
+            Statement statement = connection.createStatement();
+            StringBuilder tmp=new StringBuilder("delete from watchlist where login='");
+            tmp.append(currentUser).append("' AND movie_id='").append(movieType.getMovie_id()).append("';");
+            statement.executeUpdate(String.valueOf(tmp));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

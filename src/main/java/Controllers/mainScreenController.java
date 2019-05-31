@@ -1,10 +1,16 @@
 package Controllers;
 
 import Management.Database;
+import Management.StageMaster;
 import Types.MovieRankingType;
 import Types.MovieType;
 import Types.PeopleType;
 import Types.PersonRankingType;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -12,12 +18,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -48,6 +58,14 @@ public class mainScreenController extends Controller {
     TextField movieBrowser;
     @FXML
     TextField personBrowser;
+    @FXML
+    RadioButton filterButton;
+    @FXML
+    Slider yearSlider;
+    @FXML
+    Text yearText;
+    @FXML
+    Button watchListButton;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcomeText.setText("Welcome "+Controller.currentUser+"!");
@@ -59,6 +77,14 @@ public class mainScreenController extends Controller {
         prepareMenu();
         setUpRanking();
         setUpPersonRanking();
+        Tooltip a=new Tooltip("Watch List!");
+        setTooltipTimer(a);
+        watchListButton.setTooltip(a);
+        yearSlider.setMax(Calendar.getInstance().get(Calendar.YEAR));
+        yearSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            yearText.setText(String.valueOf(newValue.intValue()));
+            controllFilterButton();
+        }));
         moviesNames=new HashMap<>();
         peopleNames=new HashMap<>();
         for(MovieType x: movies){
@@ -168,10 +194,19 @@ public class mainScreenController extends Controller {
             CheckBox tmp=new CheckBox(x);
             CustomMenuItem item=new CustomMenuItem(tmp);
             item.setHideOnClick(false);
+            item.setOnAction(t->controllFilterButton());
             categoryMenu.getItems().add(item);
         }
     }
-    public void filterSearch(){
+    public void controllFilterButton(){
+        if(filterButton.isSelected()){
+            filterSearch();
+        }
+        else{
+            removeFilterFun();
+        }
+    }
+    private void filterSearch(){
         Vector<String> filterGenre=new Vector<>();
         for(MenuItem x:categoryMenu.getItems()){
             if(((CheckBox)(((CustomMenuItem) x).getContent())).isSelected()){
@@ -179,21 +214,53 @@ public class mainScreenController extends Controller {
             }
         }
         //update movieBrowser with new selected genre
-        if(!filterGenre.isEmpty()) {
-            moviesNames.clear();
-            for(MovieType x: Controller.database.getMoviesFromGenre(filterGenre)){
-                moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0,4) + ") ",x);
-            }
-            movieCompletion.dispose();
-            movieCompletion=TextFields.bindAutoCompletion(movieBrowser,moviesNames.keySet());
+        moviesNames.clear();
+        for(MovieType x: Controller.database.getMoviesWithOptions(filterGenre,yearText.getText())){
+            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0,4) + ") ",x);
         }
+        movieCompletion.dispose();
+        movieCompletion=TextFields.bindAutoCompletion(movieBrowser,moviesNames.keySet());
+
     }
-    public void removeFilterFun(){
+    private void removeFilterFun(){
         moviesNames.clear();
         for(MovieType x: movies){
             moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0,4) + ") ",x);
         }
         movieCompletion.dispose();
         movieCompletion=TextFields.bindAutoCompletion(movieBrowser,moviesNames.keySet());
+    }
+    public void logOut(){
+        try {
+            stageMaster.loadPreviousScene();
+        } catch (IOException e) {
+            System.out.println("FAILED TO LOG OUT");
+        }
+    }
+    public void displayWatchList(){
+        Controller controllerWatchList=new watchListController("/Scenes/watchList.fxml",this,this);
+        Stage s=new Stage();
+        StageMaster stageMaster=new StageMaster(s);
+        stageMaster.setResizable(false);
+        stageMaster.setName("Watch List!");
+        try {
+            stageMaster.loadNewScene(controllerWatchList);
+        } catch (IOException e) {
+            System.out.println("FAILED TO LOAD WATCHLIST!");
+        }
+
+    }
+    private void setTooltipTimer(Tooltip tooltip) {
+        try {
+            Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+            fieldBehavior.setAccessible(true);
+            Object objBehavior = fieldBehavior.get(tooltip);
+            Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+            fieldTimer.setAccessible(true);
+            Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+            objTimer.getKeyFrames().clear();
+            objTimer.getKeyFrames().add(new KeyFrame(new Duration(200)));
+        } catch (Exception e) {//e.printStackTrace();
+            System.out.println("NIE WAŻNY WYJĄTEK ;))))))))))))"); }
     }
 }

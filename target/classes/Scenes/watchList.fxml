@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: slategrey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView fx:id="watchList" layoutX="14.0" layoutY="14.0" prefHeight="355.0" prefWidth="568.0" />
+      <Button fx:id="displayMovie" layoutX="472.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#displayMovie" text="Display movie" />
+      <Button fx:id="remove" layoutX="14.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#remove" text="remove" />
+   </children>
+</AnchorPane>
