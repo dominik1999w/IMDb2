@@ -2,19 +2,57 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Controllers/watchListController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Css/MainScreen.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Types/MovieMarkType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Css/MovieScreen.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Css/Sample.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Css/WatchList.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/heartNo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/heartYes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/watchlistNo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/watchlistYes.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/mainScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/mainScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imdb2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/imdb2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/mainScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/movieScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/watchListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Management/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Management/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Management/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Management/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Management/MurmurHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Management/MurmurHash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Management/RegexManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Management/RegexManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Management/StageMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Management/StageMaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Types/MovieRankingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Types/MovieRankingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Types/MovieType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Types/MovieType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Types/PeopleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Types/PeopleType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Types/PersonRankingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Types/PersonRankingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Css/MainScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Css/MainScreen.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Images/iconfinder_00-ELASTOFONT-STORE-READY_eye_2738306 (2).png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/mainScreenController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/mainScreenController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Scenes/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Scenes/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/ControllerPrimary.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/ControllerPrimary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/mainScreenController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/movieScreenController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/watchListController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Css/MainScreen.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Css/MainScreen.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/iconfinder_00-ELASTOFONT-STORE-READY_eye_2738306 (2).png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Management/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Management/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Management/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Management/Launcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Management/MurmurHash.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Management/MurmurHash.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Management/RegexManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Management/RegexManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Scenes/mainScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Scenes/mainScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Scenes/movieScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Scenes/movieScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Scenes/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Scenes/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Scenes/watchList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Scenes/watchList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Types/MovieRankingType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/MovieRankingType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Types/MovieType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/MovieType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Types/PeopleType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/PeopleType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Types/PersonRankingType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/PersonRankingType.class" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,70 +114,94 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/mainScreenController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="554">
-              <caret line="126" column="5" selection-start-line="120" selection-start-column="3" selection-end-line="126" selection-end-column="5" />
+            <state relative-caret-position="123">
+              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/movieScreenController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#201#202#0" expanded="true" />
-                <element signature="e#247#248#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Management/Database.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="851">
-              <caret line="206" column="9" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/watchListController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#538#539#0" expanded="true" />
+                <element signature="e#585#586#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Management/Launcher.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="345">
+              <caret line="147" column="56" selection-start-line="147" selection-start-column="56" selection-end-line="147" selection-end-column="56" />
+              <folding>
+                <element signature="method#ControllerMovieScreen#0;class#ControllerMovieScreen#0" />
+                <element signature="method#ControllerMovieScreen#1;class#ControllerMovieScreen#0" />
+                <element signature="e#3337#3374#1" />
+                <element signature="e#3754#3880#1" />
+                <element signature="method#updateRankings#0;class#ControllerMovieScreen#0" />
+                <element signature="e#4276#4305#1" />
+                <element signature="e#4375#4414#1" />
+                <element signature="e#5182#5592#0" />
+                <element signature="e#5528#5874#0" />
+                <element signature="e#5591#5723#1" />
+                <element signature="e#5737#5868#1" />
+                <element signature="e#5956#6034#0" />
+                <element signature="e#6095#6692#0" />
+                <element signature="e#6149#6187#1" />
+                <element signature="e#6221#6259#1" />
+                <element signature="e#6782#7379#0" />
+                <element signature="e#6959#7164#1" />
+                <element signature="e#7170#7373#1" />
+                <element signature="e#7172#7244#0" />
+                <element signature="e#7268#7320#0" />
+                <element signature="e#6257#6335#0" />
+                <element signature="e#6692#6721#1" />
+                <element signature="e#8318#9390#0" />
+                <element signature="e#6926#6954#1" />
+                <element signature="e#8691#9023#1" />
+                <element signature="e#9082#9158#0" />
+                <element signature="e#9182#9234#0" />
+                <element signature="e#7792#7824#1" />
+                <element signature="e#8179#8224#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/Css/Sample.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/Css/WatchList.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Management/StageMaster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="37" selection-start-line="37" selection-end-line="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="50" column="9" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,17 +213,18 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="291">
+              <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/Css/MainScreen.css">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" selection-start-line="20" selection-end-line="22" selection-end-column="1" />
+            <state relative-caret-position="217">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -170,8 +233,18 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/sample.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-330">
-              <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+            <state relative-caret-position="487">
+              <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="62" column="15" lean-forward="true" selection-start-line="53" selection-start-column="34" selection-end-line="62" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -181,8 +254,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -193,6 +266,12 @@
       <find>rankingGrid</find>
       <find>Welcome</find>
       <find>Datab</find>
+      <find>equal</find>
+      <find>controll</find>
+      <find>Image</find>
+      <find>curre</find>
+      <find>System.out</find>
+      <find>NIE</find>
     </findStrings>
     <replaceStrings>
       <replace>rankingGrid1</replace>
@@ -212,28 +291,36 @@
         <option value="$PROJECT_DIR$/src/main/resources/sample.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/StageMaster/StageMaster.java" />
-        <option value="$PROJECT_DIR$/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/Management/StageMaster.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Controllers/Controller.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Management/MurmurHash.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Management/RegexManager.java" />
         <option value="$PROJECT_DIR$/.idea/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/Types/MovieType.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/Types/PeopleType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Types/MovieRankingType.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/movieScreenController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Types/PersonRankingType.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Css/LogOutButton.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml" />
-        <option value="$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/mainScreenController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Management/Database.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/watchListController.java" />
+        <option value="$PROJECT_DIR$/config.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml" />
+        <option value="$PROJECT_DIR$/src/main/resources/Scenes/sample.fxml" />
+        <option value="$PROJECT_DIR$/src/main/resources/Css/MovieScreen.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/Css/Sample.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/Css/WatchList.css" />
+        <option value="$PROJECT_DIR$/src/main/java/Types/MovieType.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Css/MainScreen.css" />
+        <option value="$PROJECT_DIR$/src/main/java/Management/MurmurHash.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Management/StageMaster.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Types/MovieRankingType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Types/PeopleType.java" />
         <option value="$PROJECT_DIR$/src/main/java/Management/Launcher.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/Types/PersonRankingType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Types/MovieMarkType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Management/RegexManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Management/Database.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Controllers/Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java" />
       </list>
     </option>
   </component>
@@ -246,9 +333,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="961" />
-    <option name="width" value="959" />
-    <option name="height" value="1039" />
+    <option name="x" value="76" />
+    <option name="y" value="28" />
+    <option name="width" value="1044" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -259,19 +347,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="imdb2" type="b2602c69:ProjectViewProjectNode" />
               <item name="imdb2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="imdb2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="imdb2" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="imdb2" type="b2602c69:ProjectViewProjectNode" />
@@ -346,15 +427,12 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="Scenes" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="imdb2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="imdb2" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -368,7 +446,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558810507301" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559409762220" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="/usr/lib/jvm/java-11-openjdk-amd64/javafx-sdk-11.0.2/lib/src.zip!/" />
     <property name="project.structure.last.edited" value="Project" />
@@ -505,10 +583,10 @@
     <option name="totallyTimeSpent" value="52140000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.15635005" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.13281682" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -516,8 +594,8 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22925764" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32829374" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.325054" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -528,7 +606,7 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.10262009" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.17602591" />
       <window_info anchor="bottom" id="Terminal" order="14" weight="0.32896176" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="16" />
@@ -604,142 +682,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+        <state relative-caret-position="360">
+          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Management/MurmurHash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="62" column="15" selection-start-line="62" selection-start-column="15" selection-end-line="62" selection-end-column="15" />
-          <folding>
-            <element signature="docComment;class#MurmurHash#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Management/RegexManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/PersonRankingType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/MovieRankingType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding>
-            <element signature="e#182#183#0" expanded="true" />
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#259#260#0" expanded="true" />
-            <element signature="e#297#298#0" expanded="true" />
-            <element signature="e#333#334#0" expanded="true" />
-            <element signature="e#364#365#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#453#454#0" expanded="true" />
-            <element signature="e#485#486#0" expanded="true" />
-            <element signature="e#513#514#0" expanded="true" />
-            <element signature="e#555#556#0" expanded="true" />
-            <element signature="e#589#590#0" expanded="true" />
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#655#656#0" expanded="true" />
-            <element signature="e#703#704#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#776#777#0" expanded="true" />
-            <element signature="e#804#805#0" expanded="true" />
-            <element signature="e#847#848#0" expanded="true" />
-            <element signature="e#881#882#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/MovieType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Management/StageMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="37" column="29" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/PeopleType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="91" column="35" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-330">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Images/background.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Images/background.jpg" />
     <entry file="jrt:///usr/lib/jvm/java-11-openjdk-amd64!/java.base/java/lang/Thread.class">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -750,72 +698,369 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Images/watchlist.png" />
+    <entry file="file://$PROJECT_DIR$/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Management/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="206" column="9" selection-start-line="206" selection-start-column="9" selection-end-line="206" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/movieScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#201#202#0" expanded="true" />
-            <element signature="e#247#248#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/mainScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="126" column="5" selection-start-line="120" selection-start-column="3" selection-end-line="126" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Images/watchlist.png">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Images/iconfinder_00-ELASTOFONT-STORE-READY_eye_2738306 (2).png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/watchListController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Management/MurmurHash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        <state relative-caret-position="297">
+          <caret line="39" column="72" selection-start-line="39" selection-start-column="72" selection-end-line="39" selection-end-column="72" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#MurmurHash#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Css/MainScreen.css">
+    <entry file="jar:///usr/lib/jvm/java-11-openjdk-amd64/javafx-sdk-11.0.2/lib/src.zip!/javafx.fxml/javafx/fxml/FXMLLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" selection-start-line="20" selection-end-line="22" selection-end-column="1" />
+        <state relative-caret-position="134">
+          <caret line="2572" selection-start-line="2572" selection-end-line="2572" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/MovieRankingType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+          <folding>
+            <element signature="e#453#454#0" expanded="true" />
+            <element signature="e#493#494#0" expanded="true" />
+            <element signature="e#743#744#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/MovieType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/PeopleType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/PersonRankingType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/MovieMarkType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+          <folding>
+            <element signature="e#235#236#0" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+            <element signature="e#355#356#0" expanded="true" />
+            <element signature="e#387#388#0" expanded="true" />
+            <element signature="e#415#416#0" expanded="true" />
+            <element signature="e#457#458#0" expanded="true" />
+            <element signature="e#491#492#0" expanded="true" />
+            <element signature="e#522#523#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#589#590#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#656#657#0" expanded="true" />
+            <element signature="e#684#685#0" expanded="true" />
+            <element signature="e#729#730#0" expanded="true" />
+            <element signature="e#763#764#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#857#858#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Management/RegexManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="40" column="70" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Management/Launcher.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="242" column="9" lean-forward="true" selection-start-line="242" selection-start-column="9" selection-end-line="242" selection-end-column="9" />
+          <folding>
+            <element signature="method#initialize#0;class#ControllerMainScreen#0" />
+            <element signature="e#2548#2697#0" />
+            <element signature="e#2814#2934#1" />
+            <element signature="e#2971#3079#1" />
+            <element signature="method#findMovie#0;class#ControllerMainScreen#0" />
+            <element signature="e#3323#3693#0" />
+            <element signature="e#3384#3683#1" />
+            <element signature="method#findPerson#0;class#ControllerMainScreen#0" />
+            <element signature="e#3772#4155#0" />
+            <element signature="e#3833#4145#1" />
+            <element signature="method#displayInfo#0;class#ControllerMainScreen#0" />
+            <element signature="e#4225#4374#0" />
+            <element signature="e#4397#4503#0" />
+            <element signature="method#setUpRanking#0;class#ControllerMainScreen#0" />
+            <element signature="e#4617#5974#1" />
+            <element signature="method#setUpPersonRanking#0;class#ControllerMainScreen#0" />
+            <element signature="e#6094#7456#1" />
+            <element signature="method#prepareMenu#0;class#ControllerMainScreen#0" />
+            <element signature="e#7528#7787#1" />
+            <element signature="method#controlFilterButton#0;class#ControllerMainScreen#0" />
+            <element signature="e#7874#7913#1" />
+            <element signature="e#7919#7961#1" />
+            <element signature="method#filterSearch#0;class#ControllerMainScreen#0" />
+            <element signature="e#8107#8306#1" />
+            <element signature="e#8188#8296#1" />
+            <element signature="e#8492#8612#1" />
+            <element signature="method#removeFilterFun#0;class#ControllerMainScreen#0" />
+            <element signature="e#8850#8970#1" />
+            <element signature="method#logOut#0;class#ControllerMainScreen#0" />
+            <element signature="e#9145#9201#0" />
+            <element signature="e#9224#9288#0" />
+            <element signature="method#setTooltipTimer#0;class#ControllerMainScreen#0" />
+            <element signature="e#9872#10400#0" />
+            <element signature="e#10421#10521#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Images/back.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Css/MainScreen.css">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Css/MovieScreen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Management/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="112" selection-start-line="112" selection-end-line="112" />
+          <folding>
+            <element signature="method#loadParameters#0;class#Database#0" />
+            <element signature="e#585#746#0" />
+            <element signature="e#766#839#0" />
+            <element signature="method#Database#0;class#Database#0" />
+            <element signature="e#1201#1382#0" />
+            <element signature="e#1406#1450#0" />
+            <element signature="e#1705#2040#0" />
+            <element signature="e#2266#3164#0" />
+            <element signature="method#getUsers#0;class#Database#0" />
+            <element signature="e#2187#2467#0" />
+            <element signature="e#2371#2457#1" />
+            <element signature="e#2491#2535#0" />
+            <element signature="method#getMovies#0;class#Database#0" />
+            <element signature="e#2667#3232#0" />
+            <element signature="e#2851#3222#1" />
+            <element signature="e#3256#3300#0" />
+            <element signature="method#getMoviesWithOptions#0;class#Database#0" />
+            <element signature="e#3476#4707#0" />
+            <element signature="e#3604#3733#1" />
+            <element signature="e#3751#4084#1" />
+            <element signature="e#3921#4009#1" />
+            <element signature="e#4326#4697#1" />
+            <element signature="e#4731#4775#0" />
+            <element signature="method#getPeople#0;class#Database#0" />
+            <element signature="e#4909#5410#0" />
+            <element signature="e#5094#5400#1" />
+            <element signature="e#5434#5478#0" />
+            <element signature="method#getRanking#0;class#Database#0" />
+            <element signature="e#5624#6111#0" />
+            <element signature="e#5829#6101#1" />
+            <element signature="e#6135#6179#0" />
+            <element signature="method#getActorsRanking#0;class#Database#0" />
+            <element signature="e#6333#6823#0" />
+            <element signature="e#6539#6813#1" />
+            <element signature="e#6847#6891#0" />
+            <element signature="method#getGenre#0;class#Database#0" />
+            <element signature="e#7015#7306#0" />
+            <element signature="e#7223#7296#1" />
+            <element signature="e#7330#7374#0" />
+            <element signature="method#getSomethingForMovie#0;class#Database#0" />
+            <element signature="e#9790#10124#0" />
+            <element signature="e#10130#10168#1" />
+            <element signature="e#10010#10054#0" />
+            <element signature="method#getPeopleForMovie#0;class#Database#0" />
+            <element signature="e#10484#12142#0" />
+            <element signature="e#10474#10662#1" />
+            <element signature="e#10793#10953#1" />
+            <element signature="e#10668#10717#1" />
+            <element signature="e#11595#12132#1" />
+            <element signature="e#11638#11813#1" />
+            <element signature="e#10483#10527#0" />
+            <element signature="method#getMovieRating#0;class#Database#0" />
+            <element signature="e#12248#12424#0" />
+            <element signature="e#12448#12492#0" />
+            <element signature="method#getMovieMark#0;class#Database#0" />
+            <element signature="e#13353#13894#0" />
+            <element signature="e#13641#13884#1" />
+            <element signature="e#13534#13578#0" />
+            <element signature="method#deleteFromMovieRatings#0;class#Database#0" />
+            <element signature="e#15482#15523#0" />
+            <element signature="e#15696#15740#0" />
+            <element signature="method#deleteFromMovieRatings#1;class#Database#0" />
+            <element signature="e#16082#16385#0" />
+            <element signature="e#16408#16452#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Css/Sample.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Css/WatchList.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Management/StageMaster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#538#539#0" expanded="true" />
+            <element signature="e#585#586#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="50" column="9" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/sample.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/movieScreen.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="62" column="15" lean-forward="true" selection-start-line="53" selection-start-column="34" selection-end-line="62" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/watchList.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="147" column="56" selection-start-line="147" selection-start-column="56" selection-end-line="147" selection-end-column="56" />
+          <folding>
+            <element signature="method#ControllerMovieScreen#0;class#ControllerMovieScreen#0" />
+            <element signature="method#ControllerMovieScreen#1;class#ControllerMovieScreen#0" />
+            <element signature="e#3337#3374#1" />
+            <element signature="e#3754#3880#1" />
+            <element signature="method#updateRankings#0;class#ControllerMovieScreen#0" />
+            <element signature="e#4276#4305#1" />
+            <element signature="e#4375#4414#1" />
+            <element signature="e#5182#5592#0" />
+            <element signature="e#5528#5874#0" />
+            <element signature="e#5591#5723#1" />
+            <element signature="e#5737#5868#1" />
+            <element signature="e#5956#6034#0" />
+            <element signature="e#6095#6692#0" />
+            <element signature="e#6149#6187#1" />
+            <element signature="e#6221#6259#1" />
+            <element signature="e#6782#7379#0" />
+            <element signature="e#6959#7164#1" />
+            <element signature="e#7170#7373#1" />
+            <element signature="e#7172#7244#0" />
+            <element signature="e#7268#7320#0" />
+            <element signature="e#6257#6335#0" />
+            <element signature="e#6692#6721#1" />
+            <element signature="e#8318#9390#0" />
+            <element signature="e#6926#6954#1" />
+            <element signature="e#8691#9023#1" />
+            <element signature="e#9082#9158#0" />
+            <element signature="e#9182#9234#0" />
+            <element signature="e#7792#7824#1" />
+            <element signature="e#8179#8224#1" />
           </folding>
         </state>
       </provider>

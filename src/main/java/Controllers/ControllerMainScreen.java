@@ -1,6 +1,5 @@
 package Controllers;
 
-import Management.Database;
 import Management.StageMaster;
 import Types.MovieRankingType;
 import Types.MovieType;
@@ -8,9 +7,6 @@ import Types.PeopleType;
 import Types.PersonRankingType;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -26,26 +22,26 @@ import org.controlsfx.control.textfield.TextFields;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-public class mainScreenController extends Controller {
-    mainScreenController(String name, Controller previousController){
-        super(name,previousController);
+public class ControllerMainScreen extends Controller {
+    ControllerMainScreen(String name, Controller previousController) {
+        super(name, previousController);
     }
+
     private Vector<MovieType> movies;
     private Vector<String> genre;
     private Vector<PeopleType> people;
     private Vector<MovieRankingType> movieRanking;
     private Vector<PersonRankingType> personRanking;
-    private HashMap<String,PeopleType> peopleNames;
-    private HashMap<String,MovieType> moviesNames;
+    private HashMap<String, PeopleType> peopleNames;
+    private HashMap<String, MovieType> moviesNames;
     private AutoCompletionBinding<String> movieCompletion;
-    String selectedMovie;
-    String selectedPerson;
+    private String selectedMovie;
+    private String selectedPerson;
     @FXML
     MenuButton categoryMenu;
     @FXML
@@ -66,76 +62,85 @@ public class mainScreenController extends Controller {
     Text yearText;
     @FXML
     Button watchListButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeText.setText("Welcome "+Controller.currentUser+"!");
-        genre=Controller.database.getGenre();
-        movieRanking=Controller.database.getRanking();
-        personRanking=Controller.database.getActorsRanking();
-        movies=Controller.database.getMovies();
-        people=Controller.database.getPeople();
+        welcomeText.setText("Welcome " + Controller.currentUser + "!");
+        genre = Controller.database.getGenre();
+        movieRanking = Controller.database.getRanking();
+        personRanking = Controller.database.getActorsRanking();
+        movies = Controller.database.getMovies();
+        people = Controller.database.getPeople();
         prepareMenu();
         setUpRanking();
         setUpPersonRanking();
-        Tooltip a=new Tooltip("Watch List!");
+        Tooltip a = new Tooltip("Watch List!");
         setTooltipTimer(a);
         watchListButton.setTooltip(a);
         yearSlider.setMax(Calendar.getInstance().get(Calendar.YEAR));
         yearSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
             yearText.setText(String.valueOf(newValue.intValue()));
-            controllFilterButton();
+            controlFilterButton();
         }));
-        moviesNames=new HashMap<>();
-        peopleNames=new HashMap<>();
-        for(MovieType x: movies){
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0,4) + ") ",x);
+        moviesNames = new HashMap<>();
+        peopleNames = new HashMap<>();
+        for (MovieType x : movies) {
+            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
         }
-        for(PeopleType x: people){
-            peopleNames.put(x.getFirst_name()+" "+x.getLast_name(),x); //might be ambiguous
+        for (PeopleType x : people) {
+            peopleNames.put(x.getFirst_name() + " " + x.getLast_name(), x); //might be ambiguous
         }
-        movieCompletion=TextFields.bindAutoCompletion(movieBrowser,moviesNames.keySet());
-        TextFields.bindAutoCompletion(personBrowser,peopleNames.keySet());
+        movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
+        TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
     }
-    public void findMovie(){
-        movieBrowser.setOnKeyPressed(event->{
-            if(event.getCode()== KeyCode.ENTER){
-                String s=String.valueOf(movieBrowser.getCharacters());
-                if(!moviesNames.containsKey(s)) return; //invalid title
+
+    @FXML
+    public void findMovie() {
+        movieBrowser.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                String s = String.valueOf(movieBrowser.getCharacters());
+                if (!moviesNames.containsKey(s)) return; //invalid title
                 movieBrowser.setText("");
-                selectedMovie=s;
-                displayInfo(selectedMovie);
-                }
-        });
-    }
-    public void findPerson(){
-        personBrowser.setOnKeyPressed(event->{
-            if(event.getCode()== KeyCode.ENTER){
-                String s=String.valueOf(personBrowser.getCharacters());
-                if(!peopleNames.containsKey(s)) return; //invalid title
-                personBrowser.setText("");
-                selectedPerson=s;
-                System.out.println(s);
+                selectedMovie = s;
+                displayInfo(moviesNames.get(selectedMovie));
             }
         });
     }
-    private void displayInfo(String selectedMovie){
+
+    @FXML
+    public void findPerson() {
+        personBrowser.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                String s = String.valueOf(personBrowser.getCharacters());
+                if (!peopleNames.containsKey(s)) return; //invalid title
+                personBrowser.setText("");
+                selectedPerson = s;
+                System.out.println(selectedPerson);
+                //
+            }
+        });
+    }
+
+    private void displayInfo(MovieType movie) {
         try {
-            Controller.stageMaster.loadNewScene(new movieScreenController("/Scenes/movieScreen.fxml",this));
+            Controller.stageMaster.loadNewScene(new ControllerMovieScreen(Controller.scenesLocation + "/movieScreen.fxml", this, movie));
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("FAILED TO LOAD MOVIESCREEN");
         }
     }
+
     @SuppressWarnings("Duplicates")
-    private void setUpRanking(){
-        for(int i=0;i<5;i++) {
+    private void setUpRanking() {
+        for (int i = 0; i < 5; i++) {
             Pane pane = new Pane();
             pane.setStyle("-fx-border-color:black;" +
                     "-fx-text-fill:white;");
             pane.setEffect(new DropShadow());
             Label title = new Label(movieRanking.get(i).getTitle());
-            Label votes = new Label("(" + movieRanking.get(i).getVotes() + " reviews)");
+            Label votes = new Label("(" + movieRanking.get(i).getVotes() + " votes)");
             Label mark = new Label(String.valueOf(movieRanking.get(i).getAvg_mark()));
-            Label ranking=new Label(String.valueOf(movieRanking.get(i).getRanking()));
+            Label ranking = new Label(String.valueOf(movieRanking.get(i).getRanking()));
             title.setStyle("-fx-text-fill:black;" +
                     "-fx-font-size: 17px");
             mark.setStyle("-fx-text-fill:darkred;" +
@@ -153,13 +158,14 @@ public class mainScreenController extends Controller {
             votes.setMaxWidth(200);
             ranking.setTranslateY(133);
             ranking.setTranslateX(230);
-            pane.getChildren().addAll(title, mark, votes,ranking);
+            pane.getChildren().addAll(title, mark, votes, ranking);
             rankingGrid1.add(pane, i, 0);
         }
     }
+
     @SuppressWarnings("Duplicates")
-    private void setUpPersonRanking(){
-        for(int i=0;i<5;i++) {
+    private void setUpPersonRanking() {
+        for (int i = 0; i < 5; i++) {
             Pane pane = new Pane();
             pane.setStyle("-fx-border-color:black;" +
                     "-fx-text-fill:white;");
@@ -167,7 +173,7 @@ public class mainScreenController extends Controller {
             Label title = new Label(personRanking.get(i).getName());
             Label votes = new Label("(" + personRanking.get(i).getVotes() + " reviews)");
             Label mark = new Label(String.valueOf(personRanking.get(i).getAvg_mark()));
-            Label ranking=new Label(String.valueOf(personRanking.get(i).getRanking()));
+            Label ranking = new Label(String.valueOf(personRanking.get(i).getRanking()));
             title.setStyle("-fx-text-fill:black;" +
                     "-fx-font-size: 17px");
             mark.setStyle("-fx-text-fill:darkred;" +
@@ -185,71 +191,84 @@ public class mainScreenController extends Controller {
             votes.setMaxWidth(200);
             ranking.setTranslateY(133);
             ranking.setTranslateX(230);
-            pane.getChildren().addAll(title, mark, votes,ranking);
+            pane.getChildren().addAll(title, mark, votes, ranking);
             rankingGrid2.add(pane, i, 0);
         }
     }
-    private void prepareMenu(){
-        for(String x: genre){
-            CheckBox tmp=new CheckBox(x);
-            CustomMenuItem item=new CustomMenuItem(tmp);
+
+    private void prepareMenu() {
+        for (String x : genre) {
+            CheckBox tmp = new CheckBox(x);
+            CustomMenuItem item = new CustomMenuItem(tmp);
             item.setHideOnClick(false);
-            item.setOnAction(t->controllFilterButton());
+            item.setOnAction(t -> controlFilterButton());
             categoryMenu.getItems().add(item);
         }
     }
-    public void controllFilterButton(){
-        if(filterButton.isSelected()){
+
+    public void controlFilterButton() {
+        if (filterButton.isSelected()) {
             filterSearch();
-        }
-        else{
+        } else {
             removeFilterFun();
         }
     }
-    private void filterSearch(){
-        Vector<String> filterGenre=new Vector<>();
-        for(MenuItem x:categoryMenu.getItems()){
-            if(((CheckBox)(((CustomMenuItem) x).getContent())).isSelected()){
-                filterGenre.add(((CheckBox)(((CustomMenuItem) x).getContent())).getText());
+
+    private void filterSearch() {
+        Vector<String> filterGenre = new Vector<>();
+        for (MenuItem x : categoryMenu.getItems()) {
+            if (((CheckBox) (((CustomMenuItem) x).getContent())).isSelected()) {
+                filterGenre.add(((CheckBox) (((CustomMenuItem) x).getContent())).getText());
             }
         }
         //update movieBrowser with new selected genre
         moviesNames.clear();
-        for(MovieType x: Controller.database.getMoviesWithOptions(filterGenre,yearText.getText())){
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0,4) + ") ",x);
+        for (MovieType x : Controller.database.getMoviesWithOptions(filterGenre, yearText.getText())) {
+            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
         }
         movieCompletion.dispose();
-        movieCompletion=TextFields.bindAutoCompletion(movieBrowser,moviesNames.keySet());
+        movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
 
     }
-    private void removeFilterFun(){
+
+    private void removeFilterFun() {
         moviesNames.clear();
-        for(MovieType x: movies){
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0,4) + ") ",x);
+        for (MovieType x : movies) {
+            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
         }
         movieCompletion.dispose();
-        movieCompletion=TextFields.bindAutoCompletion(movieBrowser,moviesNames.keySet());
+        movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
     }
-    public void logOut(){
+
+    @FXML
+    public void logOut() {
         try {
             stageMaster.loadPreviousScene();
         } catch (IOException e) {
             System.out.println("FAILED TO LOG OUT");
         }
     }
-    public void displayWatchList(){
-        Controller controllerWatchList=new watchListController("/Scenes/watchList.fxml",this,this);
-        Stage s=new Stage();
-        StageMaster stageMaster=new StageMaster(s);
+
+    @FXML
+    public void displayWatchList() {
+        Controller controllerWatchList = new ControllerWatchList(Controller.scenesLocation + "/watchList.fxml", this);
+        try {
+            Controller.stageMaster.loadNewScene(controllerWatchList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*Stage s = new Stage();
+        StageMaster stageMaster = new StageMaster(s);
         stageMaster.setResizable(false);
         stageMaster.setName("Watch List!");
         try {
             stageMaster.loadNewScene(controllerWatchList);
         } catch (IOException e) {
             System.out.println("FAILED TO LOAD WATCHLIST!");
-        }
+        }*/
 
     }
+
     private void setTooltipTimer(Tooltip tooltip) {
         try {
             Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
@@ -261,6 +280,7 @@ public class mainScreenController extends Controller {
             objTimer.getKeyFrames().clear();
             objTimer.getKeyFrames().add(new KeyFrame(new Duration(200)));
         } catch (Exception e) {//e.printStackTrace();
-            System.out.println("NIE WAŻNY WYJĄTEK ;))))))))))))"); }
+            System.out.println("NIE WAŻNY WYJĄTEK ;))))))))))))");
+        }
     }
 }

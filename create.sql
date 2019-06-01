@@ -112,7 +112,8 @@ CREATE TABLE movie (
 	description          text      ,
 
 	CHECK (release_date > '1888-01-01' AND release_date <= current_date) ,
-	CHECK (boxoffice >= opening_weekend_usa)
+	CHECK (boxoffice >= opening_weekend_usa) ,
+	CONSTRAINT unique_movie UNIQUE(title,release_date)
  );
 
 CREATE TYPE genre_type AS ENUM('Action','Adventure','Animation','Biography','Comedy',
@@ -238,8 +239,10 @@ CREATE TABLE people (
 
 	CHECK (died < NOW()) ,
 	CHECK (born < NOW()) ,
-	CHECK (born < died)
+	CHECK (born < died) ,
+	CONSTRAINT unique_people UNIQUE(first_name, last_name, born)
  );
+
 CREATE TABLE users ( 
 	login                varchar(17)  PRIMARY KEY ,
 	"password"           INT  NOT NULL ,
@@ -277,9 +280,9 @@ CREATE TABLE crew (
 	person_id            integer  NOT NULL /*REFERENCES people*/,
 	movie_id             integer  NOT NULL /*REFERENCES movie*/,
 	"role"               role_type  NOT NULL ,
-	"character/s"          varchar(512)    ,
+	"character"          varchar(512)    ,
 
-	CONSTRAINT unique_crew UNIQUE(person_id,movie_id,"role","character/s")
+	CONSTRAINT unique_crew UNIQUE(person_id,movie_id,"role","character")
  );
 
 ----------------------------------------------
@@ -599,7 +602,7 @@ ALTER TABLE crew ADD CONSTRAINT fk_crew_movie FOREIGN KEY ( movie_id ) REFERENCE
 
 
 
-
+INSERT INTO movie VALUES('Blacith Of The World' , '1891-09-24' , INTERVAL '30 minutes' , 21000000 , 74000000 , 420000);
 
 --SAMPLE DATA
 INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) VALUES

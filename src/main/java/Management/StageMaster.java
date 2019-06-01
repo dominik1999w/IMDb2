@@ -40,11 +40,11 @@ public class StageMaster {
         stage.show();
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         stage.setTitle(name);
     }
 
-    public void setResizable(boolean resizable){
+    public void setResizable(boolean resizable) {
         stage.setResizable(resizable);
     }
 

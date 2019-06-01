@@ -1,12 +1,12 @@
 package Types;
 
 public class PeopleType {
-    Integer person_id;
-    String first_name;
-    String last_name;
-    String born;
-    String died;
-    String birth_country;
+    private Integer person_id;
+    private String first_name;
+    private String last_name;
+    private String born;
+    private String died;
+    private String birth_country;
 
     public Integer getPerson_id() {
         return person_id;
@@ -55,6 +55,7 @@ public class PeopleType {
     public void setBirth_country(String birth_country) {
         this.birth_country = birth_country;
     }
+
     public PeopleType(Integer person_id, String first_name, String last_name, String born, String died, String birth_country) {
         this.person_id = person_id;
         this.first_name = first_name;

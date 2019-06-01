@@ -44,5 +44,14 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:12.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.5.jre7" level="project" />
     <orderEntry type="library" name="Maven: postgresql:postgresql:9.0-801.jdbc4" level="project" />
+    <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.40.11" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:12.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:12.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:12.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:12.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:12.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:12.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.5.jre7" level="project" />
+    <orderEntry type="library" name="Maven: postgresql:postgresql:9.0-801.jdbc4" level="project" />
   </component>
 </module>

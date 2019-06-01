@@ -1,7 +1,7 @@
 package Controllers;
 
 import Management.Database;
-import Management.MurmurHash;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import Management.StageMaster;
 import java.io.IOException;
@@ -13,6 +13,9 @@ public abstract class Controller implements Initializable {
     public static StageMaster stageMaster;
     static Database database;
     static String currentUser;
+    static String currentUserDBver;
+    static final String scenesLocation = "/Scenes";
+    static final String imagesLocation = "/Images";
 
     String name;
     Controller previousController;
@@ -45,6 +48,7 @@ public abstract class Controller implements Initializable {
     @Override
     public abstract void initialize(URL url, ResourceBundle resourceBundle);
 
+    @FXML
     public void goBack() throws IOException {
         Controller.stageMaster.loadPreviousScene();
     }

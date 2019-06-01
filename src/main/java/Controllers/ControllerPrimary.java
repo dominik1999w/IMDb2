@@ -53,43 +53,45 @@ public class ControllerPrimary extends Controller implements Initializable {
         zeroAnnotations();
     }
 
-    private void zeroAnnotations(){
+    private void zeroAnnotations() {
         signInError.setText("");
         signUpError.setText("");
         signUpSuccess.setText("");
     }
-//LOGIN+REGISTRATION----------------------------------------------------
+
+    //LOGIN+REGISTRATION----------------------------------------------------
     @FXML
-    public void signIn(){
+    public void signIn() {
         zeroAnnotations();
         String login = signInLoginField.getText();
         Integer password = MurmurHash.hash64(signInPasswordField.getText());
-        HashMap<String,Integer> users = database.getUsers();
+        HashMap<String, Integer> users = database.getUsers();
 
-        if(!RegexManager.isSafe(login)){
+        if (!RegexManager.isSafe(login)) {
             signInError.setText("Error: only safe characters!");
             return;
         }
 
-        if(!users.containsKey(login)){
+        if (!users.containsKey(login)) {
             signInError.setText("Error: such user doesn't exist!");
             return;
         }
 
         Integer realHashedPassword = users.get(login);
-        if(!password.equals(realHashedPassword)){
+        if (!password.equals(realHashedPassword)) {
             signInError.setText("Error: wrong password!");
             return;
         }
 
         signInError.setText("");
         currentUser = login;
+        currentUserDBver = RegexManager.convertIntoPreparedConsistent(currentUser);
         System.out.println(currentUser + " is logged in.");
         signInLoginField.setText("");
         signInPasswordField.setText("");
         //open mainScreen
         try {
-            Controller.stageMaster.loadNewScene(new mainScreenController("/Scenes/mainScreen.fxml",this));
+            Controller.stageMaster.loadNewScene(new ControllerMainScreen("/Scenes/mainScreen.fxml", this));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("FAILED TO LOAD mainScreen.fxml");
@@ -98,35 +100,35 @@ public class ControllerPrimary extends Controller implements Initializable {
     }
 
     @FXML
-    public void signUp(){
+    public void signUp() {
         zeroAnnotations();
         String login = signUpLoginField.getText();
         Integer password = MurmurHash.hash64(signUpPasswordField.getText());
         Integer passwordConfirm = MurmurHash.hash64(signUpPasswordFieldConfirm.getText());
 
-        HashMap<String,Integer> users = database.getUsers();
+        HashMap<String, Integer> users = database.getUsers();
 
-        if(!RegexManager.isSafe(login)){
+        if (!RegexManager.isSafe(login)) {
             signUpError.setText("Error: only safe characters!");
             return;
         }
 
-        if(users.containsKey(login)) {
+        if (users.containsKey(login)) {
             signUpError.setText("Error: such user already exists!");
             return;
         }
 
-        if(!password.equals(passwordConfirm)){
+        if (!password.equals(passwordConfirm)) {
             signUpError.setText("Error: passwords don't match!");
             return;
         }
 
-        ArrayList<String> arguments = new ArrayList<>();
+        ArrayList<Object> arguments = new ArrayList<>();
         arguments.add("'" + login + "'");
-        arguments.add(password.toString());
+        arguments.add(password);
 
         try {
-            database.insert("users",arguments);
+            database.insert("users", arguments);
         } catch (SQLException e) {
             signUpError.setText("Error: something wrong with database...");
             e.printStackTrace();

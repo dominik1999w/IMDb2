@@ -18,6 +18,7 @@
     -fx-background-color: slategray;
 }
 
-#watchListButton{
-    -fx-background-color: default;
+#mainPane {
+    -fx-background-image: url("../Images/background.jpg");
+    -fx-background-size: 100% 100%;
 }

@@ -1,11 +1,12 @@
 package Types;
 
 public class PersonRankingType {
-    Integer ranking;
-    Integer person_id;
-    String name;
-    Double avg_mark;
-    Integer votes;
+    private Integer ranking;
+    private Integer person_id;
+    private String name;
+    private Double avg_mark;
+    private Integer votes;
+
     public Integer getRanking() {
         return ranking;
     }

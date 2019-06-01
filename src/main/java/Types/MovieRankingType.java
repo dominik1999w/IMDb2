@@ -1,11 +1,11 @@
 package Types;
 
 public class MovieRankingType {
-    Integer ranking;
-    Integer movie_id;
-    String title;
-    Double avg_mark;
-    Integer votes;
+    private Integer ranking;
+    private Integer movie_id;
+    private String title;
+    private Double avg_mark;
+    private Integer votes;
 
     public Integer getRanking() {
         return ranking;

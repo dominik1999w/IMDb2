@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1300.0" stylesheets="@../Css/MainScreen.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1300.0" stylesheets="@../Css/MainScreen.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="14.0" layoutY="241.0" prefHeight="659.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="241.0">
          <children>
@@ -69,11 +69,11 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button fx:id="watchListButton" layoutX="1210.0" layoutY="586.0" mnemonicParsing="false" onMouseClicked="#displayWatchList" prefHeight="60.0" prefWidth="76.0">
+            <Button fx:id="watchListButton" layoutX="1202.0" layoutY="592.0" mnemonicParsing="false" onMouseClicked="#displayWatchList" prefHeight="60.0" prefWidth="76.0" style="-fx-background-color: #f7a001;">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/iconfinder_00-ELASTOFONT-STORE-READY_eye_2738306%20(2).png" />
+                        <Image url="@../Images/watchlistYes.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -97,7 +97,7 @@
             <DropShadow />
          </effect>
       </MenuButton>
-      <RadioButton fx:id="filterButton" layoutX="639.0" layoutY="64.0" mnemonicParsing="false" onAction="#controllFilterButton" text="Accept Movie Constraints" />
+      <RadioButton fx:id="filterButton" layoutX="639.0" layoutY="64.0" mnemonicParsing="false" onAction="#controlFilterButton" text="Accept Movie Constraints" />
       <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Options" />
       <Slider fx:id="yearSlider" blockIncrement="1.0" layoutX="147.0" layoutY="55.0" max="2019.0" min="1888.0" minorTickCount="10" prefHeight="16.0" prefWidth="161.0" value="1888.0" />
       <Text layoutX="147.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produced after year:" />
