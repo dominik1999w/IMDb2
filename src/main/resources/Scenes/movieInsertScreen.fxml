@@ -32,11 +32,11 @@
         <Text layoutX="35.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production comapny:" />
       <TextArea fx:id="production" layoutX="175.0" layoutY="385.0" prefHeight="64.0" prefWidth="184.0" promptText="first                                   second ..." />
         <Text layoutX="117.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Budget:" />
-      <TextField fx:id="budget" layoutX="175.0" layoutY="460.0" />
+      <TextField fx:id="budget" layoutX="175.0" layoutY="460.0" promptText="k $" />
         <Text layoutX="101.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Boxoffice:" />
-      <TextField fx:id="boxoffice" layoutX="175.0" layoutY="490.0" />
+      <TextField fx:id="boxoffice" layoutX="175.0" layoutY="490.0" promptText="k $" />
         <Text layoutX="14.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opening weekend USA:" />
-      <TextField fx:id="weekend" layoutX="175.0" layoutY="520.0" />
+      <TextField fx:id="weekend" layoutX="175.0" layoutY="520.0" promptText="k $" />
         <Text layoutX="88.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
         <TextArea fx:id="description" layoutX="175.0" layoutY="566.0" prefHeight="211.0" prefWidth="201.0" promptText="Description" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="424.0" />
       <MenuButton fx:id="genreMenu" layoutX="581.0" layoutY="34.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Genre">

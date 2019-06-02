@@ -92,6 +92,8 @@ public class ControllerMovieScreen extends Controller {
     ToggleButton watchlist;
     @FXML
     ImageView watchlistImage;
+    @FXML
+    Button myMovies;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

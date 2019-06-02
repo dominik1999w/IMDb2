@@ -344,6 +344,22 @@ public class Database {
         return names;
     }
 
+    public Vector<MovieType> getFavourites(String login) {
+        Vector<MovieType> names = new Vector<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "select * from movie where movie_id in (select movie_id from movie_ratings where login = ? AND heart = 'H');");
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                names.add(convertRawToMovieType(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+
     public Vector<String> getSomethingForMovie(int id, String table, String column) {
         Vector<String> result = new Vector<>();
         try {

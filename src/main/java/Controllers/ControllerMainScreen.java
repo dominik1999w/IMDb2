@@ -61,6 +61,8 @@ public class ControllerMainScreen extends Controller {
     @FXML
     Button watchListButton;
     @FXML
+    Button favouriteMovies;
+    @FXML
     Button insertMovie;
 
     @Override
@@ -273,6 +275,16 @@ public class ControllerMainScreen extends Controller {
             System.out.println("FAILED TO LOAD WATCHLIST!");
         }*/
 
+    }
+
+    @FXML
+    public void displayFavouriteMovies(){
+        Controller controllerWatchList = new ControllerFavouriteMoviesScreen(Controller.scenesLocation + "/favourite.fxml", this);
+        try {
+            Controller.stageMaster.loadNewScene(controllerWatchList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setTooltipTimer(Tooltip tooltip) {

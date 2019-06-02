@@ -1,0 +1,4 @@
+#mainPane {
+    -fx-background-image: url("../Images/background.jpg");
+    -fx-background-size: 100% 100%;
+}
