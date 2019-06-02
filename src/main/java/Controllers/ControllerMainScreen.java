@@ -1,6 +1,5 @@
 package Controllers;
 
-import Management.StageMaster;
 import Types.MovieRankingType;
 import Types.MovieType;
 import Types.PeopleType;
@@ -14,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -62,6 +60,8 @@ public class ControllerMainScreen extends Controller {
     Text yearText;
     @FXML
     Button watchListButton;
+    @FXML
+    Button insertMovie;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,10 +85,10 @@ public class ControllerMainScreen extends Controller {
         moviesNames = new HashMap<>();
         peopleNames = new HashMap<>();
         for (MovieType x : movies) {
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
+            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0, 4) + ") ", x);
         }
         for (PeopleType x : people) {
-            peopleNames.put(x.getFirst_name() + " " + x.getLast_name(), x); //might be ambiguous
+            peopleNames.put(x.getFirst_name() + " " + x.getLast_name() + "(" + x.getBorn().substring(0,4) + ")", x);
         }
         movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
         TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
@@ -159,6 +159,11 @@ public class ControllerMainScreen extends Controller {
             ranking.setTranslateY(133);
             ranking.setTranslateX(230);
             pane.getChildren().addAll(title, mark, votes, ranking);
+
+            final int j = i;
+            pane.setOnMouseClicked(event -> {
+                displayInfo(database.getMovieByID(movieRanking.get(j).getMovie_id()));
+            });
             rankingGrid1.add(pane, i, 0);
         }
     }
@@ -206,6 +211,7 @@ public class ControllerMainScreen extends Controller {
         }
     }
 
+    @FXML
     public void controlFilterButton() {
         if (filterButton.isSelected()) {
             filterSearch();
@@ -281,6 +287,16 @@ public class ControllerMainScreen extends Controller {
             objTimer.getKeyFrames().add(new KeyFrame(new Duration(200)));
         } catch (Exception e) {//e.printStackTrace();
             System.out.println("NIE WAŻNY WYJĄTEK ;))))))))))))");
+        }
+    }
+
+    @FXML
+    public void insertMovie(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerInsertMovieScreen(Controller.scenesLocation + "/movieInsertScreen.fxml", this));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD MOVIESCREEN");
         }
     }
 }

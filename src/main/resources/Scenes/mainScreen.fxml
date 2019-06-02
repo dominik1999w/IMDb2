@@ -80,24 +80,24 @@
             </Button>
          </children>
       </AnchorPane>
-      <Text layoutX="850.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find movie:">
+      <Text layoutX="762.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find movie:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <TextField fx:id="movieBrowser" layoutX="950.0" layoutY="60.0" onKeyPressed="#findMovie" prefHeight="26.0" prefWidth="281.0" />
-      <Text layoutX="850.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find person:">
+      <TextField fx:id="movieBrowser" layoutX="862.0" layoutY="71.0" onKeyPressed="#findMovie" prefHeight="26.0" prefWidth="281.0" />
+      <Text layoutX="762.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find person:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <TextField fx:id="personBrowser" layoutX="950.0" layoutY="100.0" onKeyPressed="#findPerson" prefHeight="26.0" prefWidth="281.0" />
+      <TextField fx:id="personBrowser" layoutX="862.0" layoutY="111.0" onKeyPressed="#findPerson" prefHeight="26.0" prefWidth="281.0" />
       <MenuButton fx:id="categoryMenu" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" text="Genre">
          <effect>
             <DropShadow />
          </effect>
       </MenuButton>
-      <RadioButton fx:id="filterButton" layoutX="639.0" layoutY="64.0" mnemonicParsing="false" onAction="#controlFilterButton" text="Accept Movie Constraints" />
+      <RadioButton fx:id="filterButton" layoutX="551.0" layoutY="75.0" mnemonicParsing="false" onAction="#controlFilterButton" text="Accept Movie Constraints" />
       <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Options" />
       <Slider fx:id="yearSlider" blockIncrement="1.0" layoutX="147.0" layoutY="55.0" max="2019.0" min="1888.0" minorTickCount="10" prefHeight="16.0" prefWidth="161.0" value="1888.0" />
       <Text layoutX="147.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produced after year:" />
@@ -116,6 +116,7 @@
          <font>
             <Font size="5.0" />
          </font></Button>
+      <Button fx:id="insertMovie" layoutX="1155.0" layoutY="70.0" mnemonicParsing="false" onAction="#insertMovie" style="-fx-background-color: #fbea78;" text="Insert New Movie" />
    </children>
     <stylesheets>
         <URL value="@../Css/MainScreen.css" />

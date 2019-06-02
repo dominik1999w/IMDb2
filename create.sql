@@ -157,7 +157,7 @@ CREATE TABLE movie_ratings (
 	heart                char(1)  , 
     seen                 date DEFAULT NOW() ,
 	PRIMARY KEY(movie_id,login),
-    CHECK(seen<=NOW()),
+    CHECK(seen <= NOW()),
 	CHECK(heart = 'H' OR heart IS NULL) ,
 	CHECK(mark > 0 AND mark <= 10) 
  );
@@ -233,7 +233,7 @@ CREATE TABLE people (
 	person_id            SERIAL PRIMARY KEY,
 	first_name           varchar(512)  NOT NULL ,
 	last_name            varchar(512)   ,
-	born                 date   ,
+	born                 date   NOT NULL,
 	died                 date   ,
 	birth_country        varchar(512)   , 
 
@@ -489,7 +489,7 @@ BEGIN
 	movie_id,
 	title,
 	to_year(release_date)
-	 FROM movie m WHERE movie_id IN (SELECT movie_id1 FROM similar_movies WHERE movie_id2 = movie_id) OR movie_id IN (SELECT movie_id2 FROM similar_movies WHERE movie_id1 = 2);
+	 FROM movie m WHERE movie_id IN (SELECT movie_id1 FROM similar_movies WHERE movie_id2 = id) OR movie_id IN (SELECT movie_id2 FROM similar_movies WHERE movie_id1 = id);
 
 END;
 $$ LANGUAGE plpgsql;
@@ -601,8 +601,6 @@ ALTER TABLE crew ADD CONSTRAINT fk_crew_movie FOREIGN KEY ( movie_id ) REFERENCE
 ----------------------------------------------
 
 
-
-INSERT INTO movie VALUES('Blacith Of The World' , '1891-09-24' , INTERVAL '30 minutes' , 21000000 , 74000000 , 420000);
 
 --SAMPLE DATA
 INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) VALUES

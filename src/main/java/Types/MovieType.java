@@ -1,11 +1,9 @@
 package Types;
 
-import java.sql.Date;
-
 public class MovieType {
     private Integer movie_id;
     private String title;
-    private Date release_date;
+    private String release_date;
     private String runtime;
     private Integer budget;
     private Integer boxoffice;
@@ -28,11 +26,11 @@ public class MovieType {
         this.title = title;
     }
 
-    public Date getRelease_date() {
+    public String getRelease_date() {
         return release_date;
     }
 
-    public void setRelease_date(Date release_date) {
+    public void setRelease_date(String release_date) {
         this.release_date = release_date;
     }
 
@@ -76,7 +74,7 @@ public class MovieType {
         this.description = description;
     }
 
-    public MovieType(Integer movie_id, String title, Date release_date, String runtime, Integer budget, Integer boxoffice, Integer opening_weekend_usa, String description) {
+    public MovieType(Integer movie_id, String title, String release_date, String runtime, Integer budget, Integer boxoffice, Integer opening_weekend_usa, String description) {
         this.movie_id = movie_id;
         this.title = title;
         this.release_date = release_date;
@@ -86,4 +84,5 @@ public class MovieType {
         this.opening_weekend_usa = opening_weekend_usa;
         this.description = description;
     }
+
 }

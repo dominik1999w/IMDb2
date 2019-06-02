@@ -7,9 +7,9 @@ public class MovieMarkType {
     private String login;
     private Integer mark;
     private String heart;
-    private Date seen;
+    private String seen;
 
-    public MovieMarkType(Integer movie_id, String login, Integer mark, String heart, Date seen) {
+    public MovieMarkType(Integer movie_id, String login, Integer mark, String heart, String seen) {
         this.movie_id = movie_id;
         this.login = login;
         this.mark = mark;
@@ -49,11 +49,11 @@ public class MovieMarkType {
         this.heart = heart;
     }
 
-    public Date getSeen() {
+    public String getSeen() {
         return seen;
     }
 
-    public void setSeen(Date seen) {
+    public void setSeen(String seen) {
         this.seen = seen;
     }
 }

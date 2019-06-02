@@ -5,18 +5,16 @@ import Types.MovieMarkType;
 import Types.MovieRankingType;
 import Types.MovieType;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Vector;
+import java.util.*;
 
 public class ControllerMovieScreen extends Controller {
 
@@ -33,6 +31,8 @@ public class ControllerMovieScreen extends Controller {
     private MovieType movie;
     private boolean isHeart;
     private boolean isWatchlist;
+    private MovieType selectedMovie;
+    private HashMap<String, MovieType> similarMovies;
 
     @FXML
     Text title;
@@ -61,9 +61,23 @@ public class ControllerMovieScreen extends Controller {
     @FXML
     Text weekend;
     @FXML
+    Text nominations;
+    @FXML
+    Text wins;
+    @FXML
     TextArea stars;
     @FXML
     TextArea description;
+    @FXML
+    TextArea reviews;
+    @FXML
+    TextArea yourReview;
+    @FXML
+    Button submitReview;
+    @FXML
+    ListView<String> similar;
+    @FXML
+    Button displayMovie;
     @FXML
     TextArea others;
     @FXML
@@ -84,9 +98,9 @@ public class ControllerMovieScreen extends Controller {
         title.setText(movie.getTitle());
         runtime.setText(runtime.getText() + " " + movie.getRuntime());
         release.setText(release.getText() + " " + movie.getRelease_date());
-        budget.setText(budget.getText() + " " + movie.getBudget());
-        boxoffice.setText(boxoffice.getText() + " " + movie.getBoxoffice());
-        weekend.setText(weekend.getText() + " " + movie.getOpening_weekend_usa());
+        budget.setText(budget.getText() + " " + (movie.getBudget() == 0 ? " - " : movie.getBudget() + "k $"));
+        boxoffice.setText(boxoffice.getText() + " " + (movie.getBoxoffice() == 0 ? " - " : movie.getBoxoffice() + "k $"));
+        weekend.setText(weekend.getText() + " " + (movie.getOpening_weekend_usa() == 0 ? " - " : movie.getOpening_weekend_usa() + "k $"));
         description.setText(movie.getDescription());
 
         genre.setText(genre.getText() + " " + RegexManager.convertIntoList(
@@ -99,6 +113,11 @@ public class ControllerMovieScreen extends Controller {
                 database.getSomethingForMovie(movie.getMovie_id(), "production_company", "company")));
         alternative.setText(alternative.getText() + " " + RegexManager.convertIntoList(
                 database.getSomethingForMovie(movie.getMovie_id(), "alternative_title", "movie_title")));
+
+        nominations.setText(nominations.getText() + " " + RegexManager.convertIntoList(
+                database.getAwards(movie.getMovie_id(), "N")));
+        wins.setText(wins.getText() + " " + RegexManager.convertIntoList(
+                database.getAwards(movie.getMovie_id(), "W")));
 
         directors.setText(directors.getText() + " " + RegexManager.convertIntoList(
                 database.getPeopleForMovie(movie.getMovie_id(), "Director")));
@@ -119,13 +138,31 @@ public class ControllerMovieScreen extends Controller {
             if(i < othersList.size() - 1) stringBuilder.append("\n");
         } others.setText(stringBuilder.toString());
 
-        others.setEditable(false);
-        stars.setEditable(false);
-        description.setEditable(false);
+        yourReview.setText(database.getYourReview(movie.getMovie_id(), currentUserDBver));
 
         updateRankings();
         setUpRadio();
         updatePersonal();
+        submitReview();
+
+        //SIMILAR:
+        Vector<MovieType> movies = database.getSimilar(movie.getMovie_id());
+        similarMovies = new HashMap<>();
+        for (MovieType x : movies) {
+            similarMovies.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
+        }
+        List<String> tmp = new LinkedList<>(similarMovies.keySet());
+        similar.setItems(FXCollections.observableList(tmp));
+        displayMovie.setDisable(true);
+        similar.setOnMouseClicked(mouseEvent -> {
+            if (similar.getSelectionModel().getSelectedItems().size() == 0) return;
+            if (similar.getSelectionModel().getSelectedItems().get(0) != null) {
+                selectedMovie = similarMovies.get(similar.getSelectionModel().getSelectedItems().get(0));
+                displayMovie.setDisable(false);
+            } else {
+                displayMovie.setDisable(true);
+            }
+        });
     }
 
     private void updateRankings(){
@@ -189,12 +226,16 @@ public class ControllerMovieScreen extends Controller {
     @FXML
     public void heartButton(){
         MovieMarkType movieMark = database.getMovieMark(Controller.currentUserDBver, movie.getMovie_id());
-        if(isHeart() != null){
+        try {
+            if (isHeart() != null) {
+                updateHeart(false);
+                database.updateFromMovieRatings(new MovieMarkType(movie.getMovie_id(), Controller.currentUserDBver, movieMark.getMark(), null, movieMark.getSeen()));
+            } else {
+                updateHeart(true);
+                database.updateFromMovieRatings(new MovieMarkType(movie.getMovie_id(), Controller.currentUserDBver, movieMark.getMark(), "H", movieMark.getSeen()));
+            }
+        } catch (NullPointerException e){
             updateHeart(false);
-            database.updateFromMovieRatings(new MovieMarkType(movie.getMovie_id(), Controller.currentUserDBver, movieMark.getMark(), null, movieMark.getSeen()));
-        } else {
-            updateHeart(true);
-            database.updateFromMovieRatings(new MovieMarkType(movie.getMovie_id(), Controller.currentUserDBver, movieMark.getMark(), "H", movieMark.getSeen()));
         }
     }
 
@@ -216,7 +257,21 @@ public class ControllerMovieScreen extends Controller {
         }
     }
 
+    @FXML
+    public void submitReview(){
+        database.updateReview(movie.getMovie_id(), currentUserDBver, yourReview.getText());
+        reviews.setText(RegexManager.convertIntoListNewLine(
+                database.getReviews(movie.getMovie_id())));
+    }
 
+    @FXML
+    public void displayMovie() {
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerMovieScreen(Controller.scenesLocation + "/movieScreen.fxml", this, selectedMovie));
+        } catch (IOException e) {
+            System.out.println("FAILED TO LOAD MOVIESCREEN");
+        }
+    }
 
 
 //RANKS    ------------------------------------------------------------------
