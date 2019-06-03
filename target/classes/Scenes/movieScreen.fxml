@@ -14,11 +14,11 @@
 
 <AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="title" layoutX="76.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="491.2578125">
+      <Text fx:id="title" layoutX="71.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="491.2578125">
          <font>
             <Font size="36.0" />
          </font></Text>
-      <TextArea fx:id="description" editable="false" layoutX="239.0" layoutY="616.0" prefHeight="170.0" prefWidth="200.0" promptText="Description" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="361.0" />
+      <TextArea fx:id="description" editable="false" layoutX="239.0" layoutY="616.0" maxWidth="200.0" prefHeight="170.0" prefWidth="200.0" promptText="Description" wrapText="true" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="361.0" />
       <Text fx:id="directors" layoutX="51.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Director(s):" />
       <Text fx:id="writers" layoutX="51.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Writer(s):" />
       <Text fx:id="genre" layoutX="51.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre:" />
@@ -32,7 +32,7 @@
       <Text fx:id="alternative" layoutX="51.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alternative titles:" />
       <Text layoutX="22.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stars:" />
       <Text fx:id="languages" layoutX="51.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Languages:" />
-      <Text fx:id="rank" layoutX="605.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8,8/10" wrappingWidth="156.7294921875">
+      <Text fx:id="rank" layoutX="583.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8,8/10" wrappingWidth="192.7294921875">
          <font>
             <Font size="48.0" />
          </font>
@@ -63,57 +63,57 @@
          </graphic>
       </Button>
       <Text fx:id="release" layoutX="51.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Release Date:" />
-      <RadioButton fx:id="radio1" layoutX="619.0" layoutY="288.0" mnemonicParsing="false" text="1">
+      <RadioButton fx:id="radio1" layoutX="524.0" layoutY="158.0" mnemonicParsing="false" text="1">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio2" layoutX="619.0" layoutY="313.0" mnemonicParsing="false" text="2">
+      <RadioButton fx:id="radio2" layoutX="524.0" layoutY="183.0" mnemonicParsing="false" text="2">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio5" layoutX="619.0" layoutY="388.0" mnemonicParsing="false" text="5">
+      <RadioButton fx:id="radio5" layoutX="524.0" layoutY="258.0" mnemonicParsing="false" text="5">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio3" layoutX="619.0" layoutY="338.0" mnemonicParsing="false" text="3">
+      <RadioButton fx:id="radio3" layoutX="524.0" layoutY="208.0" mnemonicParsing="false" text="3">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio7" layoutX="679.0" layoutY="313.0" mnemonicParsing="false" text="7">
+      <RadioButton fx:id="radio7" layoutX="584.0" layoutY="183.0" mnemonicParsing="false" text="7">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio6" layoutX="679.0" layoutY="288.0" mnemonicParsing="false" text="6">
+      <RadioButton fx:id="radio6" layoutX="584.0" layoutY="158.0" mnemonicParsing="false" text="6">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio4" layoutX="619.0" layoutY="363.0" mnemonicParsing="false" text="4">
+      <RadioButton fx:id="radio4" layoutX="524.0" layoutY="233.0" mnemonicParsing="false" text="4">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio8" layoutX="679.0" layoutY="338.0" mnemonicParsing="false" text="8">
+      <RadioButton fx:id="radio8" layoutX="584.0" layoutY="208.0" mnemonicParsing="false" text="8">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio9" layoutX="679.0" layoutY="363.0" mnemonicParsing="false" text="9">
+      <RadioButton fx:id="radio9" layoutX="584.0" layoutY="233.0" mnemonicParsing="false" text="9">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio10" layoutX="679.0" layoutY="388.0" mnemonicParsing="false" text="10">
+      <RadioButton fx:id="radio10" layoutX="584.0" layoutY="258.0" mnemonicParsing="false" text="10">
          <font>
             <Font size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radioNone" layoutX="619.0" layoutY="263.0" mnemonicParsing="false" text="Not Seen">
+      <RadioButton fx:id="radioNone" layoutX="524.0" layoutY="133.0" mnemonicParsing="false" text="Not Seen">
          <font>
             <Font size="18.0" />
          </font>
@@ -122,16 +122,17 @@
       <TextArea fx:id="others" editable="false" layoutX="20.0" layoutY="616.0" prefHeight="170.0" prefWidth="200.0" promptText="Others" />
       <Text layoutX="20.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Others:" />
       <Text layoutX="239.0" layoutY="609.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
-      <Text fx:id="votes" layoutX="680.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(100 votes)" />
-      <TextArea fx:id="reviews" editable="false" layoutX="239.0" layoutY="427.0" prefHeight="159.0" prefWidth="200.0" promptText="Reviews" />
+      <Text fx:id="votes" layoutX="656.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(100 votes)" />
+      <TextArea fx:id="reviews" editable="false" layoutX="239.0" layoutY="427.0" prefHeight="159.0" prefWidth="200.0" promptText="Reviews" wrapText="true" />
       <Text layoutX="239.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reviews:" />
       <ListView fx:id="similar" layoutX="456.0" layoutY="616.0" prefHeight="128.0" prefWidth="326.0" />
       <Text layoutX="456.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Similar movies:" />
-      <TextArea fx:id="yourReview" layoutX="456.0" layoutY="449.0" prefHeight="116.0" prefWidth="326.0" promptText="Your Review" />
+      <TextArea fx:id="yourReview" layoutX="456.0" layoutY="449.0" prefHeight="116.0" prefWidth="326.0" promptText="Your Review" wrapText="true" />
       <Button fx:id="submitReview" layoutX="715.0" layoutY="573.0" mnemonicParsing="false" onAction="#submitReview" prefHeight="26.0" prefWidth="67.0" style="-fx-background-color: #fbea78;" text="Submit" />
       <Button fx:id="displayMovie" layoutX="679.0" layoutY="760.0" mnemonicParsing="false" onAction="#displayMovie" style="-fx-background-color: #fbea78;" text="Display movie" />
-      <Text fx:id="nominations" layoutX="51.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nominations (Oscars):" />
-      <Text fx:id="wins" layoutX="51.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wins (Oscars):" />
+      <Text fx:id="nominations" layoutX="51.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nominations (Oscars):" wrappingWidth="700.0" />
+      <Text fx:id="wins" layoutX="50.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wins (Oscars):" wrappingWidth="700.0" />
+      <Button fx:id="editData" layoutX="703.0" layoutY="305.0" mnemonicParsing="false" onAction="#editData" style="-fx-background-color: #fbea78;" text="Edit Data" />
    </children>
    <stylesheets>
       <URL value="@../Css/MovieScreen.css" />

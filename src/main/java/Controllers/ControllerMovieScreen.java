@@ -93,16 +93,26 @@ public class ControllerMovieScreen extends Controller {
     @FXML
     ImageView watchlistImage;
     @FXML
-    Button myMovies;
+    Button editData;
+
+    @Override
+    public void goBack(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerMainScreen("/Scenes/mainScreen.fxml", this));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD mainScreen.fxml");
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         title.setText(movie.getTitle());
         runtime.setText(runtime.getText() + " " + movie.getRuntime());
         release.setText(release.getText() + " " + movie.getRelease_date());
-        budget.setText(budget.getText() + " " + (movie.getBudget() == 0 ? " - " : movie.getBudget() + "k $"));
-        boxoffice.setText(boxoffice.getText() + " " + (movie.getBoxoffice() == 0 ? " - " : movie.getBoxoffice() + "k $"));
-        weekend.setText(weekend.getText() + " " + (movie.getOpening_weekend_usa() == 0 ? " - " : movie.getOpening_weekend_usa() + "k $"));
+        budget.setText(budget.getText() + " " + (movie.getBudget() == 0 ? " - " : movie.getBudget() + "k$"));
+        boxoffice.setText(boxoffice.getText() + " " + (movie.getBoxoffice() == 0 ? " - " : movie.getBoxoffice() + "k$"));
+        weekend.setText(weekend.getText() + " " + (movie.getOpening_weekend_usa() == 0 ? " - " : movie.getOpening_weekend_usa() + "k$"));
         description.setText(movie.getDescription());
 
         genre.setText(genre.getText() + " " + RegexManager.convertIntoList(
@@ -263,7 +273,7 @@ public class ControllerMovieScreen extends Controller {
     public void submitReview(){
         database.updateReview(movie.getMovie_id(), currentUserDBver, yourReview.getText());
         reviews.setText(RegexManager.convertIntoListNewLine(
-                database.getReviews(movie.getMovie_id())));
+                database.getReviews(movie.getMovie_id()), true));
     }
 
     @FXML
@@ -272,6 +282,16 @@ public class ControllerMovieScreen extends Controller {
             Controller.stageMaster.loadNewScene(new ControllerMovieScreen(Controller.scenesLocation + "/movieScreen.fxml", this, selectedMovie));
         } catch (IOException e) {
             System.out.println("FAILED TO LOAD MOVIESCREEN");
+        }
+    }
+
+    @FXML
+    public void editData(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerEditDataMovie(Controller.scenesLocation + "/editDataMovie.fxml", this, movie));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD editMovieScreen");
         }
     }
 

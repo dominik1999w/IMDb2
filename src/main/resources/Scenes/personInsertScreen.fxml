@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text layoutX="174.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name:" textAlignment="CENTER" wrappingWidth="112.25194931030273">
+            <font>
+                <Font size="18.0" />
+            </font></Text>
+        <TextField fx:id="firstName" layoutX="292.0" layoutY="79.0" prefHeight="26.0" prefWidth="368.0" promptText="First name" />
+      <Text layoutX="174.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name:" textAlignment="CENTER" wrappingWidth="112.25194931030273">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="lastName" layoutX="292.0" layoutY="114.0" prefHeight="26.0" prefWidth="368.0" promptText="Last name" />
+        <Text layoutX="184.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Born:" />
+        <TextField fx:id="born" layoutX="226.0" layoutY="182.0" promptText="YYYY-MM-DD" />
+        <Text layoutX="184.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Died:" />
+        <TextField fx:id="died" layoutX="226.0" layoutY="212.0" promptText="YYYY-MM-DD" />
+        <Text layoutX="133.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth country:" />
+        <TextField fx:id="birthCountry" layoutX="226.0" layoutY="242.0" promptText="Birth country" />
+        <Text layoutX="145.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Professions:" />
+        <TextArea fx:id="professions" layoutX="226.0" layoutY="275.0" prefHeight="75.0" prefWidth="184.0" promptText="first                                   second ..." />
+        <MenuButton fx:id="nominationsMenu" layoutX="504.0" layoutY="217.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Nominations (Oscars)">
+        </MenuButton>
+        <MenuButton fx:id="winsMenu" layoutX="504.0" layoutY="253.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Wins (Oscars)">
+        </MenuButton>
+        <Text layoutX="92.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movies:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <TextField fx:id="findMovie" layoutX="245.0" layoutY="389.0" prefHeight="26.0" prefWidth="301.0" promptText="Find movie" />
+        <Text layoutX="209.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" text="role:" />
+        <TextField fx:id="findRole" layoutX="245.0" layoutY="423.0" prefHeight="26.0" prefWidth="301.0" promptText="Role" />
+        <Text layoutX="214.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="as:" />
+        <TextField fx:id="findCharacter" disable="true" layoutX="245.0" layoutY="463.0" prefHeight="26.0" prefWidth="301.0" promptText="Character" />
+        <Text fx:id="errorCrew" fill="RED" layoutX="327.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: something wrong with your data">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Text>
+        <Button fx:id="add" layoutX="558.0" layoutY="462.0" mnemonicParsing="false" onAction="#add" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #fbea78;" text="add" />
+        <ListView fx:id="movieList" layoutX="245.0" layoutY="517.0" prefHeight="153.0" prefWidth="301.0" />
+        <Button fx:id="remove" layoutX="558.0" layoutY="644.0" mnemonicParsing="false" onAction="#remove" style="-fx-background-color: #fbea78;" text="remove" />
+        <Text fx:id="error" fill="RED" layoutX="417.0" layoutY="760.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: something wrong with your data" />
+        <Button fx:id="submit" layoutX="680.0" layoutY="735.0" mnemonicParsing="false" onAction="#submitMovie" prefHeight="42.0" prefWidth="106.0" style="-fx-background-color: #fbea78;" text="Submit">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="back" layoutX="28.0" layoutY="29.0" mnemonicParsing="false" onAction="#goBack" prefHeight="35.0" prefWidth="44.0" style="-fx-background-color: slategrey;">
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Images/back.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Text fill="#049701" layoutX="297.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Be carefull inserting: first name, last name and born year; you won't be able to change it later" wrappingWidth="357.99999010562897">
+            <font>
+                <Font name="System Italic" size="11.0" />
+            </font>
+        </Text>
+    </children>
+    <stylesheets>
+        <URL value="@../Css/PersonInsertScreen.css" />
+    </stylesheets>
+</AnchorPane>

@@ -27,6 +27,11 @@ public class ControllerPrimary extends Controller implements Initializable {
         Controller.database = new Database(); //First set-up : see type of constructors
     }
 
+    public ControllerPrimary(String name) {
+        this.name = name;
+        this.previousController = null;
+    }
+
     @FXML
     TextField signInLoginField;
     @FXML

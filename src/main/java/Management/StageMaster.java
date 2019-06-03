@@ -32,7 +32,7 @@ public class StageMaster {
     }
 
     private void loadScene(String name) throws IOException {
-        System.out.println("LOADING: " + name);
+        //System.out.println("LOADING: " + name);
         FXMLLoader loader = new FXMLLoader(currentController.getClass().getResource(name));
         loader.setController(currentController);
         Pane myPane = loader.load();

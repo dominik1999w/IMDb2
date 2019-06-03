@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ControllerFavouriteMoviesScreen extends Controller {
+public class ControllerFavouriteMovies extends Controller {
 
     private MovieType selectedMovie;
     private HashMap<String, MovieType> moviesNames;
@@ -22,7 +22,7 @@ public class ControllerFavouriteMoviesScreen extends Controller {
     @FXML
     Button displayMovie;
 
-    ControllerFavouriteMoviesScreen(String name, Controller previousController) {
+    ControllerFavouriteMovies(String name, Controller previousController) {
         super(name, previousController);
     }
 

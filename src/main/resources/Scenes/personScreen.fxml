@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text fx:id="name" layoutX="41.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" wrappingWidth="418.2578125">
+            <font>
+                <Font size="36.0" />
+            </font></Text>
+        <Text fx:id="birthCountry" layoutX="50.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth country:" />
+        <Text layoutX="59.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="born" layoutX="50.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Born:" />
+        <Text fx:id="rank" layoutX="583.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8,8/10" wrappingWidth="192.7294921875">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Text>
+        <ToggleButton fx:id="heart" layoutX="681.0" layoutY="128.0" mnemonicParsing="false" onAction="#heartButton" style="-fx-background-color: #f2a602;">
+            <graphic>
+                <ImageView fx:id="heartImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Images/heartNo.png" />
+                    </image>
+                </ImageView>
+            </graphic></ToggleButton>
+        <Button fx:id="back" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" onAction="#goBack" prefHeight="35.0" prefWidth="44.0" style="-fx-background-color: slategrey;">
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Images/back.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Text fx:id="died" layoutX="50.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Died:" />
+        <RadioButton fx:id="radio1" layoutX="524.0" layoutY="158.0" mnemonicParsing="false" text="1">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio2" layoutX="524.0" layoutY="183.0" mnemonicParsing="false" text="2">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio5" layoutX="524.0" layoutY="258.0" mnemonicParsing="false" text="5">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio3" layoutX="524.0" layoutY="208.0" mnemonicParsing="false" text="3">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio7" layoutX="584.0" layoutY="183.0" mnemonicParsing="false" text="7">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio6" layoutX="584.0" layoutY="158.0" mnemonicParsing="false" text="6">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio4" layoutX="524.0" layoutY="233.0" mnemonicParsing="false" text="4">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio8" layoutX="584.0" layoutY="208.0" mnemonicParsing="false" text="8">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio9" layoutX="584.0" layoutY="233.0" mnemonicParsing="false" text="9">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radio10" layoutX="584.0" layoutY="258.0" mnemonicParsing="false" text="10">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="radioNone" layoutX="524.0" layoutY="133.0" mnemonicParsing="false" text="Not Rated">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </RadioButton>
+        <TextArea fx:id="professions" editable="false" layoutX="519.0" layoutY="664.0" prefHeight="110.0" prefWidth="256.0" promptText="Professions" />
+        <Text layoutX="519.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Professions:" />
+        <Text fx:id="votes" layoutX="656.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(100 votes)" />
+        <ListView fx:id="moviesList" layoutX="14.0" layoutY="463.0" prefHeight="311.0" prefWidth="343.0" />
+        <Text layoutX="29.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movies:" />
+        <Button fx:id="displayMovie" layoutX="386.0" layoutY="748.0" mnemonicParsing="false" onAction="#displayMovie" style="-fx-background-color: #fbea78;" text="Display movie" />
+        <Text fx:id="nominations" layoutX="51.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nominations (Oscars):" wrappingWidth="700.0" />
+        <Text fx:id="wins" layoutX="50.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wins (Oscars):" wrappingWidth="700.0" />
+        <Button fx:id="editData" layoutX="691.0" layoutY="232.0" mnemonicParsing="false" onAction="#editData" style="-fx-background-color: #fbea78;" text="Edit Data" />
+    </children>
+    <stylesheets>
+        <URL value="@../Css/PersonScreen.css" />
+    </stylesheets>
+</AnchorPane>

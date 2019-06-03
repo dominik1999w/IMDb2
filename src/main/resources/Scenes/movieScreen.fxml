@@ -132,6 +132,7 @@
       <Button fx:id="displayMovie" layoutX="679.0" layoutY="760.0" mnemonicParsing="false" onAction="#displayMovie" style="-fx-background-color: #fbea78;" text="Display movie" />
       <Text fx:id="nominations" layoutX="51.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nominations (Oscars):" wrappingWidth="700.0" />
       <Text fx:id="wins" layoutX="50.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wins (Oscars):" wrappingWidth="700.0" />
+      <Button fx:id="editData" layoutX="703.0" layoutY="305.0" mnemonicParsing="false" onAction="#editData" style="-fx-background-color: #fbea78;" text="Edit Data" />
    </children>
    <stylesheets>
       <URL value="@../Css/MovieScreen.css" />

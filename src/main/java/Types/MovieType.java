@@ -9,6 +9,7 @@ public class MovieType {
     private Integer boxoffice;
     private Integer opening_weekend_usa;
     private String description;
+    private String identifier;
 
     public Integer getMovie_id() {
         return movie_id;
@@ -83,6 +84,10 @@ public class MovieType {
         this.boxoffice = boxoffice;
         this.opening_weekend_usa = opening_weekend_usa;
         this.description = description;
+        this.identifier = title + " (" + release_date.substring(0,4) + ")";
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
 }

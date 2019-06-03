@@ -7,6 +7,7 @@ public class PeopleType {
     private String born;
     private String died;
     private String birth_country;
+    private String identifier;
 
     public Integer getPerson_id() {
         return person_id;
@@ -63,5 +64,10 @@ public class PeopleType {
         this.born = born;
         this.died = died;
         this.birth_country = birth_country;
+        this.identifier = first_name + " " + last_name + " (" + born.substring(0,4) + ")";
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 }

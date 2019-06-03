@@ -29,8 +29,8 @@ public class RegexManager {
         return stringBuilder.toString();
     }
 
-    public static String convertIntoListNewLine(Vector<String> vector){
-        if(vector.size() == 0) return " - ";
+    public static String convertIntoListNewLine(Vector<String> vector, boolean beautiful){
+        if(vector.size() == 0) return beautiful ? " - " : "";
         StringBuilder stringBuilder = new StringBuilder();
         for(String s : vector){
             stringBuilder.append(s).append("\n");

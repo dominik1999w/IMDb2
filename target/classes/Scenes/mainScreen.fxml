@@ -78,7 +78,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="favouriteMovies" layoutX="1105.0" layoutY="590.0" mnemonicParsing="false" onAction="#displayFavouriteMovies" prefHeight="60.0" prefWidth="76.0" style="-fx-background-color: #f7a001;">
+            <Button fx:id="favouriteMovies" layoutX="1126.0" layoutY="590.0" mnemonicParsing="false" onAction="#displayFavouriteMovies" prefHeight="60.0" prefWidth="76.0" style="-fx-background-color: #f7a001;">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -87,7 +87,20 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="insertMovie" layoutX="931.0" layoutY="601.0" mnemonicParsing="false" onAction="#insertMovie" style="-fx-background-color: #fbea78;" text="Insert New Movie" />
+            <Button fx:id="insertMovie" layoutX="650.0" layoutY="603.0" mnemonicParsing="false" onAction="#insertMovie" style="-fx-background-color: #fbea78;" text="Insert New Movie" />
+            <Button fx:id="insertPerson" layoutX="498.0" layoutY="603.0" mnemonicParsing="false" onAction="#insertPerson" style="-fx-background-color: #fbea78;" text="Insert New Person" />
+            <Text layoutX="1126.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movies" textAlignment="CENTER" wrappingWidth="76.00001096725464" />
+            <Text layoutX="1202.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Watchlist" textAlignment="CENTER" wrappingWidth="76.00001096725464" />
+            <Button fx:id="favouritePeople" layoutX="985.0" layoutY="590.0" mnemonicParsing="false" onAction="#displayFavouritePeople" prefHeight="60.0" prefWidth="76.0" style="-fx-background-color: #fcbb07;">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/heartYes.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text layoutX="985.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="People" textAlignment="CENTER" wrappingWidth="76.00001096725464" />
          </children>
       </AnchorPane>
       <Text layoutX="875.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Find movie:">

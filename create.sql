@@ -212,20 +212,17 @@ CREATE TABLE movie_awards (
 	CHECK (nomination_or_win = 'N' OR nomination_or_win = 'W') ,
 	CHECK ("year" >= 1927 AND "year" <= to_year(current_date)) ,
 
-	CONSTRAINT unique_movie_awards UNIQUE(movie_id, category, nomination_or_win, "year")
+	CONSTRAINT unique_movie_awards UNIQUE(movie_id, category, nomination_or_win)
  );
 
 CREATE TABLE people_awards ( 
 	person_id            integer NOT NULL /*REFERENCES people*/,
-	movie_id             integer   /*REFERENCES movie*/,
 	category             varchar(512)   NOT NULL/*REFERENCES categories*/,
 	nomination_or_win    char(1)  NOT NULL ,
-	"year"               numeric(4)  NOT NULL , 
 
 	CHECK (nomination_or_win = 'N' OR nomination_or_win = 'W') /* N-nomination, W-win*/,
-	CHECK ("year" >= 1927 AND "year" <= to_year(current_date)) ,
 
-	CONSTRAINT unique_people_awards UNIQUE(person_id, movie_id, category, nomination_or_win, "year")
+	CONSTRAINT unique_people_awards UNIQUE(person_id, category, nomination_or_win)
  );
 
 --PEOPLE TABLES
@@ -392,49 +389,12 @@ FOR EACH ROW EXECUTE PROCEDURE movie_awards_trig();
 CREATE OR REPLACE FUNCTION people_awards_trig() RETURNS trigger AS $$
 BEGIN
 
-	IF NEW.movie_id IS NOT NULL THEN
-		IF movie_year(NEW.movie_id) > NEW.year OR movie_year(NEW.movie_id) + 2 < NEW.year THEN
-			RAISE EXCEPTION 'Wrong year';
-		END IF;
-	END IF;
-
 	IF (SELECT SUM(1) FROM categories WHERE category = NEW.category AND movie_or_person = 'P')
 		IS NULL THEN
 		RAISE EXCEPTION 'Wrong category';
 	END IF;
 
-	IF to_year((SELECT born FROM people WHERE person_id = NEW.person_id)) > NEW.year THEN
-		RAISE EXCEPTION 'Wrong year';
-	END IF;
-
-	IF NEW.year < (SELECT to_year(since) FROM categories WHERE category = NEW.category)
-		OR 
-	   NEW.year > COALESCE((SELECT to_year("to") FROM categories WHERE category = NEW.category),
-	   	to_year(current_date)) THEN
-		RAISE EXCEPTION 'Wrong year';
-	END IF;
-
 	--categories constraints
-
-	IF 
-		(SELECT category_genre FROM categories WHERE category = NEW.category) IS NOT NULL
-		THEN
-		IF (SELECT movie_id FROM movie JOIN movie_genre USING(movie_id) 
-			WHERE movie_id = NEW.movie_id AND genre = (SELECT category_genre FROM categories WHERE category = NEW.category)) IS NULL
-			THEN
-				RAISE EXCEPTION 'Wrong genere!';
-		END IF;
-	END IF;
-	IF
-		(SELECT category_role FROM categories WHERE category = NEW.category) IS NOT NULL
-		THEN
-			IF (SELECT person_id FROM crew c JOIN movie m USING(movie_id) 
-				WHERE c.movie_id = NEW.movie_id AND c.person_id = NEW.person_id AND role = 
-				(SELECT category_role FROM categories WHERE category = NEW.category)) IS NULL
-				THEN
-					RAISE EXCEPTION 'This person did not stare at this film!';
-			END IF;
-	END IF;
 
 	RETURN NEW;
 END;
@@ -590,7 +550,6 @@ ALTER TABLE movie_awards ADD CONSTRAINT fk_movie_awards_categories FOREIGN KEY (
 ALTER TABLE people_awards ADD CONSTRAINT fk_people_awards_categories FOREIGN KEY ( category ) REFERENCES categories( category )  ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE movie_awards ADD CONSTRAINT fk_awards_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE people_awards ADD CONSTRAINT fk_people_awards_people FOREIGN KEY ( person_id ) REFERENCES people( person_id ) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE people_awards ADD CONSTRAINT fk_people_awards_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE watchlist ADD CONSTRAINT fk_watchlist_movie FOREIGN KEY ( movie_id ) REFERENCES movie( movie_id ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE watchlist ADD CONSTRAINT fk_watchlist_users FOREIGN KEY ( login ) REFERENCES users( login ) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE person_ratings ADD CONSTRAINT fk_person_ratings_users FOREIGN KEY ( login ) REFERENCES users( login ) ON UPDATE CASCADE ON DELETE CASCADE;
@@ -604,56 +563,56 @@ ALTER TABLE crew ADD CONSTRAINT fk_crew_movie FOREIGN KEY ( movie_id ) REFERENCE
 
 --SAMPLE DATA
 INSERT INTO movie(title,release_date,runtime,budget,boxoffice,opening_weekend_usa) VALUES
-( 'Blacksmith Of The World' , '1891-09-24' , INTERVAL '29 minutes' , 21000000 , 74000000 , 420000), 
-( 'Tree Of Freedom' , '1896-10-18' , INTERVAL '181 minutes' , 32000000 , 73000000 , 220000), 
-( 'Children With Strength' , '1903-11-07' , INTERVAL '75 minutes' , 45000000 , 99000000 , 630000), 
-( 'Pilots Of Reality' , '1908-02-10' , INTERVAL '131 minutes' , 65000000 , 96000000 , 230000), 
-( 'Viva Nollywood' , '1919-09-05' , INTERVAL '23 minutes' , 93000000 , 53000000 , 870000), 
-( 'Foreigners And Friends' , '1928-10-14' , INTERVAL '29 minutes' , 50000000 , 71000000 , 460000), 
-( 'Tower Of Reality' , '1929-12-25' , INTERVAL '26 minutes' , 82000000 , 10000000 , 540000), 
-( 'Strife Of Glory' , '1932-01-14' , INTERVAL '85 minutes' , 92000000 , 36000000 , 300000), 
-( 'Hurt By The City' , '1935-06-19' , INTERVAL '191 minutes' , 1000000 , 20000000 , 530000), 
-( 'Welcome To The City' , '1936-07-20' , INTERVAL '145 minutes' , 31000000 , 12000000 , 60000), 
-( 'Slave Of Reality' , '1941-02-03' , INTERVAL '129 minutes' , 75000000 , 30000000 , 340000), 
-( 'Warrior Of Perfection' , '1943-02-02' , INTERVAL '199 minutes' , 1000000 , 46000000 , 740000), 
-( 'Horses Of Fortune' , '1956-05-24' , INTERVAL '179 minutes' , 18000000 , 11000000 , 90000), 
-( 'Butchers Of Perfection' , '1959-01-08' , INTERVAL '103 minutes' , 90000000 , 21000000 , 740000), 
-( 'Foes And Defenders' , '1965-05-26' , INTERVAL '170 minutes' , 28000000 , 38000000 , 30000), 
-( 'Blacksmiths And Slaves' , '1971-12-20' , INTERVAL '69 minutes' , 31000000 , 17000000 , 160000), 
-( 'Unity Of The Frontline' , '1972-05-31' , INTERVAL '123 minutes' , 29000000 , 82000000 , 710000), 
-( 'Culling Of Gold' , '1983-04-14' , INTERVAL '180 minutes' , 49000000 , 97000000 , 170000), 
-( 'Losing Eternity' , '1983-06-15' , INTERVAL '98 minutes' , 44000000 , 87000000 , 490000), 
-( 'Searching In My End' , '1992-04-28' , INTERVAL '27 minutes' , 96000000 , 7000000 , 360000), 
-( 'Owl Of The End' , '1996-03-20' , INTERVAL '119 minutes' , 76000000 , 75000000 , 330000), 
-( 'Soldier With Gold' , '2001-05-18' , INTERVAL '115 minutes' , 12000000 , 38000000 , 350000), 
-( 'Agents Of Fire' , '2004-10-02' , INTERVAL '24 minutes' , 47000000 , 78000000 , 260000), 
-( 'Boys Of The North' , '2012-10-05' , INTERVAL '38 minutes' , 16000000 , 43000000 , 150000), 
-( 'Boys And Gods' , '2017-09-10' , INTERVAL '20 minutes' , 52000000 , 66000000 , 530000), 
-( 'Owls And Invaders' , '1989-06-23' , INTERVAL '85 minutes' , 64000000 , 48000000 , 410000), 
-( 'Star With Silver' , '1990-01-23' , INTERVAL '94 minutes' , 46000000 , 79000000 , 10000), 
-( 'Family Without Faith' , '1993-04-24' , INTERVAL '114 minutes' , 28000000 , 31000000 , 970000), 
-( 'Travel To The World' , '1993-05-17' , INTERVAL '67 minutes' , 8000000 , 59000000 , 540000), 
-( 'Taste Of My Nightmares' , '1994-01-06' , INTERVAL '174 minutes' , 79000000 , 95000000 , 170000), 
-( 'Nymph Of Dreams' , '1994-07-31' , INTERVAL '71 minutes' , 99000000 , 63000000 , 240000), 
-( 'Defender Without Hope' , '1997-09-28' , INTERVAL '196 minutes' , 49000000 , 97000000 , 680000), 
-( 'Foes Of Joy' , '2000-06-03' , INTERVAL '76 minutes' , 63000000 , 83000000 , 270000), 
-( 'Fish With Money' , '2003-01-14' , INTERVAL '192 minutes' , 22000000 , 16000000 , 560000), 
-( 'Pirates And Foes' , '2003-11-24' , INTERVAL '92 minutes' , 28000000 , 53000000 , 260000), 
-( 'Witches And Hunters' , '2007-05-16' , INTERVAL '53 minutes' , 37000000 , 2000000 , 850000), 
-( 'Bane Of Power' , '2009-01-01' , INTERVAL '144 minutes' , 8000000 , 90000000 , 130000), 
-( 'Fruit Without Sin' , '2012-06-02' , INTERVAL '83 minutes' , 49000000 , 980000 , 380000), 
-( 'Amusing My Home' , '2012-06-04' , INTERVAL '79 minutes' , 7000000 , 27000000 , 80000), 
-( 'Breaking The Graveyard' , '2014-02-01' , INTERVAL '44 minutes' , 32000000 , 41000000 , 290000), 
-( 'Bandit Of Destruction' , '2014-05-08' , INTERVAL '146 minutes' , 60000000 , 94000000 , 440000), 
-( 'Snake Of The Sea' , '2014-11-15' , INTERVAL '30 minutes' , 12000000 , 47000000 , 410000), 
-( 'Pilots Without A Goal' , '2015-01-11' , INTERVAL '34 minutes' , 3000000 , 9000000 , 270000), 
-( 'Wolves Of History' , '2015-01-15' , INTERVAL '39 minutes' , 32000000 , 7000000 , 130000), 
-( 'Descendants And Snakes' , '2015-06-27' , INTERVAL '48 minutes' , 51000000 , 29000000 , 340000), 
-( 'Lords And Spies' , '2015-07-20' , INTERVAL '159 minutes' , 21000000 , 41000000 , 710000), 
-( 'Edge Of Insanity' , '2016-07-30' , INTERVAL '164 minutes' , 11000000 , 76000000 , 680000), 
-( 'Intention Of The North' , '2017-02-11' , INTERVAL '198 minutes' , 50000000 , 93000000 , 880000), 
-( 'Separated By The Dungeons' , '2017-12-20' , INTERVAL '62 minutes' , 59000000 , 65000000 , 170000), 
-( 'Wspomnienia moich koszmarów' , '2018-12-26' , INTERVAL '79 minutes' , 70000000 , 23000000 , 520000);
+( 'Blacksmith Of The World' , '1891-09-24' , INTERVAL '29 minutes' , 21000 , 74000 , 420), 
+( 'Tree Of Freedom' , '1896-10-18' , INTERVAL '181 minutes' , 32000 , 73000 , 220), 
+( 'Children With Strength' , '1903-11-07' , INTERVAL '75 minutes' , 45000 , 99000 , 630), 
+( 'Pilots Of Reality' , '1908-02-10' , INTERVAL '131 minutes' , 65000 , 96000 , 230), 
+( 'Viva Nollywood' , '1919-09-05' , INTERVAL '23 minutes' , 93000 , 53000 , 870), 
+( 'Foreigners And Friends' , '1928-10-14' , INTERVAL '29 minutes' , 50000 , 71000 , 460), 
+( 'Tower Of Reality' , '1929-12-25' , INTERVAL '26 minutes' , 82000 , 10000 , 540), 
+( 'Strife Of Glory' , '1932-01-14' , INTERVAL '85 minutes' , 92000 , 36000000 , 300000), 
+( 'Hurt By The City' , '1935-06-19' , INTERVAL '191 minutes' , 1000 , 20000 , 530), 
+( 'Welcome To The City' , '1936-07-20' , INTERVAL '145 minutes' , 31000 , 12000 , 6000), 
+( 'Slave Of Reality' , '1941-02-03' , INTERVAL '129 minutes' , 75000 , 30000 , 340), 
+( 'Warrior Of Perfection' , '1943-02-02' , INTERVAL '199 minutes' , 1000 , 46000 , 740), 
+( 'Horses Of Fortune' , '1956-05-24' , INTERVAL '179 minutes' , 18000 , 11000 , 90), 
+( 'Butchers Of Perfection' , '1959-01-08' , INTERVAL '103 minutes' , 90000 , 21000 , 700), 
+( 'Foes And Defenders' , '1965-05-26' , INTERVAL '170 minutes' , 28000 , 38000 , 30), 
+( 'Blacksmiths And Slaves' , '1971-12-20' , INTERVAL '69 minutes' , 31000 , 17000 , 160), 
+( 'Unity Of The Frontline' , '1972-05-31' , INTERVAL '123 minutes' , 29000 , 82000 , 710), 
+( 'Culling Of Gold' , '1983-04-14' , INTERVAL '180 minutes' , 49000 , 97000 , 170), 
+( 'Losing Eternity' , '1983-06-15' , INTERVAL '98 minutes' , 44000 , 87000 , 490), 
+( 'Searching In My End' , '1992-04-28' , INTERVAL '27 minutes' , 96000 , 7000 , 360), 
+( 'Owl Of The End' , '1996-03-20' , INTERVAL '119 minutes' , 76000 , 75000 , 330), 
+( 'Soldier With Gold' , '2001-05-18' , INTERVAL '115 minutes' , 12000 , 38000 , 350), 
+( 'Agents Of Fire' , '2004-10-02' , INTERVAL '24 minutes' , 47000 , 78000 , 260), 
+( 'Boys Of The North' , '2012-10-05' , INTERVAL '38 minutes' , 16000 , 43000 , 150), 
+( 'Boys And Gods' , '2017-09-10' , INTERVAL '20 minutes' , 52000 , 66000 , 530), 
+( 'Owls And Invaders' , '1989-06-23' , INTERVAL '85 minutes' , 64000 , 48000 , 410), 
+( 'Star With Silver' , '1990-01-23' , INTERVAL '94 minutes' , 46000 , 79000 , 10), 
+( 'Family Without Faith' , '1993-04-24' , INTERVAL '114 minutes' , 28000 , 31000 , 970), 
+( 'Travel To The World' , '1993-05-17' , INTERVAL '67 minutes' , 8000 , 59000 , 540), 
+( 'Taste Of My Nightmares' , '1994-01-06' , INTERVAL '174 minutes' , 79000 , 95000 , 170), 
+( 'Nymph Of Dreams' , '1994-07-31' , INTERVAL '71 minutes' , 99000 , 63000 , 240), 
+( 'Defender Without Hope' , '1997-09-28' , INTERVAL '196 minutes' , 49000 , 97000 , 680), 
+( 'Foes Of Joy' , '2000-06-03' , INTERVAL '76 minutes' , 63000 , 83000 , 270), 
+( 'Fish With Money' , '2003-01-14' , INTERVAL '192 minutes' , 22000 , 16000 , 560), 
+( 'Pirates And Foes' , '2003-11-24' , INTERVAL '92 minutes' , 28000 , 53000 , 260), 
+( 'Witches And Hunters' , '2007-05-16' , INTERVAL '53 minutes' , 37000 , 2000 , 850), 
+( 'Bane Of Power' , '2009-01-01' , INTERVAL '144 minutes' , 8000 , 90000 , 130), 
+( 'Fruit Without Sin' , '2012-06-02' , INTERVAL '83 minutes' , 49000 , 980 , 380), 
+( 'Amusing My Home' , '2012-06-04' , INTERVAL '79 minutes' , 7000 , 27000 , 800), 
+( 'Breaking The Graveyard' , '2014-02-01' , INTERVAL '44 minutes' , 32000 , 41000 , 200), 
+( 'Bandit Of Destruction' , '2014-05-08' , INTERVAL '146 minutes' , 60000 , 94000 , 440), 
+( 'Snake Of The Sea' , '2014-11-15' , INTERVAL '30 minutes' , 12000 , 47000 , 400), 
+( 'Pilots Without A Goal' , '2015-01-11' , INTERVAL '34 minutes' , 3000 , 9000 , 270), 
+( 'Wolves Of History' , '2015-01-15' , INTERVAL '39 minutes' , 32000 , 7000 , 130), 
+( 'Descendants And Snakes' , '2015-06-27' , INTERVAL '48 minutes' , 51000 , 29000 , 340), 
+( 'Lords And Spies' , '2015-07-20' , INTERVAL '159 minutes' , 21000 , 4100 , 710), 
+( 'Edge Of Insanity' , '2016-07-30' , INTERVAL '164 minutes' , 11000 , 76000 , 680), 
+( 'Intention Of The North' , '2017-02-11' , INTERVAL '198 minutes' , 50000 , 93000 , 800), 
+( 'Separated By The Dungeons' , '2017-12-20' , INTERVAL '62 minutes' , 59000 , 65000 , 170), 
+( 'Wspomnienia moich koszmarów' , '2018-12-26' , INTERVAL '79 minutes' , 70000 , 23000 , 520);
 
 INSERT INTO similar_movies VALUES 
  (1,2), 
@@ -2298,11 +2257,11 @@ INSERT INTO movie_awards VALUES(49, 'Picture', 'N', 2017);
 INSERT INTO movie_awards VALUES(24, 'Picture', 'W', 2012);
 INSERT INTO movie_awards VALUES(32, 'Picture', 'W', 1997);
 
-INSERT INTO people_awards VALUES(2, 15, 'Director', 'W', 1965);
-INSERT INTO people_awards VALUES(41, 18, 'Director', 'W', 1983);
-INSERT INTO people_awards VALUES(9, 19, 'Director', 'N', 1983);
-INSERT INTO people_awards VALUES(20, 40, 'Director', 'N', 2014);
-INSERT INTO people_awards VALUES(28, 48, 'Director', 'N', 2017);
+INSERT INTO people_awards VALUES(2, 'Director', 'W');
+INSERT INTO people_awards VALUES(41, 'Director', 'W');
+INSERT INTO people_awards VALUES(9, 'Director', 'N');
+INSERT INTO people_awards VALUES(20, 'Director', 'N');
+INSERT INTO people_awards VALUES(28, 'Director', 'N');
 
 --INDECIES
 CREATE INDEX idx_awards_movie_id ON movie_awards ( movie_id );
@@ -2313,7 +2272,6 @@ CREATE INDEX idx_movie_language_movie_id ON movie_language ( movie_id );
 CREATE INDEX idx_movie_language_language_id ON movie_language ( "language" );
 CREATE INDEX idx_people_birth_country ON people ( birth_country );
 CREATE INDEX idx_people_awards_person_id ON people_awards ( person_id );
-CREATE INDEX idx_people_awards_movie_id ON people_awards ( movie_id );
 CREATE INDEX idx_people_awards_category ON people_awards ( category );
 CREATE INDEX idx_production_movie_id ON production ( movie_id );
 CREATE INDEX idx_production_country_id ON production ( country );

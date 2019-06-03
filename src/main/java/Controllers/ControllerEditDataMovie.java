@@ -2,6 +2,7 @@ package Controllers;
 
 import Management.RegexManager;
 import Types.CrewType;
+import Types.CrewTypeUpdate;
 import Types.MovieType;
 import Types.PeopleType;
 import javafx.collections.FXCollections;
@@ -10,15 +11,19 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-public class ControllerInsertMovieScreen extends Controller {
+public class ControllerEditDataMovie extends Controller {
 
-    ControllerInsertMovieScreen(String name, Controller previousController) {
+    ControllerEditDataMovie(String name, Controller previousController, MovieType movie) {
         super(name, previousController);
+        this.movie = movie;
     }
+
+    private MovieType movie;
 
     @FXML
     TextField title;
@@ -89,6 +94,15 @@ public class ControllerInsertMovieScreen extends Controller {
 
 
     @Override
+    public void goBack(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerMovieScreen(Controller.scenesLocation + "/movieScreen.fxml", previousController.previousController, database.getMovieByID(movie.getMovie_id())));
+        } catch (IOException e) {
+            System.out.println("FAILED TO LOAD MOVIESCREEN");
+        }
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         error.setVisible(false);
         errorCrew.setVisible(false);
@@ -97,11 +111,11 @@ public class ControllerInsertMovieScreen extends Controller {
         prepareMenu();
 
         for (PeopleType person : database.getPeople())
-            peopleMap.put(person.getFirst_name() + " " + person.getLast_name() + "(" + person.getBorn().substring(0, 4) + ")", person);
+            peopleMap.put(person.getIdentifier(), person);
         TextFields.bindAutoCompletion(findPerson, peopleMap.keySet());
 
-        for(MovieType movie : database.getMovies())
-            movieMap.put(movie.getTitle() + " (" + movie.getRelease_date().substring(0, 4) + ") ", movie);
+        for (MovieType movie : database.getMovies())
+            movieMap.put(movie.getIdentifier(), movie);
         TextFields.bindAutoCompletion(findSimilar, movieMap.keySet());
 
         rolesMap = database.getRoles();
@@ -124,6 +138,8 @@ public class ControllerInsertMovieScreen extends Controller {
                 remove.setDisable(true);
             }
         });
+
+        getData();
     }
 
     private void prepareMenu() {
@@ -201,17 +217,23 @@ public class ControllerInsertMovieScreen extends Controller {
     public void submitMovie() {
         try {
             database.getConnection().setAutoCommit(false);
+            int id = movie.getMovie_id();
             ArrayList<Object> arguments = new ArrayList<>();
-            int id = database.getIdOfMovie();
 
-            arguments.add(title.getText());
-            arguments.add(release.getText());
-            arguments.add("".equals(runtime.getText()) ? null : Integer.valueOf(runtime.getText()));
             arguments.add("".equals(budget.getText()) ? null : Integer.valueOf(budget.getText()));
             arguments.add("".equals(boxoffice.getText()) ? null : Integer.valueOf(boxoffice.getText()));
             arguments.add("".equals(weekend.getText()) ? null : Integer.valueOf(weekend.getText()));
             arguments.add(description.getText());
-            database.insert("movie", arguments);
+            database.updateMovie(id, arguments);
+
+            database.deleteForMovie("production", id);
+            database.deleteForMovie("movie_language", id);
+            database.deleteForMovie("production_company", id);
+            database.deleteForMovie("movie_genre", id);
+            database.deleteForMovie("alternative_title", id);
+            database.deleteForMovie("similar_movies", id);
+            database.deleteForMovie("crew", id);
+            database.deleteForMovie("movie_awards", id);
 
 
             Vector<String> newCountries = RegexManager.convertStringToVector(countries.getText());
@@ -262,7 +284,7 @@ public class ControllerInsertMovieScreen extends Controller {
 
             Vector<String> newNominations = new Vector<>();
             for (MenuItem x : nominationsMenu.getItems()) {
-                if ( ((CheckBox) (((CustomMenuItem) x).getContent())) .isSelected()) {
+                if (((CheckBox) (((CustomMenuItem) x).getContent())).isSelected()) {
                     //newNominations.add(x.getText());
                     newNominations.add(database.getAwardsCategories("M").get(((CheckBox) (((CustomMenuItem) x).getContent())).getText()));
                 }
@@ -313,7 +335,6 @@ public class ControllerInsertMovieScreen extends Controller {
 
             goBack();
         } catch (Exception e) {
-            e.printStackTrace();
             try {
                 database.getConnection().rollback();
             } catch (SQLException e1) {
@@ -326,6 +347,65 @@ public class ControllerInsertMovieScreen extends Controller {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+
+    }
+
+    private void getData() {
+        title.setText(movie.getTitle());
+        runtime.setText(movie.getRuntime());
+        release.setText(movie.getRelease_date());
+        title.setDisable(true);
+        runtime.setDisable(true);
+        release.setDisable(true);
+
+        budget.setText((movie.getBudget() == 0 ? "" : movie.getBudget().toString()));
+        boxoffice.setText((movie.getBoxoffice() == 0 ? "" : movie.getBoxoffice().toString()));
+        weekend.setText((movie.getOpening_weekend_usa() == 0 ? "" : movie.getOpening_weekend_usa().toString()));
+        description.setText(movie.getDescription());
+
+        languages.setText(RegexManager.convertIntoListNewLine(
+                database.getSomethingForMovie(movie.getMovie_id(), "movie_language", "language"), false));
+        countries.setText(RegexManager.convertIntoListNewLine(
+                database.getSomethingForMovie(movie.getMovie_id(), "production", "country"), false));
+        production.setText(RegexManager.convertIntoListNewLine(
+                database.getSomethingForMovie(movie.getMovie_id(), "production_company", "company"), false));
+        alternative.setText(RegexManager.convertIntoListNewLine(
+                database.getSomethingForMovie(movie.getMovie_id(), "alternative_title", "movie_title"), false));
+
+        Vector<String> movieGenre = database.getSomethingForMovie(movie.getMovie_id(), "movie_genre", "genre");
+        for (MenuItem x : genreMenu.getItems()) {
+            if (movieGenre.contains(((CheckBox) (((CustomMenuItem) x).getContent())).getText())){
+                ((CheckBox) (((CustomMenuItem) x).getContent())).setSelected(true);
+            }
+        }
+
+        Vector<String> movieNominations = database.getAwards(movie.getMovie_id(), "N");
+        for (MenuItem x : nominationsMenu.getItems()) {
+            if (movieNominations.contains(((CheckBox) (((CustomMenuItem) x).getContent())).getText())){
+                ((CheckBox) (((CustomMenuItem) x).getContent())).setSelected(true);
+            }
+        }
+
+        Vector<String> movieWins = database.getAwards(movie.getMovie_id(), "W");
+        for (MenuItem x : winsMenu.getItems()) {
+            if (movieWins.contains(((CheckBox) (((CustomMenuItem) x).getContent())).getText())) {
+                ((CheckBox) (((CustomMenuItem) x).getContent())).setSelected(true);
+            }
+        }
+
+        Vector<CrewTypeUpdate> movieCrew = database.getCrew(movie.getMovie_id());
+        for (CrewTypeUpdate ctu : movieCrew){
+            findPerson.setText(ctu.getIdentifier());
+            findRole.setText(ctu.getRole());
+            findCharacter.setText(ctu.getCharacter());
+            add();
+        }
+
+        Vector<MovieType> movies = database.getSimilar(movie.getMovie_id());
+        for (MovieType m : movies) {
+            findSimilar.setText(m.getTitle() + " (" + m.getRelease_date().substring(0, 4) + ") ");
+            add1();
         }
 
     }

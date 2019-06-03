@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text layoutX="96.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" textAlignment="CENTER" wrappingWidth="73.80419969558716">
+            <font>
+                <Font size="18.0" />
+            </font></Text>
+        <TextField fx:id="title" disable="true" layoutX="175.0" layoutY="75.0" prefHeight="26.0" prefWidth="368.0" promptText="Title" />
+        <Text layoutX="57.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alternative titles:" />
+        <TextArea fx:id="alternative" layoutX="175.0" layoutY="111.0" prefHeight="52.0" prefWidth="368.0" promptText="first                                                                          second ..." />
+        <Text layoutX="113.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Runtime:" />
+        <TextField fx:id="runtime" disable="true" layoutX="175.0" layoutY="175.0" promptText="In minutes" />
+        <Text layoutX="82.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Release Date:" />
+        <TextField fx:id="release" disable="true" layoutX="175.0" layoutY="205.0" promptText="YYYY-MM-DD" />
+        <Text layoutX="96.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Languages:" />
+        <TextArea fx:id="languages" layoutX="175.0" layoutY="245.0" prefHeight="64.0" prefWidth="184.0" promptText="first                                   second ..." />
+        <Text layoutX="104.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Countries:" />
+        <TextArea fx:id="countries" layoutX="175.0" layoutY="315.0" prefHeight="64.0" prefWidth="184.0" promptText="first                                   second ..." />
+        <Text layoutX="35.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production comapny:" />
+        <TextArea fx:id="production" layoutX="175.0" layoutY="385.0" prefHeight="64.0" prefWidth="184.0" promptText="first                                   second ..." />
+        <Text layoutX="117.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Budget:" />
+        <TextField fx:id="budget" layoutX="175.0" layoutY="460.0" promptText="k $" />
+        <Text layoutX="101.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Boxoffice:" />
+        <TextField fx:id="boxoffice" layoutX="175.0" layoutY="490.0" promptText="k $" />
+        <Text layoutX="14.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opening weekend USA:" />
+        <TextField fx:id="weekend" layoutX="175.0" layoutY="520.0" promptText="k $" />
+        <Text layoutX="88.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
+        <TextArea fx:id="description" layoutX="175.0" layoutY="566.0" prefHeight="211.0" prefWidth="201.0" promptText="Description" wrapText="true" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="424.0" />
+        <MenuButton fx:id="genreMenu" layoutX="581.0" layoutY="34.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Genre">
+        </MenuButton>
+        <MenuButton fx:id="nominationsMenu" layoutX="579.0" layoutY="74.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Nominations (Oscars)">
+        </MenuButton>
+        <MenuButton fx:id="winsMenu" layoutX="579.0" layoutY="110.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Wins (Oscars)">
+        </MenuButton>
+        <Text layoutX="409.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crew:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <TextField fx:id="findPerson" layoutX="409.0" layoutY="213.0" prefHeight="26.0" prefWidth="301.0" promptText="Find person" />
+        <Text layoutX="373.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="role:" />
+        <TextField fx:id="findRole" layoutX="409.0" layoutY="256.0" prefHeight="26.0" prefWidth="301.0" promptText="Role" />
+        <Text layoutX="378.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="as:" />
+        <TextField fx:id="findCharacter" disable="true" layoutX="409.0" layoutY="296.0" prefHeight="26.0" prefWidth="301.0" promptText="Character" />
+        <Text fx:id="errorCrew" fill="RED" layoutX="491.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: something wrong with your data">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Text>
+        <Button fx:id="add" layoutX="722.0" layoutY="295.0" mnemonicParsing="false" onAction="#add" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #fbea78;" text="add" />
+        <ListView fx:id="crewList" layoutX="409.0" layoutY="350.0" prefHeight="153.0" prefWidth="301.0" />
+        <Button fx:id="remove" layoutX="722.0" layoutY="477.0" mnemonicParsing="false" onAction="#remove" style="-fx-background-color: #fbea78;" text="remove" />
+        <Text fx:id="error" fill="RED" layoutX="417.0" layoutY="760.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: something wrong with your data" />
+        <Button fx:id="submit" layoutX="680.0" layoutY="735.0" mnemonicParsing="false" onAction="#submitMovie" prefHeight="42.0" prefWidth="106.0" style="-fx-background-color: #fbea78;" text="Submit">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="back" layoutX="28.0" layoutY="29.0" mnemonicParsing="false" onAction="#goBack" prefHeight="35.0" prefWidth="44.0" style="-fx-background-color: slategrey;">
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Images/back.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <TextField fx:id="findSimilar" layoutX="409.0" layoutY="533.0" prefHeight="26.0" prefWidth="301.0" promptText="Find similar movie" />
+        <ListView fx:id="similarList" layoutX="409.0" layoutY="574.0" prefHeight="142.0" prefWidth="301.0" />
+        <Button fx:id="add1" layoutX="722.0" layoutY="533.0" mnemonicParsing="false" onAction="#add1" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #fbea78;" text="add" />
+        <Button fx:id="remove1" layoutX="723.0" layoutY="690.0" mnemonicParsing="false" onAction="#remove1" style="-fx-background-color: #fbea78;" text="remove" />
+        <Text fx:id="errorSimilar" fill="RED" layoutX="502.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: no such movie">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Text>
+    </children>
+    <stylesheets>
+        <URL value="@../Css/EditDataMovie.css" />
+    </stylesheets>
+</AnchorPane>

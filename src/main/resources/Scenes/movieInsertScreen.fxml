@@ -38,7 +38,7 @@
         <Text layoutX="14.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opening weekend USA:" />
       <TextField fx:id="weekend" layoutX="175.0" layoutY="520.0" promptText="k $" />
         <Text layoutX="88.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
-        <TextArea fx:id="description" layoutX="175.0" layoutY="566.0" prefHeight="211.0" prefWidth="201.0" promptText="Description" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="424.0" />
+        <TextArea fx:id="description" layoutX="175.0" layoutY="566.0" prefHeight="211.0" prefWidth="201.0" promptText="Description" wrapText="true" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="424.0" />
       <MenuButton fx:id="genreMenu" layoutX="581.0" layoutY="34.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Genre">
       </MenuButton>
       <MenuButton fx:id="nominationsMenu" layoutX="579.0" layoutY="74.0" mnemonicParsing="false" style="-fx-background-color: #fbea78;" text="Nominations (Oscars)">
@@ -86,6 +86,11 @@
       <Text fx:id="errorSimilar" fill="RED" layoutX="502.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: no such movie">
          <font>
             <Font size="11.0" />
+         </font>
+      </Text>
+      <Text fill="#049701" layoutX="180.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Be carefull inserting: title, runtime and release date; you won't be able to change it later" wrappingWidth="357.99999010562897">
+         <font>
+            <Font name="System Italic" size="11.0" />
          </font>
       </Text>
     </children>

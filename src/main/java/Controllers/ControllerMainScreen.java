@@ -61,8 +61,6 @@ public class ControllerMainScreen extends Controller {
     @FXML
     Button watchListButton;
     @FXML
-    Button favouriteMovies;
-    @FXML
     Button insertMovie;
 
     @Override
@@ -117,8 +115,7 @@ public class ControllerMainScreen extends Controller {
                 if (!peopleNames.containsKey(s)) return; //invalid title
                 personBrowser.setText("");
                 selectedPerson = s;
-                System.out.println(selectedPerson);
-                //
+                displayInfo(peopleNames.get(selectedPerson));
             }
         });
     }
@@ -126,6 +123,15 @@ public class ControllerMainScreen extends Controller {
     private void displayInfo(MovieType movie) {
         try {
             Controller.stageMaster.loadNewScene(new ControllerMovieScreen(Controller.scenesLocation + "/movieScreen.fxml", this, movie));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD MOVIESCREEN");
+        }
+    }
+
+    private void displayInfo(PeopleType person) {
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerPersonScreen(Controller.scenesLocation + "/personScreen.fxml", this, person));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("FAILED TO LOAD MOVIESCREEN");
@@ -178,7 +184,7 @@ public class ControllerMainScreen extends Controller {
                     "-fx-text-fill:white;");
             pane.setEffect(new DropShadow());
             Label title = new Label(personRanking.get(i).getName());
-            Label votes = new Label("(" + personRanking.get(i).getVotes() + " reviews)");
+            Label votes = new Label("(" + personRanking.get(i).getVotes() + " votes)");
             Label mark = new Label(String.valueOf(personRanking.get(i).getAvg_mark()));
             Label ranking = new Label(String.valueOf(personRanking.get(i).getRanking()));
             title.setStyle("-fx-text-fill:black;" +
@@ -199,6 +205,12 @@ public class ControllerMainScreen extends Controller {
             ranking.setTranslateY(133);
             ranking.setTranslateX(230);
             pane.getChildren().addAll(title, mark, votes, ranking);
+
+            final int j = i;
+            pane.setOnMouseClicked(event -> {
+                displayInfo(database.getPersonByID(personRanking.get(j).getPerson_id()));
+            });
+
             rankingGrid2.add(pane, i, 0);
         }
     }
@@ -251,7 +263,8 @@ public class ControllerMainScreen extends Controller {
     @FXML
     public void logOut() {
         try {
-            stageMaster.loadPreviousScene();
+            stageMaster.loadNewScene(new ControllerPrimary(scenesLocation + "/sample.fxml"));
+            System.out.println(currentUser + "logged out.");
         } catch (IOException e) {
             System.out.println("FAILED TO LOG OUT");
         }
@@ -279,7 +292,17 @@ public class ControllerMainScreen extends Controller {
 
     @FXML
     public void displayFavouriteMovies(){
-        Controller controllerWatchList = new ControllerFavouriteMoviesScreen(Controller.scenesLocation + "/favourite.fxml", this);
+        Controller controllerWatchList = new ControllerFavouriteMovies(Controller.scenesLocation + "/favourite.fxml", this);
+        try {
+            Controller.stageMaster.loadNewScene(controllerWatchList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void displayFavouritePeople(){
+        Controller controllerWatchList = new ControllerFavouritePeople(Controller.scenesLocation + "/favouriteP.fxml", this);
         try {
             Controller.stageMaster.loadNewScene(controllerWatchList);
         } catch (IOException e) {
@@ -298,14 +321,24 @@ public class ControllerMainScreen extends Controller {
             objTimer.getKeyFrames().clear();
             objTimer.getKeyFrames().add(new KeyFrame(new Duration(200)));
         } catch (Exception e) {//e.printStackTrace();
-            System.out.println("NIE WAŻNY WYJĄTEK ;))))))))))))");
+            //System.out.println("NIE WAŻNY WYJĄTEK ;))))))))))))");
         }
     }
 
     @FXML
     public void insertMovie(){
         try {
-            Controller.stageMaster.loadNewScene(new ControllerInsertMovieScreen(Controller.scenesLocation + "/movieInsertScreen.fxml", this));
+            Controller.stageMaster.loadNewScene(new ControllerInsertMovie(Controller.scenesLocation + "/movieInsertScreen.fxml", this));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD MOVIESCREEN");
+        }
+    }
+
+    @FXML
+    public void insertPerson(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerInsertPerson(Controller.scenesLocation + "/personInsertScreen.fxml", this));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("FAILED TO LOAD MOVIESCREEN");
