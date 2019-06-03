@@ -624,7 +624,7 @@ public class Database {
     }
 
     public Integer getIdOfMovie() {
-        Integer id = null;
+        int id = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM NEXTVAL(pg_get_serial_sequence('movie','movie_id'));");
@@ -652,7 +652,7 @@ public class Database {
     }
 
     public Integer getIdOfPerson() {
-        Integer id = null;
+        int id = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM NEXTVAL(pg_get_serial_sequence('people','person_id'));");
@@ -708,7 +708,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 crew.add(new CrewTypeUpdate(
-                        myGetString(resultSet, "first_name") + " " +  myGetString(resultSet, "last_name") + " ("  + myGetString(resultSet, "born").substring(0,4) + ")",
+                        myGetString(resultSet, "first_name") + " " +  myGetString(resultSet, "last_name") + " ("  + Objects.requireNonNull(myGetString(resultSet, "born")).substring(0,4) + ")",
                         myGetString(resultSet, "role"), myGetString(resultSet, "character")));
             }
         } catch (SQLException e) {
@@ -726,7 +726,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 crew.add(new CrewTypeUpdate(0,
-                        myGetString(resultSet, "title") + " ("  + myGetString(resultSet, "release_date").substring(0,4) + ")",
+                        myGetString(resultSet, "title") + " ("  + Objects.requireNonNull(myGetString(resultSet, "release_date")).substring(0,4) + ")",
                         myGetString(resultSet, "role"), myGetString(resultSet, "character")));
             }
         } catch (SQLException e) {
@@ -903,7 +903,7 @@ public class Database {
 
     private MovieType convertRawToMovieType(ResultSet resultSet) {
         try {
-            return new MovieType(resultSet.getInt("movie_id"), myGetString(resultSet, "title"), myGetString(resultSet, "release_date"),
+            return new MovieType(resultSet.getInt("movie_id"), myGetString(resultSet, "title"), Objects.requireNonNull(myGetString(resultSet, "release_date")),
                     myGetString(resultSet, "runtime"), resultSet.getInt("budget" ), resultSet.getInt("boxoffice"), resultSet.getInt("opening_weekend_usa"), myGetString(resultSet, "description") );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -914,7 +914,7 @@ public class Database {
     private PeopleType convertRawToPeopleType(ResultSet resultSet) {
         try {
             return new PeopleType(resultSet.getInt("person_id"), myGetString(resultSet, "first_name"), myGetString(resultSet, "last_name"),
-                    myGetString(resultSet, "born"), myGetString(resultSet, "died"), myGetString(resultSet, "birth_country") );
+                    Objects.requireNonNull(myGetString(resultSet, "born")), myGetString(resultSet, "died"), myGetString(resultSet, "birth_country") );
         } catch (SQLException e) {
             e.printStackTrace();
         }

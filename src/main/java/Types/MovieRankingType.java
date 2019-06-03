@@ -35,16 +35,8 @@ public class MovieRankingType {
         return avg_mark;
     }
 
-    public void setAvg_mark(Double avg_mark) {
-        this.avg_mark = avg_mark;
-    }
-
     public Integer getVotes() {
         return votes;
-    }
-
-    public void setVotes(Integer votes) {
-        this.votes = votes;
     }
 
     public MovieRankingType(Integer ranking, Integer movie_id, String title, Double avg_mark, Integer votes) {

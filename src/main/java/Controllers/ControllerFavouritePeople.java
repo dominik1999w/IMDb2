@@ -1,7 +1,6 @@
 package Controllers;
 
-import Types.MovieMarkType;
-import Types.MovieType;
+
 import Types.PeopleType;
 import Types.PersonMarkType;
 import javafx.collections.FXCollections;

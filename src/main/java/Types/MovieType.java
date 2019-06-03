@@ -31,10 +31,6 @@ public class MovieType {
         return release_date;
     }
 
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
-    }
-
     public String getRuntime() {
         return runtime;
     }
@@ -61,10 +57,6 @@ public class MovieType {
 
     public Integer getOpening_weekend_usa() {
         return opening_weekend_usa;
-    }
-
-    public void setOpening_weekend_usa(Integer opening_weekend_usa) {
-        this.opening_weekend_usa = opening_weekend_usa;
     }
 
     public String getDescription() {

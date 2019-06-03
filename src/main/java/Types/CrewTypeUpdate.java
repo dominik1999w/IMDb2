@@ -24,16 +24,8 @@ public class CrewTypeUpdate {
         return identifier2;
     }
 
-    public void setIdentifier2(String identifier2) {
-        this.identifier2 = identifier2;
-    }
-
     public String getIdentifier() {
         return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
     }
 
     public String getRole() {

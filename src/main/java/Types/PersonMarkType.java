@@ -17,24 +17,12 @@ public class PersonMarkType {
         return person_id;
     }
 
-    public void setPerson_id(Integer person_id) {
-        this.person_id = person_id;
-    }
-
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public Integer getMark() {
         return mark;
-    }
-
-    public void setMark(Integer mark) {
-        this.mark = mark;
     }
 
     public String getHeart() {

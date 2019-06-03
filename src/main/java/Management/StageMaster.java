@@ -43,14 +43,4 @@ public class StageMaster {
     public void setName(String name) {
         stage.setTitle(name);
     }
-
-    public void setResizable(boolean resizable) {
-        stage.setResizable(resizable);
-    }
-
-    public void refresh(Controller controller) throws IOException {
-        Controller.stageMaster.loadNewScene(controller);
-    }
-
-
 }

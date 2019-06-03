@@ -17,11 +17,6 @@ import java.util.*;
 
 public class ControllerPersonScreen extends Controller {
 
-    ControllerPersonScreen(String name, Controller previousController) {
-        super(name, previousController);
-        System.out.println("NOT POSSIBLE");
-    }
-
     ControllerPersonScreen(String name, Controller previousController, PeopleType person) {
         super(name, previousController);
         this.person = person;

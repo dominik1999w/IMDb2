@@ -32,7 +32,6 @@ public class ControllerMainScreen extends Controller {
 
     private Vector<MovieType> movies;
     private Vector<String> genre;
-    private Vector<PeopleType> people;
     private Vector<MovieRankingType> movieRanking;
     private Vector<PersonRankingType> personRanking;
     private HashMap<String, PeopleType> peopleNames;
@@ -70,7 +69,7 @@ public class ControllerMainScreen extends Controller {
         movieRanking = Controller.database.getRanking();
         personRanking = Controller.database.getActorsRanking();
         movies = Controller.database.getMovies();
-        people = Controller.database.getPeople();
+        Vector<PeopleType> people = Controller.database.getPeople();
         prepareMenu();
         setUpRanking();
         setUpPersonRanking();
@@ -169,9 +168,7 @@ public class ControllerMainScreen extends Controller {
             pane.getChildren().addAll(title, mark, votes, ranking);
 
             final int j = i;
-            pane.setOnMouseClicked(event -> {
-                displayInfo(database.getMovieByID(movieRanking.get(j).getMovie_id()));
-            });
+            pane.setOnMouseClicked(event -> displayInfo(database.getMovieByID(movieRanking.get(j).getMovie_id())));
             rankingGrid1.add(pane, i, 0);
         }
     }
@@ -207,9 +204,7 @@ public class ControllerMainScreen extends Controller {
             pane.getChildren().addAll(title, mark, votes, ranking);
 
             final int j = i;
-            pane.setOnMouseClicked(event -> {
-                displayInfo(database.getPersonByID(personRanking.get(j).getPerson_id()));
-            });
+            pane.setOnMouseClicked(event -> displayInfo(database.getPersonByID(personRanking.get(j).getPerson_id())));
 
             rankingGrid2.add(pane, i, 0);
         }
@@ -244,7 +239,7 @@ public class ControllerMainScreen extends Controller {
         //update movieBrowser with new selected genre
         moviesNames.clear();
         for (MovieType x : Controller.database.getMoviesWithOptions(filterGenre, yearText.getText())) {
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
+            moviesNames.put(x.getIdentifier(), x);
         }
         movieCompletion.dispose();
         movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
@@ -254,7 +249,7 @@ public class ControllerMainScreen extends Controller {
     private void removeFilterFun() {
         moviesNames.clear();
         for (MovieType x : movies) {
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
+            moviesNames.put(x.getIdentifier(), x);
         }
         movieCompletion.dispose();
         movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
@@ -264,7 +259,7 @@ public class ControllerMainScreen extends Controller {
     public void logOut() {
         try {
             stageMaster.loadNewScene(new ControllerPrimary(scenesLocation + "/sample.fxml"));
-            System.out.println(currentUser + "logged out.");
+            System.out.println(currentUser + " logged out.");
         } catch (IOException e) {
             System.out.println("FAILED TO LOG OUT");
         }

@@ -29,16 +29,8 @@ public class MovieMarkType {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public Integer getMark() {
         return mark;
-    }
-
-    public void setMark(Integer mark) {
-        this.mark = mark;
     }
 
     public String getHeart() {
@@ -53,7 +45,4 @@ public class MovieMarkType {
         return seen;
     }
 
-    public void setSeen(String seen) {
-        this.seen = seen;
-    }
 }

@@ -18,11 +18,6 @@ import java.util.*;
 
 public class ControllerMovieScreen extends Controller {
 
-    ControllerMovieScreen(String name, Controller previousController) {
-        super(name, previousController);
-        System.out.println("NOT POSSIBLE");
-    }
-
     ControllerMovieScreen(String name, Controller previousController, MovieType movie) {
         super(name, previousController);
         this.movie = movie;
@@ -161,7 +156,7 @@ public class ControllerMovieScreen extends Controller {
         Vector<MovieType> movies = database.getSimilar(movie.getMovie_id());
         similarMovies = new HashMap<>();
         for (MovieType x : movies) {
-            similarMovies.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
+            similarMovies.put(x.getIdentifier(), x);
         }
         List<String> tmp = new LinkedList<>(similarMovies.keySet());
         similar.setItems(FXCollections.observableList(tmp));

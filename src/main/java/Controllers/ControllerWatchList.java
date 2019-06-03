@@ -30,7 +30,7 @@ public class ControllerWatchList extends Controller {
         Vector<MovieType> movies = Controller.database.getWatchList(Controller.currentUserDBver);
         moviesNames = new HashMap<>();
         for (MovieType x : movies) {
-            moviesNames.put(x.getTitle() + " (" + x.getRelease_date().toString().substring(0, 4) + ") ", x);
+            moviesNames.put(x.getIdentifier(), x);
         }
         List<String> tmp = new LinkedList<>(moviesNames.keySet());
         watchList.setItems(FXCollections.observableList(tmp));
