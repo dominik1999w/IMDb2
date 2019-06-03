@@ -61,9 +61,14 @@ public class ControllerMainScreen extends Controller {
     Button watchListButton;
     @FXML
     Button insertMovie;
+    @FXML
+    Button insertPerson;
+    @FXML
+    Text adminText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableActionsForNoAdmins();
         welcomeText.setText("Welcome " + Controller.currentUser + "!");
         genre = Controller.database.getGenre();
         movieRanking = Controller.database.getRanking();
@@ -172,7 +177,15 @@ public class ControllerMainScreen extends Controller {
             rankingGrid1.add(pane, i, 0);
         }
     }
-
+    private void disableActionsForNoAdmins(){
+        if(!Controller.database.isAdmin(Controller.currentUser)){ //not admin
+            adminText.setVisible(false);
+            insertPerson.setDisable(true);
+            insertPerson.setVisible(false);
+            insertMovie.setDisable(true);
+            insertMovie.setVisible(false);
+        }
+    }
     @SuppressWarnings("Duplicates")
     private void setUpPersonRanking() {
         for (int i = 0; i < 5; i++) {

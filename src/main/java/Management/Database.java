@@ -68,7 +68,7 @@ public class Database {
                 stringBuilder.append("DEFAULT,?,?,?,?,?");
                 break;
             case "users":
-                stringBuilder.append("?,?");
+                stringBuilder.append("?,?,?");
                 break;
             case "movie_ratings":
                 stringBuilder.append("?,?,?,?,DEFAULT");
@@ -124,23 +124,27 @@ public class Database {
         switch (table) {
             case "movie":
                 preparedStatement.setString(1, (String) arguments.get(0));
-                preparedStatement.setDate(2, Date.valueOf( ((String) arguments.get(1)).replaceAll("'","") ));
-                if(arguments.get(3) == null) preparedStatement.setNull(3, Types.INTEGER); else preparedStatement.setInt(3, (Integer) arguments.get(3));
-                if(arguments.get(4) == null) preparedStatement.setNull(4, Types.INTEGER); else preparedStatement.setInt(4, (Integer) arguments.get(4));
-                if(arguments.get(5) == null) preparedStatement.setNull(5, Types.INTEGER); else preparedStatement.setInt(5, (Integer) arguments.get(5));
+                preparedStatement.setDate(2, Date.valueOf(((String) arguments.get(1)).replaceAll("'", "")));
+                if (arguments.get(3) == null) preparedStatement.setNull(3, Types.INTEGER);
+                else preparedStatement.setInt(3, (Integer) arguments.get(3));
+                if (arguments.get(4) == null) preparedStatement.setNull(4, Types.INTEGER);
+                else preparedStatement.setInt(4, (Integer) arguments.get(4));
+                if (arguments.get(5) == null) preparedStatement.setNull(5, Types.INTEGER);
+                else preparedStatement.setInt(5, (Integer) arguments.get(5));
                 preparedStatement.setString(6, (String) arguments.get(6));
                 break;
             case "people":
                 preparedStatement.setString(1, (String) arguments.get(0));
                 preparedStatement.setString(2, (String) arguments.get(1));
-                preparedStatement.setDate(3, Date.valueOf( ((String) arguments.get(2)).replaceAll("'","") ));
-                if(arguments.get(3) == null) preparedStatement.setNull(4, Types.DATE);
-                    else preparedStatement.setDate(4, Date.valueOf( ((String) arguments.get(3)).replaceAll("'","") ));
+                preparedStatement.setDate(3, Date.valueOf(((String) arguments.get(2)).replaceAll("'", "")));
+                if (arguments.get(3) == null) preparedStatement.setNull(4, Types.DATE);
+                else preparedStatement.setDate(4, Date.valueOf(((String) arguments.get(3)).replaceAll("'", "")));
                 preparedStatement.setString(5, (String) arguments.get(4));
                 break;
             case "users":
                 preparedStatement.setString(1, (String) arguments.get(0));
                 preparedStatement.setInt(2, (Integer) arguments.get(1));
+                preparedStatement.setBoolean(3, (Boolean) arguments.get(2));
                 break;
             case "movie_ratings":
                 preparedStatement.setInt(1, (Integer) arguments.get(0));
@@ -210,7 +214,21 @@ public class Database {
         preparedStatement.executeUpdate();
     }
 
-// GET DATA ---------------------------------------------------------------------------------------------------------------------------------------
+    // GET DATA ---------------------------------------------------------------------------------------------------------------------------------------
+    public boolean isAdmin(String user) {
+        Boolean isAdmin = false;
+        try {
+            Statement statement = connection.createStatement();
+            StringBuilder tmp = new StringBuilder("SELECT admin FROM USERS WHERE login='''");
+            tmp.append(user).append("''';");
+            ResultSet resultset = statement.executeQuery(String.valueOf(tmp));
+            while (resultset.next())
+                isAdmin = resultset.getBoolean(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isAdmin;
+    }
 
     public HashMap<String, Integer> getUsers() {
 
@@ -219,7 +237,7 @@ public class Database {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
             while (resultSet.next()) {
-                users.put(myGetString(resultSet, "login"), resultSet.getInt(2) );
+                users.put(myGetString(resultSet, "login"), resultSet.getInt(2));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -290,7 +308,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                MovieRankingType a = new MovieRankingType(resultSet.getInt("ranking"), resultSet.getInt("movie_id"), myGetString(resultSet, "title" ),
+                MovieRankingType a = new MovieRankingType(resultSet.getInt("ranking"), resultSet.getInt("movie_id"), myGetString(resultSet, "title"),
                         resultSet.getDouble("avg_mark"), resultSet.getInt("votes"));
                 names.add(a);
             }
@@ -306,7 +324,7 @@ public class Database {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM show_person_ranking LIMIT 5;");
             while (resultSet.next()) {
-                PersonRankingType a = new PersonRankingType(resultSet.getInt("ranking"), resultSet.getInt("person_id"), myGetString(resultSet, "name" ),
+                PersonRankingType a = new PersonRankingType(resultSet.getInt("ranking"), resultSet.getInt("person_id"), myGetString(resultSet, "name"),
                         resultSet.getDouble("avg_mark"), resultSet.getInt("votes"));
                 names.add(a);
             }
@@ -322,7 +340,7 @@ public class Database {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select unnest(enum_range(NULL::genre_type));");
             while (resultSet.next()) {
-                names.add(myGetString(resultSet, "unnest") );
+                names.add(myGetString(resultSet, "unnest"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -336,7 +354,7 @@ public class Database {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select unnest(enum_range(NULL::role_type));");
             while (resultSet.next()) {
-                names.add(myGetString(resultSet, "unnest") );
+                names.add(myGetString(resultSet, "unnest"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -418,7 +436,7 @@ public class Database {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                result.add(myGetString(resultSet, column) );
+                result.add(myGetString(resultSet, column));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -435,7 +453,7 @@ public class Database {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                result.add(myGetString(resultSet, column) );
+                result.add(myGetString(resultSet, column));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -462,15 +480,15 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 if (role.equals("Actor")) {
-                    String character = myGetString(resultSet, "character" );
+                    String character = myGetString(resultSet, "character");
                     if (character != null)
-                        result.add(myGetString(resultSet, "first_name") + " " + resultSet.getString("last_name") + " (" + resultSet.getString("character") + ")" );
+                        result.add(myGetString(resultSet, "first_name") + " " + resultSet.getString("last_name") + " (" + resultSet.getString("character") + ")");
                     else
-                        result.add(myGetString(resultSet, "first_name") + " " + resultSet.getString("last_name") );
+                        result.add(myGetString(resultSet, "first_name") + " " + resultSet.getString("last_name"));
                 } else if (role.equals("Others"))
-                    result.add(myGetString(resultSet, "role") + ": " + resultSet.getString("first_name") + " " + resultSet.getString("last_name") );
+                    result.add(myGetString(resultSet, "role") + ": " + resultSet.getString("first_name") + " " + resultSet.getString("last_name"));
                 else
-                    result.add(myGetString(resultSet, "first_name") + " " + resultSet.getString("last_name") );
+                    result.add(myGetString(resultSet, "first_name") + " " + resultSet.getString("last_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -505,7 +523,7 @@ public class Database {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                result = myGetString(resultSet, "review" );
+                result = myGetString(resultSet, "review");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -522,7 +540,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next())
-                movieRankingType = new MovieRankingType(resultSet.getInt("ranking"), resultSet.getInt("movie_id"), myGetString(resultSet, "title" ),
+                movieRankingType = new MovieRankingType(resultSet.getInt("ranking"), resultSet.getInt("movie_id"), myGetString(resultSet, "title"),
                         resultSet.getDouble("avg_mark"), resultSet.getInt("votes"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -539,12 +557,12 @@ public class Database {
             preparedStatement.setString(2, user);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String heart = myGetString(resultSet, "heart" );
+                String heart = myGetString(resultSet, "heart");
                 if (heart != null)
-                    movieMark = new MovieMarkType(resultSet.getInt("movie_id"), myGetString(resultSet, "login"), resultSet.getInt("mark" ),
+                    movieMark = new MovieMarkType(resultSet.getInt("movie_id"), myGetString(resultSet, "login"), resultSet.getInt("mark"),
                             heart, myGetString(resultSet, "seen"));
                 else
-                    movieMark = new MovieMarkType(resultSet.getInt("movie_id"), myGetString(resultSet, "login"), resultSet.getInt("mark" ),
+                    movieMark = new MovieMarkType(resultSet.getInt("movie_id"), myGetString(resultSet, "login"), resultSet.getInt("mark"),
                             "N", myGetString(resultSet, "seen"));
             }
         } catch (SQLException e) {
@@ -562,7 +580,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next())
-                personRankingType = new PersonRankingType(resultSet.getInt("ranking"), resultSet.getInt("person_id"), myGetString(resultSet, "name" ),
+                personRankingType = new PersonRankingType(resultSet.getInt("ranking"), resultSet.getInt("person_id"), myGetString(resultSet, "name"),
                         resultSet.getDouble("avg_mark"), resultSet.getInt("votes"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -579,12 +597,12 @@ public class Database {
             preparedStatement.setString(2, user);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String heart = myGetString(resultSet, "heart" );
+                String heart = myGetString(resultSet, "heart");
                 if (heart != null)
-                    personMark = new PersonMarkType(resultSet.getInt("person_id"), myGetString(resultSet, "login"), resultSet.getInt("mark" ),
+                    personMark = new PersonMarkType(resultSet.getInt("person_id"), myGetString(resultSet, "login"), resultSet.getInt("mark"),
                             heart);
                 else
-                    personMark = new PersonMarkType(resultSet.getInt("person_id"), myGetString(resultSet, "login"), resultSet.getInt("mark" ),
+                    personMark = new PersonMarkType(resultSet.getInt("person_id"), myGetString(resultSet, "login"), resultSet.getInt("mark"),
                             "N");
             }
         } catch (SQLException e) {
@@ -674,7 +692,7 @@ public class Database {
             preparedStatement.setString(2, nORw);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                awards.add(myGetString(resultSet, "category") + " (" + resultSet.getInt("year") + ")" );
+                awards.add(myGetString(resultSet, "category") + " (" + resultSet.getInt("year") + ")");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -699,7 +717,7 @@ public class Database {
         return awards;
     }
 
-    public Vector<CrewTypeUpdate> getCrew(int id){
+    public Vector<CrewTypeUpdate> getCrew(int id) {
         Vector<CrewTypeUpdate> crew = new Vector<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -708,7 +726,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 crew.add(new CrewTypeUpdate(
-                        myGetString(resultSet, "first_name") + " " +  myGetString(resultSet, "last_name") + " ("  + Objects.requireNonNull(myGetString(resultSet, "born")).substring(0,4) + ")",
+                        myGetString(resultSet, "first_name") + " " + myGetString(resultSet, "last_name") + " (" + Objects.requireNonNull(myGetString(resultSet, "born")).substring(0, 4) + ")",
                         myGetString(resultSet, "role"), myGetString(resultSet, "character")));
             }
         } catch (SQLException e) {
@@ -717,7 +735,7 @@ public class Database {
         return crew;
     }
 
-    public Vector<CrewTypeUpdate> getCrewP(int id){
+    public Vector<CrewTypeUpdate> getCrewP(int id) {
         Vector<CrewTypeUpdate> crew = new Vector<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -726,7 +744,7 @@ public class Database {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 crew.add(new CrewTypeUpdate(0,
-                        myGetString(resultSet, "title") + " ("  + Objects.requireNonNull(myGetString(resultSet, "release_date")).substring(0,4) + ")",
+                        myGetString(resultSet, "title") + " (" + Objects.requireNonNull(myGetString(resultSet, "release_date")).substring(0, 4) + ")",
                         myGetString(resultSet, "role"), myGetString(resultSet, "character")));
             }
         } catch (SQLException e) {
@@ -735,8 +753,8 @@ public class Database {
         return crew;
     }
 
-    public Vector<Pair<MovieType,String >> getMoviesForPerson(int id){
-        Vector<Pair<MovieType,String >> movies = new Vector<>();
+    public Vector<Pair<MovieType, String>> getMoviesForPerson(int id) {
+        Vector<Pair<MovieType, String>> movies = new Vector<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT movie.*, role FROM crew JOIN movie USING(movie_id) WHERE person_id = ?");
@@ -789,17 +807,17 @@ public class Database {
         }
     }
 
-    public void deleteForMovie(String table, int id) throws SQLException{
+    public void deleteForMovie(String table, int id) throws SQLException {
 
         String query = "DELETE FROM " + table + " WHERE movie_id = " + id + ";";
-        if(table.equals("similar_movies"))
+        if (table.equals("similar_movies"))
             query = "DELETE FROM " + table + " WHERE movie_id1 = " + id + " OR movie_id2 = " + id + ";";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.executeUpdate();
     }
 
-    public void deleteForPeople(String table, int id) throws SQLException{
+    public void deleteForPeople(String table, int id) throws SQLException {
 
         String query = "DELETE FROM " + table + " WHERE person_id = " + id + ";";
 
@@ -839,6 +857,19 @@ public class Database {
     }
 
     public void updateReview(int id, String login, String review) {
+        if (review.equals("")) {
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "DELETE FROM review WHERE movie_id = ? AND login = ?;");
+                preparedStatement.setInt(1, id);
+                preparedStatement.setString(2, login);
+                preparedStatement.executeUpdate();
+                System.out.println("a");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         if (getYourReview(id, login) == null && review != null) {
             ArrayList<Object> arguments = new ArrayList<>();
             arguments.add(login);
@@ -853,12 +884,12 @@ public class Database {
             try {
                 if (review == null)
                     review = "";
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "UPDATE review SET review = ? WHERE movie_id = ? AND login = ?;");
-                preparedStatement.setString(1, review);
-                preparedStatement.setInt(2, id);
-                preparedStatement.setString(3, login);
-                preparedStatement.executeUpdate();
+                    PreparedStatement preparedStatement = connection.prepareStatement(
+                            "UPDATE review SET review = ? WHERE movie_id = ? AND login = ?;");
+                    preparedStatement.setString(1, review);
+                    preparedStatement.setInt(2, id);
+                    preparedStatement.setString(3, login);
+                    preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -873,9 +904,12 @@ public class Database {
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
 
-        if(items.get(0) == null) preparedStatement.setNull(1, Types.INTEGER); else preparedStatement.setInt(1, (Integer) items.get(0));
-        if(items.get(1) == null) preparedStatement.setNull(2, Types.INTEGER); else preparedStatement.setInt(2, (Integer) items.get(1));
-        if(items.get(2) == null) preparedStatement.setNull(3, Types.INTEGER); else preparedStatement.setInt(3, (Integer) items.get(2));
+        if (items.get(0) == null) preparedStatement.setNull(1, Types.INTEGER);
+        else preparedStatement.setInt(1, (Integer) items.get(0));
+        if (items.get(1) == null) preparedStatement.setNull(2, Types.INTEGER);
+        else preparedStatement.setInt(2, (Integer) items.get(1));
+        if (items.get(2) == null) preparedStatement.setNull(3, Types.INTEGER);
+        else preparedStatement.setInt(3, (Integer) items.get(2));
         preparedStatement.setString(4, (String) items.get(3));
         preparedStatement.setInt(5, id);
 
@@ -890,8 +924,8 @@ public class Database {
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
 
-        if(items.get(0) == null) preparedStatement.setNull(1, Types.DATE);
-            else preparedStatement.setDate(1, Date.valueOf( ((String) items.get(0)).replaceAll("'","") ));
+        if (items.get(0) == null) preparedStatement.setNull(1, Types.DATE);
+        else preparedStatement.setDate(1, Date.valueOf(((String) items.get(0)).replaceAll("'", "")));
         preparedStatement.setString(2, (String) items.get(1));
         preparedStatement.setInt(3, id);
 
@@ -904,7 +938,7 @@ public class Database {
     private MovieType convertRawToMovieType(ResultSet resultSet) {
         try {
             return new MovieType(resultSet.getInt("movie_id"), myGetString(resultSet, "title"), Objects.requireNonNull(myGetString(resultSet, "release_date")),
-                    myGetString(resultSet, "runtime"), resultSet.getInt("budget" ), resultSet.getInt("boxoffice"), resultSet.getInt("opening_weekend_usa"), myGetString(resultSet, "description") );
+                    myGetString(resultSet, "runtime"), resultSet.getInt("budget"), resultSet.getInt("boxoffice"), resultSet.getInt("opening_weekend_usa"), myGetString(resultSet, "description"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -914,7 +948,7 @@ public class Database {
     private PeopleType convertRawToPeopleType(ResultSet resultSet) {
         try {
             return new PeopleType(resultSet.getInt("person_id"), myGetString(resultSet, "first_name"), myGetString(resultSet, "last_name"),
-                    Objects.requireNonNull(myGetString(resultSet, "born")), myGetString(resultSet, "died"), myGetString(resultSet, "birth_country") );
+                    Objects.requireNonNull(myGetString(resultSet, "born")), myGetString(resultSet, "died"), myGetString(resultSet, "birth_country"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -923,9 +957,9 @@ public class Database {
 
     private String myGetString(ResultSet resultSet, String column) throws SQLException {
         String result = resultSet.getString(column);
-        if(result == null)
+        if (result == null)
             return null;
-        return result.replaceAll("'","");
+        return result.replaceAll("'", "");
     }
 
 }

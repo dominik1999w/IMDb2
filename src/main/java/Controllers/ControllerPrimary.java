@@ -131,6 +131,7 @@ public class ControllerPrimary extends Controller implements Initializable {
         ArrayList<Object> arguments = new ArrayList<>();
         arguments.add("'" + login + "'");
         arguments.add(password);
+        arguments.add(false);
 
         try {
             database.insert("users", arguments);

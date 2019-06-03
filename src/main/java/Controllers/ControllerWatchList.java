@@ -1,5 +1,6 @@
 package Controllers;
 
+import Management.Database;
 import Types.MovieType;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

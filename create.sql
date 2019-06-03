@@ -52,7 +52,7 @@ DROP VIEW IF EXISTS show_person_ranking;
 DROP VIEW IF EXISTS show_heart_person_ranking;
 DROP VIEW IF EXISTS watchlist_info;
 DROP VIEW IF EXISTS show_similar_movies;
-DROP VIEW IF EXISTS user_history;
+
 ----------------------------------------------
 --DROP INDECIES IF EXIST
 DROP INDEX IF EXISTS idx_awards_movie_id;
@@ -243,6 +243,7 @@ CREATE TABLE people (
 CREATE TABLE users ( 
 	login                varchar(17)  PRIMARY KEY ,
 	"password"           INT  NOT NULL ,
+    admin                BOOL DEFAULT false,
 	CONSTRAINT safety UNIQUE(login)
  );
 
@@ -521,15 +522,7 @@ SELECT
 FROM similar_movies;
 
 ----------------------------------------------   
-
---user_history
-CREATE OR REPLACE VIEW user_history AS
-SELECT mark, heart, movie_id, title, to_year(release_date) AS "year", login  
-FROM movie_ratings JOIN movie USING(movie_id) 
-ORDER BY 1 DESC, 2, 5 DESC;
-
-----------------------------------------------    
-
+  
 
 
 
@@ -982,6 +975,8 @@ ARRAY [
 'Belshatzzar3'
 ]) names;
 
+--ONLY FOR TESTING PURPOSE 
+INSERT INTO users VALUES ('''admin''', -1057345382 ,true); 
 
 INSERT INTO review VALUES('Imogen29',1,'goooood');
 INSERT INTO review VALUES('Raj1',14,'so so');

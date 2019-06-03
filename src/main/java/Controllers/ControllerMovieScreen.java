@@ -102,6 +102,7 @@ public class ControllerMovieScreen extends Controller {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableActionsForNoAdmins();
         title.setText(movie.getTitle());
         runtime.setText(runtime.getText() + " " + movie.getRuntime());
         release.setText(release.getText() + " " + movie.getRelease_date());
@@ -171,7 +172,12 @@ public class ControllerMovieScreen extends Controller {
             }
         });
     }
-
+    private void disableActionsForNoAdmins(){
+        if(!Controller.database.isAdmin(Controller.currentUser)){ //not admin
+            editData.setDisable(true);
+            editData.setVisible(false);
+            }
+    }
     private void updateRankings(){
         MovieRankingType movieRanking = database.getMovieRating(movie.getMovie_id());
         if(movieRanking == null){

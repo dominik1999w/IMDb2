@@ -68,6 +68,7 @@ public class ControllerPersonScreen extends Controller {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableActionsForNoAdmins();
         name.setText(person.getIdentifier());
         born.setText(born.getText() + " " + person.getBorn());
         died.setText(died.getText() + " " + ("".equals(person.getDied()) || person.getDied() == null ? " - " : person.getDied()));
@@ -103,7 +104,12 @@ public class ControllerPersonScreen extends Controller {
             }
         });
     }
-
+    private void disableActionsForNoAdmins(){
+        if(!Controller.database.isAdmin(Controller.currentUser)){ //not admin
+            editData.setDisable(true);
+            editData.setVisible(false);
+        }
+    }
     private void updateRankings(){
 
         PersonRankingType personRanking = database.getPersonRating(person.getPerson_id());
