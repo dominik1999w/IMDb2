@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -115,15 +116,18 @@
          </font>
       </Text>
       <TextField fx:id="personBrowser" layoutX="975.0" layoutY="116.0" onKeyPressed="#findPerson" prefHeight="26.0" prefWidth="281.0" />
-      <MenuButton fx:id="categoryMenu" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" text="Genre">
+      <MenuButton fx:id="categoryMenu" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" text="Genre">
          <effect>
             <DropShadow />
          </effect>
       </MenuButton>
       <RadioButton fx:id="filterButton" layoutX="664.0" layoutY="80.0" mnemonicParsing="false" onAction="#controlFilterButton" text="Accept Movie Constraints" />
-      <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Options" />
-      <Slider fx:id="yearSlider" blockIncrement="1.0" layoutX="147.0" layoutY="55.0" max="2019.0" min="1888.0" minorTickCount="10" prefHeight="16.0" prefWidth="161.0" value="1888.0" />
-      <Text layoutX="147.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produced after year:" />
+      <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Options">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Slider fx:id="yearSlider" blockIncrement="1.0" layoutX="147.0" layoutY="60.0" max="2019.0" min="1888.0" minorTickCount="10" prefHeight="16.0" prefWidth="161.0" value="1888.0" />
+      <Text layoutX="147.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produced after year:" />
       <Text layoutX="147.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1888" wrappingWidth="35.083984375">
          <font>
             <Font size="11.0" />
@@ -144,6 +148,16 @@
             <Font size="15.0" />
          </font>
       </Text>
+      <Text layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For movies:" />
+      <Text layoutX="15.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For people:" />
+      <Separator disable="true" layoutY="121.0" prefHeight="0.0" prefWidth="393.0" />
+      <Separator disable="true" layoutY="24.0" prefHeight="0.0" prefWidth="393.0" />
+      <MenuButton fx:id="professionMenu" layoutX="14.0" layoutY="155.0" mnemonicParsing="false" text="Role">
+         <effect>
+            <DropShadow />
+         </effect>
+      </MenuButton>
+      <RadioButton fx:id="filterButton2" layoutX="664.0" layoutY="122.0" mnemonicParsing="false" onAction="#controlFilterButton2" text="Accept Person Constraints" />
    </children>
     <stylesheets>
         <URL value="@../Css/MainScreen.css" />

@@ -285,7 +285,26 @@ public class Database {
         }
         return names;
     }
-
+    public Vector<PeopleType> getPeopleWithOptions(Vector<String> professions) {
+        Vector<PeopleType> names = new Vector<>();
+        try {
+            Statement statement = connection.createStatement();
+            StringBuilder tmp = new StringBuilder("SELECT * FROM people WHERE person_id IN (SELECT person_id FROM crew WHERE role=");
+                for (String x : professions) {
+                    tmp.append("'").append(x).append("' or role=");
+                }
+            tmp.delete(tmp.length() - 9, tmp.length());
+            tmp.append(");");
+            System.out.println(tmp);
+            ResultSet resultSet = statement.executeQuery(String.valueOf(tmp));
+            while (resultSet.next()) {
+                names.add(convertRawToPeopleType(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
     public Vector<PeopleType> getPeople() {
         Vector<PeopleType> names = new Vector<>();
         try {
@@ -512,7 +531,6 @@ public class Database {
         }
         return result;
     }
-
     public String getYourReview(int id, String login) {
         String result = null;
         try {
@@ -857,7 +875,7 @@ public class Database {
     }
 
     public void updateReview(int id, String login, String review) {
-        if (review.equals("")) {
+        if ("".equals(review)) {
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(
                         "DELETE FROM review WHERE movie_id = ? AND login = ?;");
@@ -963,20 +981,3 @@ public class Database {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

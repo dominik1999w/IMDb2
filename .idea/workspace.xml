@@ -3,21 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added EVERYTHING.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ControllerPersonScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerPersonScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Management/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Management/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Scenes/mainScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controllers/ControllerPrimary.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controllers/ControllerPrimary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Management/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Management/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Management/StageMaster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Management/StageMaster.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Types/MovieRankingType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/MovieRankingType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Types/MovieType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/MovieType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Types/PeopleType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/PeopleType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Types/PersonRankingType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Types/PersonRankingType.class" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,36 +66,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="274" column="89" lean-forward="true" selection-start-line="274" selection-start-column="89" selection-end-line="274" selection-end-column="89" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPersonScreen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="66" column="19" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
+            <state relative-caret-position="255">
+              <caret line="286" lean-forward="true" selection-start-line="286" selection-end-line="286" />
               <folding>
-                <element signature="method#findMovie#0;class#ControllerMainScreen#0" />
-                <element signature="method#findPerson#0;class#ControllerMainScreen#0" />
-                <element signature="method#displayInfo#0;class#ControllerMainScreen#0" />
-                <element signature="method#displayInfo#1;class#ControllerMainScreen#0" />
-                <element signature="method#prepareMenu#0;class#ControllerMainScreen#0" />
-                <element signature="method#controlFilterButton#0;class#ControllerMainScreen#0" />
                 <element signature="method#displayWatchList#0;class#ControllerMainScreen#0" />
                 <element signature="method#displayFavouriteMovies#0;class#ControllerMainScreen#0" />
                 <element signature="method#setTooltipTimer#0;class#ControllerMainScreen#0" />
@@ -119,10 +83,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/Css/EditDataMovie.css">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Types/CrewTypeUpdate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="1" selection-end-line="3" selection-end-column="1" />
+            <state relative-caret-position="225">
+              <caret line="15" column="107" selection-start-line="15" selection-start-column="107" selection-end-line="15" selection-end-column="107" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Types/CrewType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="29" lean-forward="true" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -130,7 +103,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerEditDataMovie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-225">
+            <state relative-caret-position="-2055">
               <caret line="20" column="89" selection-start-line="20" selection-start-column="89" selection-end-line="20" selection-end-column="89" />
               <folding>
                 <element signature="e#3106#3355#0" />
@@ -174,10 +147,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerInsertMovie.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerFavouriteMovies.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="314" column="31" selection-start-line="314" selection-start-column="31" selection-end-line="314" selection-end-column="31" />
+            <state relative-caret-position="364">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,7 +161,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1274">
+            <state relative-caret-position="1725">
               <caret line="133" column="29" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -194,11 +170,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Management/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="859" column="32" lean-forward="true" selection-start-line="859" selection-start-column="32" selection-end-line="859" selection-end-column="32" />
+            <state relative-caret-position="449">
+              <caret line="983" selection-start-line="983" selection-end-line="983" />
               <folding>
                 <element signature="e#499#1180#0" />
                 <element signature="e#627#788#0" />
@@ -206,9 +182,16 @@
                 <element signature="e#1186#1499#0" />
                 <element signature="e#1244#1425#0" />
                 <element signature="e#1449#1493#0" />
-                <element signature="e#17130#17174#0" />
-                <element signature="e#25510#25554#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Types/PeopleType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -216,7 +199,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
+            <state relative-caret-position="285">
               <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -228,7 +211,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerFavouritePeople.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
+            <state relative-caret-position="555">
               <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -249,15 +232,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>murmur</find>
-      <find>rankingGrid</find>
-      <find>Welcome</find>
-      <find>Datab</find>
-      <find>equal</find>
-      <find>controll</find>
-      <find>Image</find>
-      <find>curre</find>
-      <find>System.out</find>
       <find>NIE</find>
       <find>SELECT * FROM pe</find>
       <find>back</find>
@@ -279,6 +253,15 @@
       <find>create</find>
       <find>insert</find>
       <find>review</find>
+      <find>myGetString</find>
+      <find>getMoviesW</find>
+      <find>peopleNames</find>
+      <find>get</find>
+      <find>movieComple</find>
+      <find>profession</find>
+      <find>getProf</find>
+      <find>getPr</find>
+      <find>peopleWit</find>
     </findStrings>
     <replaceStrings>
       <replace>rankingGrid1</replace>
@@ -344,8 +327,8 @@
         <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerPersonScreen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java" />
         <option value="$PROJECT_DIR$/src/main/java/Management/Database.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java" />
       </list>
     </option>
   </component>
@@ -368,10 +351,9 @@
     </treeState>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="4">
-    <option name="y" value="-1" />
-    <option name="width" value="1920" />
-    <option name="height" value="1072" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="width" value="959" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -382,7 +364,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -468,6 +449,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -611,6 +593,7 @@
       <workItem from="1559289588841" duration="146000" />
       <workItem from="1559303755963" duration="823000" />
       <workItem from="1559319379266" duration="18552000" />
+      <workItem from="1559638788899" duration="3004000" />
     </task>
     <task id="LOCAL-00001" summary="Added inserting movies.">
       <created>1559509220495</created>
@@ -637,12 +620,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56330000" />
+    <option name="totallyTimeSpent" value="59334000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1920" height="1072" extended-state="4" />
+    <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.29829243" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.14514408" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -651,7 +634,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32829374" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31329113" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31222707" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -804,17 +787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/PeopleType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="66" column="90" selection-start-line="66" selection-start-column="90" selection-end-line="66" selection-end-column="90" />
-          <folding>
-            <element signature="e#1557#1558#0" expanded="true" />
-            <element signature="e#1590#1591#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Types/MovieMarkType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -886,19 +858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/CrewType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-          <folding>
-            <element signature="e#818#819#0" expanded="true" />
-            <element signature="e#849#850#0" expanded="true" />
-            <element signature="e#898#899#0" expanded="true" />
-            <element signature="e#938#939#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/Scenes/personScreen.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
@@ -942,31 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Types/CrewTypeUpdate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="107" selection-start-line="15" selection-start-column="107" selection-end-line="15" selection-end-column="107" />
-          <folding>
-            <element signature="e#426#427#0" expanded="true" />
-            <element signature="e#460#461#0" expanded="true" />
-            <element signature="e#514#515#0" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#352#353#0" expanded="true" />
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-            <element signature="e#512#513#0" expanded="true" />
-            <element signature="e#539#540#0" expanded="true" />
-            <element signature="e#579#580#0" expanded="true" />
-            <element signature="e#611#612#0" expanded="true" />
-            <element signature="e#647#648#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#729#730#0" expanded="true" />
-            <element signature="e#771#772#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1027,16 +961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerFavouriteMovies.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="56" column="61" selection-end-line="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerEditDataPerson.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
@@ -1091,30 +1015,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerInsertMovie.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="314" column="31" selection-start-line="314" selection-start-column="31" selection-end-line="314" selection-end-column="31" />
+        <state relative-caret-position="3900">
+          <caret line="274" column="89" selection-start-line="274" selection-start-column="89" selection-end-line="274" selection-end-column="89" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerFavouritePeople.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPersonScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1440">
+          <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1125,16 +1036,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPersonScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerInsertMovie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="109" column="39" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="39" />
+        <state relative-caret-position="4500">
+          <caret line="314" column="31" selection-start-line="314" selection-start-column="31" selection-end-line="314" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerPrimary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1274">
+        <state relative-caret-position="1725">
           <caret line="133" column="29" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1142,29 +1053,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerWatchList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="66" column="19" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
+        <state relative-caret-position="285">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
           <folding>
-            <element signature="method#findMovie#0;class#ControllerMainScreen#0" />
-            <element signature="method#findPerson#0;class#ControllerMainScreen#0" />
-            <element signature="method#displayInfo#0;class#ControllerMainScreen#0" />
-            <element signature="method#displayInfo#1;class#ControllerMainScreen#0" />
-            <element signature="method#prepareMenu#0;class#ControllerMainScreen#0" />
-            <element signature="method#controlFilterButton#0;class#ControllerMainScreen#0" />
-            <element signature="method#displayWatchList#0;class#ControllerMainScreen#0" />
-            <element signature="method#displayFavouriteMovies#0;class#ControllerMainScreen#0" />
-            <element signature="method#setTooltipTimer#0;class#ControllerMainScreen#0" />
-            <element signature="method#insertMovie#0;class#ControllerMainScreen#0" />
-            <element signature="method#insertPerson#0;class#ControllerMainScreen#0" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerFavouritePeople.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/CrewTypeUpdate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="107" selection-start-line="15" selection-start-column="107" selection-end-line="15" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/CrewType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="29" lean-forward="true" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Types/PeopleType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerEditDataMovie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
+        <state relative-caret-position="-2055">
           <caret line="20" column="89" selection-start-line="20" selection-start-column="89" selection-end-line="20" selection-end-column="89" />
           <folding>
             <element signature="e#3106#3355#0" />
@@ -1206,17 +1138,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMovieScreen.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerFavouriteMovies.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="274" column="89" lean-forward="true" selection-start-line="274" selection-start-column="89" selection-end-line="274" selection-end-column="89" />
+        <state relative-caret-position="364">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Management/Database.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="859" column="32" lean-forward="true" selection-start-line="859" selection-start-column="32" selection-end-line="859" selection-end-column="32" />
+        <state relative-caret-position="449">
+          <caret line="983" selection-start-line="983" selection-end-line="983" />
           <folding>
             <element signature="e#499#1180#0" />
             <element signature="e#627#788#0" />
@@ -1224,8 +1159,20 @@
             <element signature="e#1186#1499#0" />
             <element signature="e#1244#1425#0" />
             <element signature="e#1449#1493#0" />
-            <element signature="e#17130#17174#0" />
-            <element signature="e#25510#25554#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controllers/ControllerMainScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="286" lean-forward="true" selection-start-line="286" selection-end-line="286" />
+          <folding>
+            <element signature="method#displayWatchList#0;class#ControllerMainScreen#0" />
+            <element signature="method#displayFavouriteMovies#0;class#ControllerMainScreen#0" />
+            <element signature="method#setTooltipTimer#0;class#ControllerMainScreen#0" />
+            <element signature="method#insertMovie#0;class#ControllerMainScreen#0" />
+            <element signature="method#insertPerson#0;class#ControllerMainScreen#0" />
           </folding>
         </state>
       </provider>

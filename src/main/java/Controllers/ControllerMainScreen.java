@@ -31,16 +31,21 @@ public class ControllerMainScreen extends Controller {
     }
 
     private Vector<MovieType> movies;
+    private Vector<PeopleType> people;
     private Vector<String> genre;
+    private Vector<String> professions;
     private Vector<MovieRankingType> movieRanking;
     private Vector<PersonRankingType> personRanking;
     private HashMap<String, PeopleType> peopleNames;
     private HashMap<String, MovieType> moviesNames;
     private AutoCompletionBinding<String> movieCompletion;
+    private AutoCompletionBinding<String> peopleCompletion;
     private String selectedMovie;
     private String selectedPerson;
     @FXML
     MenuButton categoryMenu;
+    @FXML
+    MenuButton professionMenu;
     @FXML
     GridPane rankingGrid1;
     @FXML
@@ -53,6 +58,8 @@ public class ControllerMainScreen extends Controller {
     TextField personBrowser;
     @FXML
     RadioButton filterButton;
+    @FXML
+    RadioButton filterButton2;
     @FXML
     Slider yearSlider;
     @FXML
@@ -71,9 +78,11 @@ public class ControllerMainScreen extends Controller {
         disableActionsForNoAdmins();
         welcomeText.setText("Welcome " + Controller.currentUser + "!");
         genre = Controller.database.getGenre();
+        professions = Controller.database.getRoles();
         movieRanking = Controller.database.getRanking();
         personRanking = Controller.database.getActorsRanking();
         movies = Controller.database.getMovies();
+        people = Controller.database.getPeople();
         Vector<PeopleType> people = Controller.database.getPeople();
         prepareMenu();
         setUpRanking();
@@ -92,10 +101,10 @@ public class ControllerMainScreen extends Controller {
             moviesNames.put(x.getTitle() + " (" + x.getRelease_date().substring(0, 4) + ") ", x);
         }
         for (PeopleType x : people) {
-            peopleNames.put(x.getFirst_name() + " " + x.getLast_name() + "(" + x.getBorn().substring(0,4) + ")", x);
+            peopleNames.put(x.getFirst_name() + " " + x.getLast_name() + "(" + x.getBorn().substring(0, 4) + ")", x);
         }
         movieCompletion = TextFields.bindAutoCompletion(movieBrowser, moviesNames.keySet());
-        TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
+        peopleCompletion = TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
     }
 
     @FXML
@@ -177,8 +186,9 @@ public class ControllerMainScreen extends Controller {
             rankingGrid1.add(pane, i, 0);
         }
     }
-    private void disableActionsForNoAdmins(){
-        if(!Controller.database.isAdmin(Controller.currentUser)){ //not admin
+
+    private void disableActionsForNoAdmins() {
+        if (!Controller.database.isAdmin(Controller.currentUser)) { //not admin
             adminText.setVisible(false);
             insertPerson.setDisable(true);
             insertPerson.setVisible(false);
@@ -186,6 +196,7 @@ public class ControllerMainScreen extends Controller {
             insertMovie.setVisible(false);
         }
     }
+
     @SuppressWarnings("Duplicates")
     private void setUpPersonRanking() {
         for (int i = 0; i < 5; i++) {
@@ -231,6 +242,47 @@ public class ControllerMainScreen extends Controller {
             item.setOnAction(t -> controlFilterButton());
             categoryMenu.getItems().add(item);
         }
+        for (String x : professions) {
+            CheckBox tmp = new CheckBox(x);
+            CustomMenuItem item = new CustomMenuItem(tmp);
+            item.setHideOnClick(false);
+            item.setOnAction(t -> controlFilterButton2());
+            professionMenu.getItems().add(item);
+        }
+    }
+
+    @FXML
+    public void controlFilterButton2() {
+        if (filterButton2.isSelected()) {
+            filterSearch2();
+        } else {
+            removeFilterFun2();
+        }
+    }
+
+    private void filterSearch2() {
+        Vector<String> filterProfessions = new Vector<>();
+        for (MenuItem x : professionMenu.getItems()) {
+            if (((CheckBox) (((CustomMenuItem) x).getContent())).isSelected()) {
+                filterProfessions.add(((CheckBox) (((CustomMenuItem) x).getContent())).getText());
+            }
+        }
+        if (filterProfessions.isEmpty()) return;
+        peopleNames.clear();
+        for (PeopleType x : Controller.database.getPeopleWithOptions(filterProfessions)) {
+            peopleNames.put(x.getFirst_name() + " " + x.getLast_name() + "(" + x.getBorn().substring(0, 4) + ")", x);
+        }
+        peopleCompletion.dispose();
+        peopleCompletion = TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
+    }
+
+    private void removeFilterFun2() {
+        peopleNames.clear();
+        for (PeopleType x : people) {
+            peopleNames.put(x.getFirst_name() + " " + x.getLast_name() + "(" + x.getBorn().substring(0, 4) + ")", x);
+        }
+        peopleCompletion.dispose();
+        peopleCompletion = TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
     }
 
     @FXML
@@ -299,7 +351,7 @@ public class ControllerMainScreen extends Controller {
     }
 
     @FXML
-    public void displayFavouriteMovies(){
+    public void displayFavouriteMovies() {
         Controller controllerWatchList = new ControllerFavouriteMovies(Controller.scenesLocation + "/favourite.fxml", this);
         try {
             Controller.stageMaster.loadNewScene(controllerWatchList);
@@ -309,7 +361,7 @@ public class ControllerMainScreen extends Controller {
     }
 
     @FXML
-    public void displayFavouritePeople(){
+    public void displayFavouritePeople() {
         Controller controllerWatchList = new ControllerFavouritePeople(Controller.scenesLocation + "/favouriteP.fxml", this);
         try {
             Controller.stageMaster.loadNewScene(controllerWatchList);
@@ -334,7 +386,7 @@ public class ControllerMainScreen extends Controller {
     }
 
     @FXML
-    public void insertMovie(){
+    public void insertMovie() {
         try {
             Controller.stageMaster.loadNewScene(new ControllerInsertMovie(Controller.scenesLocation + "/movieInsertScreen.fxml", this));
         } catch (IOException e) {
@@ -344,7 +396,7 @@ public class ControllerMainScreen extends Controller {
     }
 
     @FXML
-    public void insertPerson(){
+    public void insertPerson() {
         try {
             Controller.stageMaster.loadNewScene(new ControllerInsertPerson(Controller.scenesLocation + "/personInsertScreen.fxml", this));
         } catch (IOException e) {
