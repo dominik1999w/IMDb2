@@ -89,6 +89,8 @@ public class ControllerMovieScreen extends Controller {
     ImageView watchlistImage;
     @FXML
     Button editData;
+    @FXML
+    Button removeData;
 
     @Override
     public void goBack(){
@@ -174,6 +176,8 @@ public class ControllerMovieScreen extends Controller {
     }
     private void disableActionsForNoAdmins(){
         if(!Controller.database.isAdmin(Controller.currentUser)){ //not admin
+            removeData.setDisable(true);
+            removeData.setVisible(false);
             editData.setDisable(true);
             editData.setVisible(false);
             }
@@ -293,6 +297,15 @@ public class ControllerMovieScreen extends Controller {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("FAILED TO LOAD editMovieScreen");
+        }
+    }
+    @FXML
+    public void removeData(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerAreYouSure(Controller.scenesLocation + "/areYouSure.fxml", this, movie));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD areYouSureScreen");
         }
     }
 

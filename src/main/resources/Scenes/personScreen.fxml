@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Text fx:id="name" layoutX="41.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" wrappingWidth="418.2578125">
             <font>
@@ -107,7 +107,8 @@
         <Button fx:id="displayMovie" layoutX="386.0" layoutY="748.0" mnemonicParsing="false" onAction="#displayMovie" style="-fx-background-color: #fbea78;" text="Display movie" />
         <Text fx:id="nominations" layoutX="51.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nominations (Oscars):" wrappingWidth="700.0" />
         <Text fx:id="wins" layoutX="50.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wins (Oscars):" wrappingWidth="700.0" />
-        <Button fx:id="editData" layoutX="691.0" layoutY="232.0" mnemonicParsing="false" onAction="#editData" style="-fx-background-color: #fbea78;" text="Edit Data" />
+        <Button fx:id="editData" layoutX="670.0" layoutY="232.0" mnemonicParsing="false" onAction="#editData" prefHeight="26.0" prefWidth="123.0" style="-fx-background-color: #fbea78;" text="Edit Data" />
+      <Button fx:id="removeData" layoutX="670.0" layoutY="269.0" mnemonicParsing="false" onAction="#removeData" prefHeight="26.0" prefWidth="123.0" style="-fx-background-color: #fbea78;" text="Remove Person" />
     </children>
     <stylesheets>
         <URL value="@../Css/PersonScreen.css" />

@@ -55,6 +55,8 @@ public class ControllerPersonScreen extends Controller {
     ImageView heartImage;
     @FXML
     Button editData;
+    @FXML
+    Button removeData;
 
     @Override
     public void goBack(){
@@ -104,8 +106,19 @@ public class ControllerPersonScreen extends Controller {
             }
         });
     }
+    @FXML
+    public void removeData(){
+        try {
+            Controller.stageMaster.loadNewScene(new ControllerAreYouSure(Controller.scenesLocation + "/areYouSure.fxml", this, person));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO LOAD areYouSureScreen");
+        }
+    }
     private void disableActionsForNoAdmins(){
         if(!Controller.database.isAdmin(Controller.currentUser)){ //not admin
+            removeData.setVisible(false);
+            removeData.setDisable(true);
             editData.setDisable(true);
             editData.setVisible(false);
         }

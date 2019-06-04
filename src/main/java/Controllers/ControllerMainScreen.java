@@ -284,7 +284,6 @@ public class ControllerMainScreen extends Controller {
         peopleCompletion.dispose();
         peopleCompletion = TextFields.bindAutoCompletion(personBrowser, peopleNames.keySet());
     }
-
     @FXML
     public void controlFilterButton() {
         if (filterButton.isSelected()) {
