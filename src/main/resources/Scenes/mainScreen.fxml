@@ -88,8 +88,8 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="insertMovie" layoutX="650.0" layoutY="603.0" mnemonicParsing="false" onAction="#insertMovie" style="-fx-background-color: #fbea78;" text="Insert New Movie" />
-            <Button fx:id="insertPerson" layoutX="498.0" layoutY="603.0" mnemonicParsing="false" onAction="#insertPerson" style="-fx-background-color: #fbea78;" text="Insert New Person" />
+            <Button fx:id="insertMovie" layoutX="650.0" layoutY="600.0" mnemonicParsing="false" onAction="#insertMovie" text="Insert New Movie" AnchorPane.rightAnchor="450.0" />
+            <Button fx:id="insertPerson" layoutX="400.0" layoutY="600.0" mnemonicParsing="false" onAction="#insertPerson" text="Insert New Person" AnchorPane.leftAnchor="450.0" />
             <Text layoutX="1126.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movies" textAlignment="CENTER" wrappingWidth="76.00001096725464" />
             <Text layoutX="1202.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Watchlist" textAlignment="CENTER" wrappingWidth="76.00001096725464" />
             <Button fx:id="favouritePeople" layoutX="985.0" layoutY="590.0" mnemonicParsing="false" onAction="#displayFavouritePeople" prefHeight="60.0" prefWidth="76.0" style="-fx-background-color: #fcbb07;">
