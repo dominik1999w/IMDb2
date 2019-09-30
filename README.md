@@ -1,6 +1,7 @@
 IMDb2 (using PostgreSQL) 
 
 Download diagram.pdf to display created database.
+Download imdb2.zip to open up appliaction. 
 
 INSTALL:
 
