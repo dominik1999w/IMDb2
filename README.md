@@ -18,14 +18,13 @@ INSTALL:
 
 --------------------------------------------------------------------
 To access every operation, log in into admin (login: admin password: admin). Otherwise, create a new user and enjoy a streamlined IMDb. 
---------------------------------------------------------------------
-
 
 
 
 --------------------imdb2 functionality----------------------------
 
 User is allowed to:
+
 1. register new users
 
 2. search for movies/ people connected with movies
